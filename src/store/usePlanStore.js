@@ -12,7 +12,7 @@ const getStoredPlan = () => {
 };
 
 const getStoredUserId = () => {
-  if (typeof window === 'undefined') return 'USR-101';
+  if (typeof window === 'undefined') return 'anonymous';
   let uid = localStorage.getItem('forenz_user_id');
   if (!uid) {
     uid = 'ADV-' + Math.random().toString(36).substring(2, 7).toUpperCase();
@@ -29,7 +29,6 @@ const getCaseCount = () => {
 export const usePlanStore = create((set, get) => ({
   plan: getStoredPlan(), // 'free' | 'pro' | 'agency'
   userId: getStoredUserId(),
-  referralCreditsDays: Number(typeof window !== 'undefined' ? localStorage.getItem('forenz_referral_credits') || '0' : '0') || 0,
   caseCount: getCaseCount(),
   pricingModalOpen: false,
   paywallReason: null,

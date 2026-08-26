@@ -222,7 +222,7 @@ export default function AppBar({
               type="button"
               onClick={onOpenReferral}
               className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-medium transition-colors"
-              title="Získať 30 dní PRO za odporúčanie"
+              title="Referral — zdieľať pozvánkový odkaz"
             >
               <Gift className="w-3.5 h-3.5 text-pink-400" />
               <span>Referral</span>

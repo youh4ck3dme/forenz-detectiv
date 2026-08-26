@@ -34,7 +34,7 @@ Postavené na platforme **Base44** (backend-as-a-service: auth, databáza, integ
 - **Zustand State Management & Offline IndexedDB** — centralizovaný reaktívny store s offline ukladaním prípadov v teréne.
 - **1-tip onboarding** — `QuickTip` pri prvom behu; plný `WelcomeIntroModal` len cez drawer „Sprievodca“ (neblokuje start). Primárny CTA je nahratie reálneho spisu — **žiadny produkčný demo spis**.
 - **Liquid Glass Design System** — moderná frosted glass estetika, 3D hĺbka, neon-glow indikátory a vstavaný Dark/Light theme toggle.
-- **Automatizovaná testovacia sada** — 21 integritných testov backendu (`npm test`) a 8 UI testov cez Vitest (`npm run test:vitest`).
+- **Automatizovaná testovacia sada** — 23 integritných testov backendu (`npm test`) a 16 UI testov cez Vitest (`npm run test:vitest`, scope `tests/components/`).
 - **PDF export** — oficiálny vyšetrovací protokol s tabuľkou osôb, červenými vlajkami a grafom.
 
 ---
@@ -114,12 +114,12 @@ Skopíruj [`.env.example`](.env.example) → `.env.local`:
 |----------|------|
 | `VITE_SENTRY_DSN` | Error tracking (silent fallback bez DSN) |
 | `VITE_POSTHOG_KEY` / `VITE_POSTHOG_HOST` | Product analytics EU |
-| `VITE_STRIPE_PUBLIC_KEY` | Live Stripe; bez kľúča = test mode + lokálny upgrade (nie demo spis) |
+| `VITE_STRIPE_PUBLIC_KEY` | Live Stripe Checkout; bez kľúča = fail-closed (žiadny checkout, žiadny lokálny upgrade) |
 
 ### Upload-first produkcia
 - Produkt **neobsahuje** demo/synthetic case (žiadne BA–KE CTA, žiadne `VITE_ENABLE_DEMO`).
 - Primárny tok je vždy **upload → chunk → AI analýza → rozpory**.
-- Stripe test mode ostáva env-gated (bez publishable key) a **nie je** demo spisom.
+- Stripe je **fail-closed**: bez publishable key na fronte a `STRIPE_SECRET_KEY` na Base44 backende checkout zlyhá — žiadny mock checkout ani klientsky upgrade pred platbou.
 
 ### Spustenie testov & Kontrola kvality
 ```bash

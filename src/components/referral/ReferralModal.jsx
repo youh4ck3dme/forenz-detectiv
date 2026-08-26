@@ -18,7 +18,7 @@ export default function ReferralModal({ isOpen, onClose }) {
   const handleEmailInvite = () => {
     const subject = encodeURIComponent('Odporúčam: AI analýza vyšetrovacích spisov (ForenzDetectiv)');
     const body = encodeURIComponent(
-      `Ahoj,\n\nchcem ti odporučiť slovenskú aplikáciu ForenzDetectiv na analýzu výpovedí, detekciu rozporov a kontrolu alibi:\n\n${refLink}\n\nAk sa zaregistruješ cez tento odkaz, obaja získame 30 dní licencie Pro Vyšetrovateľ zadarmo.\n\nS pozdravom`
+      `Ahoj,\n\nchcem ti odporučiť slovenskú aplikáciu ForenzDetectiv na analýzu výpovedí, detekciu rozporov a kontrolu alibi:\n\n${refLink}\n\nS pozdravom`
     );
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
@@ -34,7 +34,7 @@ export default function ReferralModal({ isOpen, onClose }) {
             Pozvite kolegu advokáta
           </DialogTitle>
           <DialogDescription className="text-slate-400 text-xs max-w-sm mx-auto">
-            Zdieľajte ForenzDetectiv so svojím tímom alebo kolegami z branže a získajte mesiac Pro licencie zadarmo pre oboch.
+            Zdieľajte ForenzDetectiv s kolegami z branže. Odkaz slúži na sledovanie odporúčaní — automatický Pro upgrade sa v tejto verzii neudeľuje.
           </DialogDescription>
         </DialogHeader>
 
@@ -45,9 +45,9 @@ export default function ReferralModal({ isOpen, onClose }) {
               <Users className="h-3.5 w-3.5" />
             </div>
             <div>
-              <p className="font-semibold text-white">Ako funguje odmena?</p>
+              <p className="font-semibold text-white">Ako funguje odkaz?</p>
               <p className="text-slate-400 mt-0.5">
-                Keď sa nový kolega zaregistruje cez váš odkaz a analyzuje svoj prvý spis, obom sa automaticky aktivuje <strong>+30 dní Pro licencie</strong>.
+                Keď kolega otvorí váš odkaz, systém si zapamätá odporúcuťeľa pre budúcu registráciu. Pro odmeny sa aktivujú až po nasadení serverovej referral logiky.
               </p>
             </div>
           </div>

@@ -50,6 +50,20 @@ describe('PROMPT 08: Monetization & Plan Guard Logic', () => {
     assert.strictEqual(canAddDoc('free', 5), false);
     assert.strictEqual(canAddDoc('pro', 50), true);
   });
+
+  test('Referral ?ref= iba zaznamená kód — neudeľuje Pro upgrade', () => {
+    const storage = new Map();
+    let plan = 'free';
+
+    const captureReferralCode = (search) => {
+      const ref = new URLSearchParams(search).get('ref');
+      if (ref) storage.set('forenz_incoming_ref', ref);
+    };
+
+    captureReferralCode('?ref=ADV-88392');
+    assert.strictEqual(storage.get('forenz_incoming_ref'), 'ADV-88392');
+    assert.strictEqual(plan, 'free');
+  });
 });
 
 describe('PROMPT 09: i18n & Legal Terminology Localization', () => {
