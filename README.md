@@ -144,7 +144,7 @@ Skopíruj [`.env.example`](.env.example) → `.env.local`:
 
 ### Backend / hosťovský režim
 
-Produkčný frontend na Vercel je napojený na Base44 appId **`6a7ed366df1f1138ad653044`** (`VITE_BASE44_APP_ID`). Entity API vracia **200**. Cloud AI (`analyzeDocument` / Pixtral) vyžaduje server-only secret `MISTRAL_API_KEY` v Base44 + deploy functions.
+Produkčný Base44 backend (AI) je appId **`6a81f5e7f4adbf6a9523b9d8`** — `MISTRAL_API_KEY` + functions sú nasadené. Vercel Production musí mať rovnaké `VITE_BASE44_APP_ID` (aktuálne môže ešte ukazovať na staré `6a7ed366…` bez admin prístupu).
 
 Bez prihlásenia beží app v **hosťovskom / offline režime** (client OCR + IndexedDB):
 
@@ -157,8 +157,8 @@ Bez prihlásenia beží app v **hosťovskom / offline režime** (client OCR + In
 
 **Čo treba pre plný upload → AI pipeline:**
 
-1. `npx base44 login` → `npx base44 secret set MISTRAL_API_KEY …` (pre live appId) → `npx base44 deploy` / dashboard publish functions.
-2. Vercel Production: `VITE_BASE44_APP_ID=6a7ed366df1f1138ad653044`, `VITE_BASE44_APP_BASE_URL=https://app.base44.com`; v Base44 auth origins: `https://forenz-detectiv.vercel.app` (+ alias).
+1. `npx base44 login` → `npx base44 --app-id 6a81f5e7f4adbf6a9523b9d8 secrets set MISTRAL_API_KEY=…` → `npx base44 --app-id 6a81f5e7f4adbf6a9523b9d8 deploy -y --no-build` (alebo `node scripts/prodCliSetup.mjs`).
+2. Vercel Production: `VITE_BASE44_APP_ID=6a81f5e7f4adbf6a9523b9d8`, `VITE_BASE44_APP_BASE_URL=https://app.base44.com`; v Base44 auth origins: `https://forenz-detectiv.vercel.app` (+ alias).
 3. Lokálne: `npx base44 dev` (backend + frontend naraz).
 
 Ak po neúspešnom uploade padajú taby „Alibi & Mapa" / „Časová os" (`Modul zlyhal`), vymaž site data (DevTools → Application → Clear site data) — staré poškodené IndexedDB záznamy sa pri načítaní automaticky opravujú, no extrémne legacy cache môže vyžadovať reset.

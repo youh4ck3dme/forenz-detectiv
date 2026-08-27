@@ -1,7 +1,7 @@
 # Remaining backlog — po PROMPT-01..12 (100 %)
 
 Stav (2026-08-27): **guest/offline produkcia na [forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) je LIVE a smoke-overená.**  
-Live Vercel volá Base44 appId `6a7ed366df1f1138ad653044` (entity API **200**). Cloud `analyzeDocument` (Mistral/Pixtral) stále vyžaduje owner `MISTRAL_API_KEY` + function deploy. Stripe/TWA/Ads ostávajú deferred.
+Base44 AI backend (Mistral secret + 7 functions) je nasadený na appId `6a81f5e7f4adbf6a9523b9d8`. **RB-AI ostáva:** prepnúť Vercel `VITE_BASE44_APP_ID` na ten istý appId (+ auth origins) a overiť ostrý PDF/PNG upload. Stripe/TWA/Ads ostávajú deferred.
 
 **Zámerné rozhodnutia (neotvárať znova):**
 
@@ -38,7 +38,7 @@ Live Vercel volá Base44 appId `6a7ed366df1f1138ad653044` (entity API **200**). 
 
 | ID | Oblasť | Čo treba |
 |----|--------|----------|
-| **RB-AI** | Mistral + functions | `base44 secret set MISTRAL_API_KEY` + deploy functions pre live appId `6a7ed366…`; overiť auth origins |
+| **RB-AI** | Mistral + functions | Backend DONE na `6a81f5e7…`; zostáva Vercel `VITE_BASE44_APP_ID` + auth origins + AI smoke |
 | **RB-01** | GitHub Actions CI | Vyriešiť billing lock → re-enable workflow na `push` |
 | **RB-02** | PostHog EU | `VITE_POSTHOG_KEY` (+ host) vo Vercel Production + redeploy |
 | **RB-04** | Looker Studio | Dashboard po RB-02 |
@@ -70,7 +70,7 @@ Live Vercel volá Base44 appId `6a7ed366df1f1138ad653044` (entity API **200**). 
 | Lokálny CI gate | Done | focused + lint/typecheck/build |
 | `trackContradictionDetected` mimo demo | Done | **RB-03** |
 | Live guest smoke na Vercel | Done | **PROMPT-PROD-SMOKE-01** |
-| Cloud AI (Pixtral) ostro | Remaining | **RB-AI** — Mistral secret + functions |
+| Cloud AI (Pixtral) ostro | Partial | **RB-AI** — backend READY; Vercel appId switch |
 | GitHub Actions zelený | Remaining | billing lock → **RB-01** |
 | PostHog EU prod key | Remaining | **RB-02** |
 | Looker North Star chart | Remaining | **RB-04** |
@@ -91,20 +91,21 @@ flowchart TD
 
 ## RB-AI — Mistral + functions deploy (blocks cloud AI ostro)
 
-**Title:** `ops: set MISTRAL_API_KEY and deploy analyzeDocument for live appId`
+**Title:** `ops: point Vercel at owned Base44 app with Mistral + analyzeDocument`
 
-**Why:** Live Vercel → Base44 entities already 200 for `6a7ed366df1f1138ad653044`, ale Pixtral pipeline bez server secretu/functions nebeží end-to-end.
+**Why:** Secret + functions sú na `6a81f5e7f4adbf6a9523b9d8` (admin účet `youh4ck3dme@gmail.com`). Produkčný frontend stále môže volať staré `6a7ed366…` bez admin/secret prístupu.
 
 **Acceptance:**
 
-- [ ] `npx base44 secret set MISTRAL_API_KEY …` na live appId
-- [ ] Functions deployed (`analyzeDocument`, `sherlockChat`, …)
+- [x] `MISTRAL_API_KEY` set (server-only) na `6a81f5e7…`
+- [x] Functions deployed (`analyzeDocument`, `sherlockChat`, …)
+- [ ] Vercel Production `VITE_BASE44_APP_ID=6a81f5e7f4adbf6a9523b9d8`
 - [ ] Auth origins: `https://forenz-detectiv.vercel.app`, `https://forenzdetectiv.vercel.app`
 - [ ] Ostrý upload PDF/PNG → analyzing → done s osobami/rozpormi (nie len client OCR)
 
 **Owner hint:** Base44 dashboard / CLI. Nikdy `VITE_` prefix pre Mistral.
 
-**Depends on:** owner secrets (requested via environment setup)
+**Depends on:** Vercel env change (requested via environment setup)
 
 ---
 
