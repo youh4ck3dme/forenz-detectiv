@@ -153,4 +153,32 @@ describe('Slovak police zápisnica person extraction', () => {
     assert.strictEqual(persons[0].name, 'Dimitri Cohen');
     assert.strictEqual(persons[0].type, 'obvinený');
   });
+
+  test('A) unknown neutral zápisnica + name => type iná osoba (never invent podozrivý)', () => {
+    const lines = [
+      'ZÁPISNICA',
+      'meno, priezvisko, dátum narodenia: Anna Belá, 01.01.1990',
+      'miesto narodenia, okres: Nitra'
+    ];
+    const { persons } = buildEntitiesFromOcrText(
+      lines.join('\n'),
+      lines,
+      'doc_neutral',
+      'Dokument - Anna Belá.txt'
+    );
+    assert.strictEqual(persons[0].name, 'Anna Belá');
+    assert.strictEqual(persons[0].type, 'iná osoba');
+  });
+
+  test('C) explicit poškodený Name is extracted as poškodený', () => {
+    const line = 'poškodený: Martin Horváth uviedol škody.';
+    const { persons } = buildEntitiesFromOcrText(line, [line], 'doc_pos', 'vypoved.txt');
+    assert.ok(persons.some((p) => p.name === 'Martin Horváth' && p.type === 'poškodený'));
+  });
+
+  test('D) explicit znalec Name is extracted as znalec', () => {
+    const line = 'znalec: Eva Králová vypracovala posudok.';
+    const { persons } = buildEntitiesFromOcrText(line, [line], 'doc_zn', 'posudok.txt');
+    assert.ok(persons.some((p) => p.name === 'Eva Králová' && p.type === 'znalec'));
+  });
 });

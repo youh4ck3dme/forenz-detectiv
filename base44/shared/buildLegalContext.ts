@@ -11,6 +11,7 @@ import {
   getLegalProvenance,
   getRelevantLegalParagraphs,
   resolveLegalVersion,
+  verifyLegalSourceIntegrity,
   type LegalManifest,
   type LegalProvenance
 } from './legalSourceOfTruth.ts';
@@ -60,6 +61,11 @@ export interface BuildLegalContextOptions {
   topics?: string[];
   /** Explicit paragraph numbers for 300/2005 (default: 344, 345, 346). */
   paragraphNumbers?: string[];
+  /**
+   * Optional integrity check override (tests only).
+   * Defaults to verifyLegalSourceIntegrity from legalSourceOfTruth.
+   */
+  integrityCheck?: () => { ok: boolean; sha256?: string; error?: string };
 }
 
 const DEFAULT_TOPICS = [
@@ -227,43 +233,60 @@ export function buildLegalContext(options: BuildLegalContextOptions = {}): Legal
         );
       }
     } else {
-      const resolved = resolveLegalVersion({ lawId: '300/2005', incidentDate: dateOfConduct });
-      if (resolved.status === 'AVAILABLE' && resolved.version) {
-        const manifest = resolved.version;
-        const paragraphs = collectParagraphs(paragraphNumbers, topics, manifest);
-        tzStatus = paragraphs.length ? 'AVAILABLE' : 'PARTIAL';
-        tzEntry = {
-          law_id: '300/2005',
-          title: manifest.title || LOCAL_LAWS['300/2005'],
-          status: tzStatus,
-          effective_from: manifest.effective_from,
-          effective_to: manifest.effective_to,
-          sourceHash: manifest.sha256,
-          paragraphs,
-          details: paragraphs.length
-            ? undefined
-            : 'Version covers DATE_OF_CONDUCT but no requested paragraphs were found.'
-        };
-        if (!paragraphs.length) {
-          warnings.push('300/2005 version available but paragraph set empty — PARTIAL.');
-        }
-      } else {
-        const manifest = getLegalSourceManifest();
-        tzStatus = 'LEGAL_VERSION_UNAVAILABLE';
+      const integrity = (options.integrityCheck || verifyLegalSourceIntegrity)();
+      if (!integrity.ok) {
+        tzStatus = 'LEGAL_SOURCE_UNAVAILABLE';
         tzEntry = {
           law_id: '300/2005',
           title: LOCAL_LAWS['300/2005'],
-          status: 'LEGAL_VERSION_UNAVAILABLE',
-          effective_from: manifest.effective_from,
-          effective_to: manifest.effective_to,
-          sourceHash: manifest.sha256,
+          status: 'LEGAL_SOURCE_UNAVAILABLE',
           details:
-            resolved.details ||
-            `DATE_OF_CONDUCT ${dateOfConduct} is outside local dataset window ${manifest.effective_from}–${manifest.effective_to}.`
+            integrity.error ||
+            'LEGAL_SOURCE integrity verification failed — statutory text not injected.',
+          paragraphs: []
         };
         warnings.push(
-          `300/2005 LEGAL_VERSION_UNAVAILABLE for DATE_OF_CONDUCT=${dateOfConduct} (local window ${manifest.effective_from}→${manifest.effective_to}).`
+          `300/2005 LEGAL_SOURCE_UNAVAILABLE: integrity check failed (${integrity.error || 'unknown'}).`
         );
+      } else {
+        const resolved = resolveLegalVersion({ lawId: '300/2005', incidentDate: dateOfConduct });
+        if (resolved.status === 'AVAILABLE' && resolved.version) {
+          const manifest = resolved.version;
+          const paragraphs = collectParagraphs(paragraphNumbers, topics, manifest);
+          tzStatus = paragraphs.length ? 'AVAILABLE' : 'PARTIAL';
+          tzEntry = {
+            law_id: '300/2005',
+            title: manifest.title || LOCAL_LAWS['300/2005'],
+            status: tzStatus,
+            effective_from: manifest.effective_from,
+            effective_to: manifest.effective_to,
+            sourceHash: manifest.sha256,
+            paragraphs,
+            details: paragraphs.length
+              ? undefined
+              : 'Version covers DATE_OF_CONDUCT but no requested paragraphs were found.'
+          };
+          if (!paragraphs.length) {
+            warnings.push('300/2005 version available but paragraph set empty — PARTIAL.');
+          }
+        } else {
+          const manifest = getLegalSourceManifest();
+          tzStatus = 'LEGAL_VERSION_UNAVAILABLE';
+          tzEntry = {
+            law_id: '300/2005',
+            title: LOCAL_LAWS['300/2005'],
+            status: 'LEGAL_VERSION_UNAVAILABLE',
+            effective_from: manifest.effective_from,
+            effective_to: manifest.effective_to,
+            sourceHash: manifest.sha256,
+            details:
+              resolved.details ||
+              `DATE_OF_CONDUCT ${dateOfConduct} is outside local dataset window ${manifest.effective_from}–${manifest.effective_to}.`
+          };
+          warnings.push(
+            `300/2005 LEGAL_VERSION_UNAVAILABLE for DATE_OF_CONDUCT=${dateOfConduct} (local window ${manifest.effective_from}→${manifest.effective_to}).`
+          );
+        }
       }
     }
   } catch (err: unknown) {

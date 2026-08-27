@@ -181,6 +181,32 @@ describe('Forensic AI P0 — LEGAL_CONTEXT fail-closed gate', () => {
     assert.ok(ctx.contextBlock.includes(prov.text));
   });
 
+  test('integrity OK: in-range 300 can be AVAILABLE', () => {
+    const ctx = buildLegalContext({ dateOfConduct: '2026-08-01' });
+    const tz = ctx.laws.find((l) => l.law_id === '300/2005');
+    assert.equal(tz.status, 'AVAILABLE');
+    assert.ok((tz.paragraphs || []).length > 0);
+  });
+
+  test('simulated integrity failure: 300 LEGAL_SOURCE_UNAVAILABLE, no statutory text', () => {
+    const ctx = buildLegalContext({
+      dateOfConduct: '2026-08-01',
+      integrityCheck: () => ({
+        ok: false,
+        sha256: 'deadbeef',
+        error: 'SHA-256 mismatch: simulated integrity failure'
+      })
+    });
+    const tz = ctx.laws.find((l) => l.law_id === '300/2005');
+    assert.equal(tz.status, 'LEGAL_SOURCE_UNAVAILABLE');
+    assert.equal((tz.paragraphs || []).length, 0);
+    assert.match(ctx.contextBlock, /integrity/i);
+    assert.ok(!ctx.contextBlock.includes('krivá výpoveď') || !/§\s*346[\s\S]*krivá výpoveď/i.test(ctx.contextBlock));
+    // No paragraph bodies injected under LAW 300
+    assert.ok(!/LAW 300\/2005[\s\S]*\n\s+§\s+346/m.test(ctx.contextBlock));
+    assert.ok(ctx.warnings.some((w) => /integrity/i.test(w)));
+  });
+
   test('extractLegalDatesFromDocument does not invent dates', () => {
     assert.deepEqual(extractLegalDatesFromDocument({}), {
       dateOfConduct: null,

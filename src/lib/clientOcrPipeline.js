@@ -8,7 +8,17 @@ const TIME_RE = /\b(\d{1,2})[:.](\d{2})\b/g;
 const NAME_TOKEN = '[A-ZÁÄČĎÉÍĽĹĽŇÓÔŔŠŤÚÝŽ][a-záäčďéíľĺľňóôŕšťúýž]+';
 const FULL_NAME = `${NAME_TOKEN}(?:\\s+${NAME_TOKEN})+`;
 const ROLE_RE = new RegExp(
-  `(?:^|\\b)(svedok|svedka|Svedok|Svedka|podozrivý|podozrivy|Podozrivý|Podozrivy|podozrivého|podozriveho|obeť|obet|obete|Obeť|Obet|alibi|Alibi|zadržaného|zadrzeneho|obvineného|obvineneho)\\b[:\\s-]*(${FULL_NAME})`,
+  `(?:^|\\b)(` +
+    `obvinený|obvineny|Obvinený|obvineného|obvineneho|` +
+    `podozrivý|podozrivy|Podozrivý|Podozrivy|podozrivého|podozriveho|` +
+    `zadržaný|zadrzany|zadržaného|zadrzeneho|` +
+    `svedok|svedka|Svedok|Svedka|` +
+    `poškodený|poskodeny|Poškodený|poškodeného|poskodeneho|` +
+    `obeť|obet|obete|Obeť|Obet|` +
+    `znalec|Znalec|` +
+    `alibi|Alibi` +
+    // No trailing \\b — JS \\b breaks on accented finals (ý/ť) before ':'
+    `)[:\\s-]+(${FULL_NAME})`,
   'g'
 );
 const MENO_PRIEZVISKO_RE = new RegExp(
@@ -65,7 +75,11 @@ function inferSubjectRole(documentTitle, headerLines) {
   if (/podozriv|zadržan|zadrz|výsluch zadržan|vypoved zadrz/.test(ctx)) return 'podozrivý';
   if (/svedok|sviedok/.test(ctx)) return 'svedok';
   if (/poškoden|poskoden/.test(ctx)) return 'poškodený';
-  return 'podozrivý';
+  if (/\bobe[tť]/.test(ctx)) return 'obeť';
+  if (/znalec/.test(ctx)) return 'znalec';
+  if (/\balibi\b/.test(ctx)) return 'alibi';
+  // Neutral / unknown procedural status — never invent "podozrivý"
+  return 'iná osoba';
 }
 
 function extractNameFromTitle(documentTitle) {
