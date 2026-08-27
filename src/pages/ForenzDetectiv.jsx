@@ -1,7 +1,13 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef, Suspense, lazy } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { prepareFileForUpload } from '@/lib/imageProcessor';
+import { prepareFileForUpload, isImageUploadFile } from '@/lib/imageProcessor';
+import {
+  runOcrWithFallback,
+  buildOcrAnalysisPayload,
+  buildOcrDocumentPatch,
+  mergeClientOcrIntoCase
+} from '@/lib/clientOcrPipeline';
 import {
   MAX_FILE_SIZE_BYTES,
   validateUploadSize,
@@ -31,7 +37,7 @@ import TrustPackModal from '@/components/trust/TrustPackModal';
 import ReferralModal from '@/components/referral/ReferralModal';
 import AuditLogViewer from '@/components/audit/AuditLogViewer';
 import PdfExportDialog from '@/components/export/PdfExportDialog';
-import { saveDocumentOffline, saveCaseOffline, sanitizeCasePayload } from '@/lib/offlineDb';
+import { saveDocumentOffline, saveCaseOffline, sanitizeCasePayload, cacheAnalysisOffline } from '@/lib/offlineDb';
 import {
   shouldSyncBulkViaOfflineOnly,
   buildBulkOfflineSuccessMessage,
@@ -354,6 +360,56 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
     );
   };
 
+  const applyClientOcrAnalysis = async (doc, ocrResult) => {
+    if (!doc?.id || !ocrResult?.ok) return;
+    const payload = buildOcrAnalysisPayload(ocrResult, doc.id, doc.title);
+    await cacheAnalysisOffline(doc.id, payload);
+
+    const state = useForenzStore.getState();
+    const merged = mergeClientOcrIntoCase(
+      {
+        documents: state.documents,
+        persons: state.persons,
+        relationships: state.relationships,
+        redFlags: state.redFlags,
+        flaggedPassages: state.flaggedPassages,
+        claims: state.claims,
+        events: state.events,
+        locations: state.locations,
+        vehicles: state.vehicles,
+        contradictions: state.contradictions,
+        overrides: state.overrides
+      },
+      payload,
+      doc.id
+    );
+    useForenzStore.setState(merged);
+    await saveCaseOffline('current', sanitizeCasePayload(merged));
+
+    if (!doc.__localOnly) {
+      try {
+        await base44.entities.Document.update(doc.id, buildOcrDocumentPatch(ocrResult));
+      } catch (err) {
+        console.warn('[OCR] Cloud document patch skipped:', err);
+      }
+    }
+  };
+
+  const runImageOcrIfNeeded = async (file, uploadFile, controller, onProgress) => {
+    if (!isImageUploadFile(file)) return null;
+    return runOcrWithFallback(uploadFile, {
+      signal: controller.signal,
+      onProgress: (pct) => {
+        if (onProgress) onProgress(pct);
+        setBulkProgress((p) => ({
+          ...(p || {}),
+          percent: Math.min(70, 25 + Math.round(pct * 0.35)),
+          statusText: `OCR rozpoznávanie textu (${pct}%)...`
+        }));
+      }
+    });
+  };
+
   const handleScan = async (file) => {
     if (!file) return;
     const sizeCheck = validateUploadSize(file, MAX_FILE_SIZE_BYTES);
@@ -448,17 +504,24 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
         showToast('Spracovanie bolo zastavené.');
         return;
       }
-      const file_url = await uploadBinaryToStorage(uploadFile);
+
+      const ocrPromise = runImageOcrIfNeeded(file, uploadFile, controller);
+      const [file_url, ocrResult] = await Promise.all([
+        uploadBinaryToStorage(uploadFile),
+        ocrPromise
+      ]);
       if (controller.signal.aborted) {
         showToast('Spracovanie bolo zastavené.');
         return;
       }
 
+      const ocrFields = ocrResult?.ok ? buildOcrDocumentPatch(ocrResult) : {};
       const doc = await createDocumentRecord({
         title: file.name,
         image_url: file_url,
         status: 'pending',
-        source_kind: 'upload'
+        source_kind: 'upload',
+        ...ocrFields
       }, uploadFile);
 
       if (!doc.__localOnly) {
@@ -485,6 +548,13 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
         return;
       }
 
+      if (ocrResult?.ok) {
+        await applyClientOcrAnalysis(doc, ocrResult);
+        if (ocrResult.lowConfidence) {
+          showToast('OCR dokončené s nízkou spoľahlivosťou — odporúčame manuálnu kontrolu.');
+        }
+      }
+
       try {
         setBulkProgress({
           total: 1,
@@ -498,7 +568,11 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
         if (!doc.__localOnly) await fetchData();
       } catch (err) {
         console.warn('[Upload] Cloud AI invoke unavailable, document loaded into local workspace:', err);
-        showToast(`Spis "${file.name}" bol načítaný a bezpečne uložený do lokálneho úložiska (IndexedDB 50 MB).`);
+        if (ocrResult?.ok) {
+          showToast(`Spis "${file.name}" spracovaný cez OCR (offline režim).`);
+        } else {
+          showToast(`Spis "${file.name}" bol načítaný a bezpečne uložený do lokálneho úložiska (IndexedDB 50 MB).`);
+        }
       }
     } catch (e) {
       if (controller.signal.aborted || e?.name === 'AbortError') {
@@ -653,15 +727,25 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
         const uploadFile = await prepareFileForUpload(file);
         if (controller.signal.aborted) return;
 
-        const file_url = await uploadBinaryToStorage(uploadFile);
+        const ocrPromise = runImageOcrIfNeeded(file, uploadFile, controller);
+        const [file_url, ocrResult] = await Promise.all([
+          uploadBinaryToStorage(uploadFile),
+          ocrPromise
+        ]);
         if (controller.signal.aborted) return;
 
+        const ocrFields = ocrResult?.ok ? buildOcrDocumentPatch(ocrResult) : {};
         const doc = await trackCreateDocument({
           title: file.name,
           image_url: file_url || URL.createObjectURL(uploadFile),
           status: 'pending',
-          source_kind: 'upload'
+          source_kind: 'upload',
+          ...ocrFields
         }, uploadFile);
+
+        if (ocrResult?.ok) {
+          await applyClientOcrAnalysis(doc, ocrResult);
+        }
 
         if (Number.isFinite(slotsLeft)) slotsLeft = Math.max(0, slotsLeft - 1);
 

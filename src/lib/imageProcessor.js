@@ -1,9 +1,16 @@
+const IMAGE_UPLOAD_EXT = /\.(png|jpe?g|webp|bmp|gif)$/i;
+
+/** png/jpeg/webp uploads that should run client-side OCR. */
+export function isImageUploadFile(file) {
+  if (!file) return false;
+  return file.type?.startsWith('image/') || IMAGE_UPLOAD_EXT.test(file.name || '');
+}
+
 // Príprava súboru pre upload: textové súbory pass-through, obrázky normalizácia.
 // Multi-page PDF sa pred uploadom rozdelí v upload flow (pdfPageChunker / documentPipeline).
 export async function prepareFileForUpload(file) {
   if (!file) return file;
-  const isImage = file.type?.startsWith('image/') || /\.(png|jpe?g|webp|bmp|gif)$/i.test(file.name || '');
-  if (!isImage) {
+  if (!isImageUploadFile(file)) {
     // PDF (neskôr chunknuté) alebo textový dokument — bez Image/Canvas normalizácie
     return file;
   }
