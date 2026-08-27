@@ -27,13 +27,14 @@ test.describe('ForenzDetectiv - Dashboard & Hlavné Rozhranie', () => {
   test('Presun z Dashboardu do Vyšetrovacieho spisu (Workspace)', async ({ page }) => {
     await page.goto('/dashboard');
     await page.waitForLoadState('networkidle');
+    await page.evaluate(() => localStorage.setItem('alibi_cookie_consent', 'declined'));
 
-    // Nájdi odkaz alebo kartu prípadu a klikni
-    const caseCardOrLink = page.locator('a, button, [role="button"]').filter({ hasText: /Otvoriť|Detail|Spis|Vyšetrovanie/i }).first();
-    if (await caseCardOrLink.isVisible()) {
-      await caseCardOrLink.click();
-      await page.waitForLoadState('networkidle');
-      await expect(page).toHaveURL(/case|spis|forenz|dashboard/i);
-    }
+    // Empty-home product: Dashboard → workspace via explicit back link (no case cards)
+    const backToCase = page.getByRole('link', { name: /Späť na spis/i });
+    await expect(backToCase).toBeVisible({ timeout: 10_000 });
+    await backToCase.click();
+    await page.waitForLoadState('networkidle');
+    await expect(page).toHaveURL(/\/($|\?)/);
+    await expect(page.locator('body')).toContainText(/ForenzDetekt[ií]v/i);
   });
 });

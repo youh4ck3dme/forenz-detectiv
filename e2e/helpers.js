@@ -13,7 +13,9 @@ export async function gotoApp(page, pathName = '/') {
   await page.evaluate(async () => {
     try {
       localStorage.removeItem('forenz_user_plan');
-      await new Promise((resolve, reject) => {
+      // Keep cookie banner from covering drawers/CTAs during E2E
+      localStorage.setItem('alibi_cookie_consent', 'declined');
+      await new Promise((resolve) => {
         const req = indexedDB.deleteDatabase('ForenzDetectiv_OfflineDB');
         req.onsuccess = () => resolve();
         req.onerror = () => resolve();

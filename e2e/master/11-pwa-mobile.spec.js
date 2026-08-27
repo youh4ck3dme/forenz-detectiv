@@ -18,8 +18,13 @@ test.describe('S11 — PWA, mobilné UI & offline', () => {
     await gotoApp(page);
     await dismissQuickTipIfPresent(page);
     await page.getByRole('button', { name: 'Menu' }).click();
-    await expect(page.getByText(/Sprievodca|Audit|Trust/i).first()).toBeVisible({ timeout: 10_000 });
-    await expect(page.getByText(/Cenník/i)).toHaveCount(0);
+    const drawer = page.getByRole('dialog');
+    await expect(drawer).toBeVisible({ timeout: 10_000 });
+    // Account/help items sit lower in the scrollable drawer — scroll before assert
+    const accountItem = drawer.getByRole('button', { name: /Sprievodca|Audit|Bezpečnosť|Trust/i }).first();
+    await accountItem.scrollIntoViewIfNeeded();
+    await expect(accountItem).toBeVisible({ timeout: 10_000 });
+    await expect(drawer.getByText(/^Cenník$/i)).toHaveCount(0);
   });
 
   test('Offline na empty home — UI ostáva použiteľné', async ({ page, context }) => {
