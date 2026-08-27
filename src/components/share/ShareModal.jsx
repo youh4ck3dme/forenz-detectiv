@@ -56,7 +56,7 @@ export default function ShareModal({
     const text = encodeURIComponent(
       `Odhalili sme fyzikálne nemožné alibi pomocou ForenzDetectiv AI!\n\n📍 Presun z ${locA} do ${locB} za ${mins} vyžaduje ${speed}.\n\nVyskúšajte automatickú detekciu rozporov vo vyšetrovacích spisoch:`
     );
-    const url = encodeURIComponent('https://forenzdetectiv.sk');
+    const url = encodeURIComponent(typeof window !== 'undefined' ? window.location.origin : 'https://forenz-detectiv.vercel.app');
     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&summary=${text}`, '_blank');
   };
 

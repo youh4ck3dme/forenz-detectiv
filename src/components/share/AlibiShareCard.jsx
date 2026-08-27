@@ -163,7 +163,7 @@ export default function AlibiShareCard({
           </div>
           <div>
             <p className="text-xs font-semibold text-slate-200">Overené vyšetrovacím systémom ForenzDetectiv</p>
-            <p className="text-[10px] text-slate-500 font-mono">forenzdetectiv.sk · 100% citácie zo spisov · Kryptografická integrita</p>
+            <p className="text-[10px] text-slate-500 font-mono">forenz-detectiv.vercel.app · 100% citácie zo spisov · Kryptografická integrita</p>
           </div>
         </div>
 

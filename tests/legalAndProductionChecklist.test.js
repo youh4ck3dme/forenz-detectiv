@@ -36,10 +36,10 @@ describe('Production Readiness & Legal P0 Checklist Test Suite', () => {
     assert.strictEqual(fs.existsSync(sitemapPath), true, 'sitemap.xml musí existovať');
     const content = fs.readFileSync(sitemapPath, 'utf-8');
 
-    assert.match(content, /<loc>https:\/\/forenzdetectiv\.sk\/<\/loc>/, 'Obsahuje root');
-    assert.match(content, /<loc>https:\/\/forenzdetectiv\.sk\/dashboard<\/loc>/, 'Obsahuje dashboard');
-    assert.match(content, /<loc>https:\/\/forenzdetectiv\.sk\/terms<\/loc>/, 'Obsahuje terms');
-    assert.match(content, /<loc>https:\/\/forenzdetectiv\.sk\/privacy<\/loc>/, 'Obsahuje privacy');
+    assert.match(content, /<loc>https:\/\/forenz-detectiv\.vercel\.app\/<\/loc>/, 'Obsahuje root');
+    assert.match(content, /<loc>https:\/\/forenz-detectiv\.vercel\.app\/dashboard<\/loc>/, 'Obsahuje dashboard');
+    assert.match(content, /<loc>https:\/\/forenz-detectiv\.vercel\.app\/terms<\/loc>/, 'Obsahuje terms');
+    assert.match(content, /<loc>https:\/\/forenz-detectiv\.vercel\.app\/privacy<\/loc>/, 'Obsahuje privacy');
   });
 
   test('3. public/manifest.json je aktualizovaný na Alibi', () => {

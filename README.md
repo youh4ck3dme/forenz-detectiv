@@ -4,6 +4,26 @@ Inteligentný nástroj na analýzu vyšetrovacích spisov. Pomocou AI (Mistral P
 
 Postavené na platforme **Base44** (backend-as-a-service: auth, databáza, integrácie, hosting) s frontendom v **React + Tailwind CSS + shadcn/ui**.
 
+## Produkcia (hosťovský režim)
+
+| | |
+|---|---|
+| **URL** | [https://forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) (alias: [forenzdetectiv.vercel.app](https://forenzdetectiv.vercel.app)) |
+| **Deploy** | Vercel z `ENZO7700/forenz-detectiv` → `main` |
+| **Auth** | Vypnuté — appka beží ako **hosť / offline** (IndexedDB + client OCR) |
+| **Monetizácia** | Hard-disabled (Stripe / paywall odstránené) |
+
+**Ako skúsiť bez prihlásenia:** otvor produkčnú URL → nahraj PNG, TXT alebo PDF → dokument sa uloží lokálne, OCR/extrakcia beží v prehliadači, grafy a rozpory fungujú z client-side dát.
+
+**Známe obmedzenia bez Base44 backendu:**
+
+- Cloud AI (`analyzeDocument` / Pixtral) nebeží — fallback na client OCR.
+- Prihlásenie, sync medzi zariadeniami a zdieľanie prípadov cez cloud nie sú dostupné.
+- Hosted Base44 backend môže vracať **503**, kým nie je app publishnutá s `MISTRAL_API_KEY` (pozri [Backend nedostupný](#backend-nedostupný-503--hosťovský-režim)).
+- Po neúspešnom uploade môže stará IndexedDB cache spôsobiť pád tabov — vymaž site data v DevTools.
+
+Ops backlog (billing, PostHog, Stripe, custom doména): [`docs/REMAINING_BACKLOG.md`](docs/REMAINING_BACKLOG.md).
+
 ---
 
 ## Obsah
@@ -136,7 +156,7 @@ Hosted Base44 backend pre `appId` môže vracať **503**, kým nie je app publis
 **Čo treba pre plný upload → AI pipeline:**
 
 1. `base44 login` → `base44 secret set MISTRAL_API_KEY …` → publish app (`base44 deploy` / dashboard).
-2. Vercel env: `VITE_BASE44_APP_ID`, prípadne `VITE_BASE44_API_KEY`; v Base44 auth origins pridať `https://forenzdetectiv.vercel.app`.
+2. Vercel env: `VITE_BASE44_APP_ID`, prípadne `VITE_BASE44_API_KEY`; v Base44 auth origins pridať `https://forenz-detectiv.vercel.app` (a alias `https://forenzdetectiv.vercel.app`).
 3. Lokálne: `base44 dev` (backend + frontend naraz).
 
 Ak po neúspešnom uploade padajú taby „Alibi & Mapa" / „Časová os" (`Modul zlyhal`), vymaž site data (DevTools → Application → Clear site data) — staré poškodené IndexedDB záznamy sa pri načítaní automaticky opravujú, no extrémne legacy cache môže vyžadovať reset.

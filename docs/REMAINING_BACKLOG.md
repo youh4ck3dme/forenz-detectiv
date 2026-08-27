@@ -1,12 +1,13 @@
 # Remaining backlog — po PROMPT-01..12 (100 %)
 
-Stav: produktový sprint + **PROMPT-OPS-01 cutover** (demo hard-removed, PDF chunking, E2E upload-first, Document schema push) + **PROMPT-PROD-01** (DocumentList hierarchy, per-page progress, cancel via AbortController, per-page retry).
+Stav: **produkčný frontend je hotový pre hosťovský/offline režim** na [forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app). Všetky položky nižšie v sekcii „Vyžaduje vlastníka" sú **mimo kódu** (billing, secrets, custom doména, growth ops).
 
 **Zámerné rozhodnutia (neotvárať znova):**
 
 - Produkt **bez** demo/synthetic case (žiadne `loadDemoCase`, BA–KE CTA, `VITE_ENABLE_DEMO`)
 - Graph / Sherlock systémové stringy ostávajú SK v tejto vlne
 - Do `assetlinks.json` sa nedáva fake SHA-256 — len fingerprint z reálneho keystore
+- Stripe / paywall **hard-disabled** — restore až v RB-05
 
 **Ako použiť:** každý ticket nižšie skopíruj do GitHub Issue. `gh` CLI môže vyžadovať `gh auth login`.
 
@@ -14,7 +15,40 @@ Stav: produktový sprint + **PROMPT-OPS-01 cutover** (demo hard-removed, PDF chu
 
 ---
 
-## Done vs Remaining
+## ✅ Hotové (100 % — kód + produkčný guest/offline)
+
+| Oblasť | Stav |
+|--------|------|
+| Frontend deploy (Vercel) | [forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) + alias `forenzdetectiv.vercel.app` |
+| Upload PNG / TXT / PDF, client OCR, offline IndexedDB | ✅ |
+| PDF page-chunking + progress / cancel / retry UI | ✅ |
+| Demo/synthetic case odstránený | ✅ |
+| Stripe / paywall hard-disabled | ✅ |
+| PostHog wiring (8 eventov, RB-03 contradiction_detected) | ✅ kód; live key → RB-02 |
+| Master E2E (Playwright S01–S12) | ✅ |
+| Lokálny CI gate (`npm test && lint && typecheck && build`) | ✅ |
+| TWA scaffolding + PNG + docs | ✅ fingerprint → RB-06 |
+| Audit `logAction`, PdfExport, i18n shell, onboarding | ✅ |
+| OG/Twitter metadata, sitemap, robots.txt | ✅ forenz-detectiv.vercel.app |
+
+---
+
+## ⏳ Vyžaduje vlastníka (nie je blokované kódom)
+
+| ID | Oblasť | Čo treba |
+|----|--------|----------|
+| **RB-01** | GitHub Actions CI | Vyriešiť billing lock → re-enable workflow na `push` |
+| **RB-02** | PostHog EU | Nastaviť `VITE_POSTHOG_KEY` (+ host) vo Vercel / Base44 |
+| **RB-04** | Looker Studio | Dashboard po RB-02 |
+| **RB-05** | Stripe monetizácia | Obnoviť client + secrets + `isMonetizationEnabled` |
+| **RB-06** | TWA / Play | Keystore SHA-256 → `assetlinks.json`; custom doména voliteľná |
+| **RB-07** | Beta 100 + Ads | Growth ops, UTM kampane |
+| **—** | Base44 backend | `base44 login`, `MISTRAL_API_KEY`, publish app, auth origins |
+| **—** | Custom doména | `forenzdetectiv.sk` — DNS + Vercel; aktuálne `.vercel.app` |
+
+---
+
+## Done vs Remaining (detailný prehľad)
 
 | Oblasť | Stav | Poznámka |
 |--------|------|----------|

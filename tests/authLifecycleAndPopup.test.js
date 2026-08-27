@@ -8,7 +8,7 @@ describe('5. 🔐 Auth Lifecycle & OAuth Popups Test Suite', () => {
     // Mock window.location
     globalThis.window = {
       location: {
-        origin: 'https://forenzdetectiv.sk',
+        origin: 'https://forenz-detectiv.vercel.app',
         search: '?returnTo=%2Fdashboard'
       }
     };
@@ -32,7 +32,7 @@ describe('5. 🔐 Auth Lifecycle & OAuth Popups Test Suite', () => {
   test('5.2 Odstránenie app-bootstrap parametrov z returnTo (Prevencia session poisoning)', () => {
     globalThis.window = {
       location: {
-        origin: 'https://forenzdetectiv.sk',
+        origin: 'https://forenz-detectiv.vercel.app',
         search: '?returnTo=%2Fdashboard%3Faccess_token%3Dattacker_token%26app_id%3Devil_app'
       }
     };
@@ -46,12 +46,12 @@ describe('5. 🔐 Auth Lifecycle & OAuth Popups Test Suite', () => {
   test('5.3 Validácia event.origin pri komunikácii cez postMessage v popup okne', () => {
     const isAllowedAuthOrigin = (origin) => {
       if (!origin) return false;
-      return origin.endsWith('.base44.com') || origin === 'https://app.base44.com' || origin === 'https://forenzdetectiv.sk';
+      return origin.endsWith('.base44.com') || origin === 'https://app.base44.com' || origin === 'https://forenz-detectiv.vercel.app' || origin === 'https://forenzdetectiv.vercel.app';
     };
 
     assert.strictEqual(isAllowedAuthOrigin('https://app.base44.com'), true);
     assert.strictEqual(isAllowedAuthOrigin('https://auth.base44.com'), true);
-    assert.strictEqual(isAllowedAuthOrigin('https://forenzdetectiv.sk'), true);
+    assert.strictEqual(isAllowedAuthOrigin('https://forenz-detectiv.vercel.app'), true);
 
     // Odmietnutie podvrhnutých originov
     assert.strictEqual(isAllowedAuthOrigin('https://base44.com.attacker.com'), false);

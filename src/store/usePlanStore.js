@@ -58,7 +58,7 @@ export const usePlanStore = create((set, get) => ({
 
   getReferralLink: () => {
     const { userId } = get();
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://forenzdetectiv.sk';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://forenz-detectiv.vercel.app';
     return `${origin}?ref=${userId}`;
   },
 

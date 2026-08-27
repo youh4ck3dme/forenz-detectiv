@@ -35,8 +35,8 @@ export default async function (req: any) {
     params.append('line_items[0][price_data][unit_amount]', String(item.amount));
     params.append('line_items[0][price_data][recurring][interval]', interval === 'year' ? 'year' : 'month');
     params.append('line_items[0][quantity]', '1');
-      params.append('success_url', successUrl || 'https://forenzdetectiv.sk/?payment=success&session_id={CHECKOUT_SESSION_ID}');
-      params.append('cancel_url', cancelUrl || 'https://forenzdetectiv.sk/?payment=cancelled');
+      params.append('success_url', successUrl || 'https://forenz-detectiv.vercel.app/?payment=success&session_id={CHECKOUT_SESSION_ID}');
+      params.append('cancel_url', cancelUrl || 'https://forenz-detectiv.vercel.app/?payment=cancelled');
     
     if (user?.email) {
       params.append('customer_email', user.email);
