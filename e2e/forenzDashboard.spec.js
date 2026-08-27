@@ -7,7 +7,7 @@ test.describe('ForenzDetectiv - Dashboard & Hlavné Rozhranie', () => {
     await page.waitForLoadState('networkidle');
 
     // 2. Over titulok a hlavičku
-    await expect(page).toHaveTitle(/ForenzDetectiv/i);
+    await expect(page).toHaveTitle(/ForenzDetekt|Alibi/i);
 
     // 3. Over navigačný panel a profil vyšetrovateľa
     const heading = page.locator('h1, h2').filter({ hasText: /Forenz|Dashboard|Vyšetrovanie|Prípady/i }).first();

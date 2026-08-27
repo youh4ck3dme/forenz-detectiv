@@ -10,6 +10,10 @@ const layoutSrc = fs.readFileSync(
   path.resolve(__dirname, '../src/components/layout/AppLayout.jsx'),
   'utf8'
 );
+const sharedSrc = fs.readFileSync(
+  path.resolve(__dirname, '../src/pages/SharedCase.jsx'),
+  'utf8'
+);
 
 describe('iPhone 17 / Air camera-safe layout', () => {
   test('defines camera and safe-area CSS tokens', () => {
@@ -27,6 +31,10 @@ describe('iPhone 17 / Air camera-safe layout', () => {
     assert.match(css, /--camera-inset-top:\s*68px/);
   });
 
+  test('viewport fallback (width/height 420×912) also sets 68px inset', () => {
+    assert.match(css, /@media\s*\(width:\s*420px\)\s*and\s*\(height:\s*912px\)/);
+  });
+
   test('camera-dead-zone blocks touch', () => {
     assert.match(css, /\.camera-dead-zone\s*\{[^}]*pointer-events:\s*none/);
     assert.match(css, /\.camera-dead-zone\s*\{[^}]*touch-action:\s*none/);
@@ -35,6 +43,11 @@ describe('iPhone 17 / Air camera-safe layout', () => {
 
   test('root uses 100dvh', () => {
     assert.match(css, /html[\s\S]*height:\s*100dvh/);
+  });
+
+  test('SharedCase loading/error shells use h-dvh not h-screen', () => {
+    assert.match(sharedSrc, /h-dvh/);
+    assert.ok(!sharedSrc.includes('h-screen'), 'SharedCase must not use h-screen');
   });
 
   test('AppLayout stacks dead zone above interactive chrome', () => {

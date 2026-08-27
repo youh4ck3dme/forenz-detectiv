@@ -7,12 +7,11 @@ test.describe('S03/S04 — Graph + Map (upload-first, no demo)', () => {
     await expect(page.getByText(/Bratislava|Košice demo|Spustiť Demo/i)).toHaveCount(0);
   });
 
-  test('Desktop header + pricing dostupné bez načítaného spisu', async ({ page }) => {
+  test('Desktop header — monetizácia paused (žiadny Free/Pro badge CTA)', async ({ page }) => {
     await gotoApp(page);
     await dismissQuickTipIfPresent(page);
-    await expect(page.getByTitle('Licencie a plány').or(page.getByRole('button', { name: /Free|Pro/i })).first()).toBeVisible({
-      timeout: 15_000
-    });
+    await expect(page.getByTestId('m3-app-bar')).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByTitle('Licencie a plány')).toHaveCount(0);
   });
 
   test('Geospatial / map UI je pokryté unit testami — empty state nemá mapu', async ({ page }) => {

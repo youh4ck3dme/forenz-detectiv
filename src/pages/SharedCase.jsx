@@ -26,14 +26,14 @@ export default function SharedCase() {
 
   if (state.loading) {
     return (
-      <div className="h-screen flex items-center justify-center bg-slate-950">
+      <div className="h-dvh flex items-center justify-center bg-slate-950">
         <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
       </div>
     );
   }
   if (state.error) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-slate-950 text-slate-300 gap-3 px-6 text-center">
+      <div className="h-dvh flex flex-col items-center justify-center bg-slate-950 text-slate-300 gap-3 px-6 text-center">
         <AlertTriangle className="w-8 h-8 text-amber-400" />
         <p>{state.error}</p>
       </div>

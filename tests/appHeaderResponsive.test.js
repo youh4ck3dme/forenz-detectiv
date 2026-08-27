@@ -30,19 +30,19 @@ describe('AppHeader Responsive & Functional Architecture Suite', () => {
   });
 
   test('3. Tablet Hybrid Menu: zhlukovanie sekundárnych nástrojov do rozbaľovacieho zoznamu', () => {
+    // Referral hidden while monetization is hard-disabled
     const SECONDARY_TOOLS = [
       { id: 'guide', label: 'Sprievodca' },
       { id: 'dashboard', label: 'Dashboard' },
       { id: 'identity', label: 'Správa identít' },
       { id: 'trust', label: 'Trust Pack' },
-      { id: 'audit', label: 'Audit log' },
-      { id: 'referral', label: 'Referral program' }
+      { id: 'audit', label: 'Audit log' }
     ];
 
-    assert.strictEqual(SECONDARY_TOOLS.length, 6);
+    assert.strictEqual(SECONDARY_TOOLS.length, 5);
     assert.ok(SECONDARY_TOOLS.some(t => t.id === 'trust'));
     assert.ok(SECONDARY_TOOLS.some(t => t.id === 'audit'));
-    assert.ok(SECONDARY_TOOLS.some(t => t.id === 'referral'));
+    assert.ok(!SECONDARY_TOOLS.some(t => t.id === 'referral'));
   });
 
   test('4. Zdieľanie prípadu (Shared Case): bezpečný stav a indikátor aktívneho tokenu', () => {

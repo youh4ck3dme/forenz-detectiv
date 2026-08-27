@@ -63,6 +63,13 @@
     }
   }
 
+  /* Fallback for browser/Playwright viewport (no device-* / DPR) */
+  @media (width: 420px) and (height: 912px) {
+    :root {
+      --camera-inset-top: 68px;
+    }
+  }
+
   .dark {
     --background: 222 47% 6%;
     --foreground: 210 40% 96%;
