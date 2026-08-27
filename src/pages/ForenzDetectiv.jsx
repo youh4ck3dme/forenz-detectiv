@@ -333,7 +333,9 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
         status: fields.status === 'pending' ? 'done' : (fields.status || 'done'),
         created_date: new Date().toISOString()
       };
-      setDocuments((prev) => [doc, ...(prev || [])]);
+      const prev = useForenzStore.getState().documents;
+      const safePrev = Array.isArray(prev) ? prev : [];
+      setDocuments([doc, ...safePrev]);
       if (uploadFileForOffline) {
         try {
           await saveDocumentOffline(doc, uploadFileForOffline);

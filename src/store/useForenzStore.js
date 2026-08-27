@@ -2,6 +2,9 @@ import { create } from 'zustand';
 import { base44 } from '../api/base44Client.js';
 import { saveCaseOffline, getCaseOffline, sanitizeCasePayload, purgeInvalidOfflineDocuments } from '../lib/offlineDb.js';
 import { trackContradictionDetected } from '../lib/analytics.js';
+import { resolveEntityArrayUpdate, makeEntityArraySetter } from './entityArraySetter.js';
+
+export { resolveEntityArrayUpdate } from './entityArraySetter.js';
 
 export const useForenzStore = create((set, get) => ({
   // 1. Dátové entity
@@ -39,17 +42,19 @@ export const useForenzStore = create((set, get) => ({
   introOpen: false,
   graphFilter: 'all', // 'all' | 'key_hubs' | 'suspects' | 'conflicts'
 
-  // 3. Nastavovače stavu
-  setDocuments: (docs) => set({ documents: docs }),
-  setPersons: (persons) => set({ persons }),
-  setRelationships: (relationships) => set({ relationships }),
-  setRedFlags: (redFlags) => set({ redFlags }),
-  setFlaggedPassages: (flaggedPassages) => set({ flaggedPassages }),
-  setClaims: (claims) => set({ claims }),
-  setEvents: (events) => set({ events }),
-  setLocations: (locations) => set({ locations }),
-  setContradictions: (contradictions) => {
-    const list = contradictions || [];
+  // 3. Nastavovače stavu (entity lists support functional updates — see createDocumentRecord)
+  setDocuments: makeEntityArraySetter(set, 'documents'),
+  setPersons: makeEntityArraySetter(set, 'persons'),
+  setRelationships: makeEntityArraySetter(set, 'relationships'),
+  setRedFlags: makeEntityArraySetter(set, 'redFlags'),
+  setFlaggedPassages: makeEntityArraySetter(set, 'flaggedPassages'),
+  setClaims: makeEntityArraySetter(set, 'claims'),
+  setEvents: makeEntityArraySetter(set, 'events'),
+  setLocations: makeEntityArraySetter(set, 'locations'),
+  setVehicles: makeEntityArraySetter(set, 'vehicles'),
+  setOverrides: makeEntityArraySetter(set, 'overrides'),
+  setContradictions: (contradictionsOrUpdater) => {
+    const list = resolveEntityArrayUpdate(get().contradictions, contradictionsOrUpdater);
     set({ contradictions: list });
     if (list.length > 0) {
       const hasAlibi = list.some((c) => c.type === 'alibi' || c.severity === 'high' || c.is_alibi_conflict);
