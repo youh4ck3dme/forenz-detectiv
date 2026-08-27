@@ -12,3 +12,8 @@ declare module 'npm:@base44/sdk*' {
 declare module 'npm:zod*' {
   export * from 'zod';
 }
+
+declare module 'npm:haversine-distance*' {
+  import haversine from 'haversine-distance';
+  export default haversine;
+}

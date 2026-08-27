@@ -6,13 +6,14 @@
  * Usage:
  *   MISTRAL_API_KEY=... node scripts/prodCliSetup.mjs
  * Optional:
- *   BASE44_APP_ID=6a7ed366df1f1138ad653044
+ *   BASE44_APP_ID=6a81f5e7f4adbf6a9523b9d8
  *   VITE_POSTHOG_KEY=phc_...
  *   VERCEL_TOKEN=...
  */
 import { spawnSync } from 'node:child_process';
 
-const APP_ID = process.env.BASE44_APP_ID || '6a7ed366df1f1138ad653044';
+// Default = app owned by youh4ck3dme (admin). Live Vercel must set the same VITE_BASE44_APP_ID.
+const APP_ID = process.env.BASE44_APP_ID || '6a81f5e7f4adbf6a9523b9d8';
 const ORIGINS = [
   'https://forenz-detectiv.vercel.app',
   'https://forenzdetectiv.vercel.app'
