@@ -31,7 +31,39 @@ test.describe('S02 — Mega Upload Pipeline & Bulk gates', () => {
     await expect(input).toBeAttached();
     const accept = await input.getAttribute('accept');
     expect(accept || '').toMatch(/pdf|application\/pdf/i);
-    await expect(page.locator('body')).toContainText('ForenzDetectiv');
+    await expect(page.locator('body')).toContainText(/ForenzDetekt[ií]v/i);
+  });
+
+  test('2.4 Guest .txt upload → archív 1 dok. + slovenský toast', async ({ page }) => {
+    await gotoApp(page);
+    await dismissQuickTipIfPresent(page);
+
+    const testimony = [
+      'VÝPOVEĎ SVEDKA',
+      'Meno: Dimiti Cohen',
+      'Svedok uviedol, že dňa 12.03.2026 o 21:30 bol doma v Bratislave.',
+      'Podpis: ________________'
+    ].join('\n');
+
+    const fileInput = page.getByTestId('scan-file-input');
+    await expect(fileInput).toBeAttached();
+
+    await fileInput.evaluate((input, content) => {
+      const file = new File([content], 'Výpoveď číslo 1 - Dimiti Cohen.txt', { type: 'text/plain' });
+      Object.defineProperty(input, 'files', {
+        configurable: true,
+        value: {
+          0: file,
+          length: 1,
+          item: (i) => (i === 0 ? file : null),
+          [Symbol.iterator]: function* () { yield file; }
+        }
+      });
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, testimony);
+
+    await expectToastMatching(page, /Textový spis|offline režim|lokáln/i);
+    await expect(page.getByTestId('case-header')).toContainText(/1 dok\./i, { timeout: 15_000 });
   });
 
   test('Bulk / hero file input existuje (multiple)', async ({ page }) => {

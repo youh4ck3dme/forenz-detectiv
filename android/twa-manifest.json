@@ -1,6 +1,6 @@
 {
   "packageId": "sk.forenzdetectiv.twa",
-  "host": "forenzdetectiv.sk",
+  "host": "forenz-detectiv.vercel.app",
   "name": "ForenzDetectiv: AI rozpory",
   "launcherName": "ForenzDetectiv",
   "display": "standalone",
@@ -12,7 +12,7 @@
   "maskableIconUrl": "/icons/icon-512.png",
   "shortcuts": [],
   "generatorApp": "bubblewrap",
-  "webManifestUrl": "https://forenzdetectiv.sk/manifest.json",
+  "webManifestUrl": "https://forenz-detectiv.vercel.app/manifest.json",
   "fallbackType": "customtabs",
   "features": {
     "playBilling": { "enabled": false },

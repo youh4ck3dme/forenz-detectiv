@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import {
-  Network, Layers, Archive, LogOut, X, ShieldAlert,
+  Network, Layers, LogOut, X, ShieldAlert,
   Sun, Moon, Monitor, Users, HelpCircle, Clock, MapPin, LayoutDashboard, Download,
   ShieldCheck, Gift, Zap, ScrollText
 } from 'lucide-react';
@@ -139,7 +139,6 @@ export default function MobileDrawer({
             <span className="flex-1 truncate">Dashboard štatistík</span>
           </Link>
           <Item icon={Users} label="Prepojené identity" active={activeView === 'identity'} onClick={() => go('identity')} />
-          <Item icon={Archive} label="Archív spisov" active={activeView === 'archive'} onClick={() => go('archive')} />
 
           <SectionLabel>{t('nav.account')}</SectionLabel>
           {onOpenPricing && (

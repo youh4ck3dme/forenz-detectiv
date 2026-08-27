@@ -9,7 +9,24 @@ import { expect } from '@playwright/test';
 
 export async function gotoApp(page, pathName = '/') {
   await page.goto(pathName, { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('body')).toContainText(/ForenzDetectiv|ForenzDetektív/i, { timeout: 30_000 });
+  // Clear corrupted/stale offline case so empty-home E2E is deterministic
+  await page.evaluate(async () => {
+    try {
+      localStorage.removeItem('forenz_user_plan');
+      // Keep cookie banner from covering drawers/CTAs during E2E
+      localStorage.setItem('alibi_cookie_consent', 'declined');
+      await new Promise((resolve) => {
+        const req = indexedDB.deleteDatabase('ForenzDetectiv_OfflineDB');
+        req.onsuccess = () => resolve();
+        req.onerror = () => resolve();
+        req.onblocked = () => resolve();
+      });
+    } catch {
+      /* ignore */
+    }
+  });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await expect(page.locator('body')).toContainText(/ForenzDetekt[ií]v/i, { timeout: 30_000 });
 }
 
 export async function dismissQuickTipIfPresent(page) {
@@ -19,19 +36,11 @@ export async function dismissQuickTipIfPresent(page) {
   }
 }
 
-/** Dismiss cookie banner so it does not intercept file inputs or obscure toasts. */
-export async function dismissCookieConsentIfPresent(page) {
-  const accept = page.getByRole('button', { name: /Súhlasím|Len nevyhnutné/i }).first();
-  if (await accept.isVisible().catch(() => false)) {
-    await accept.click();
-  }
-}
-
 /** Empty-state home: upload CTA must be present; no demo buttons. */
 export async function expectUploadFirstHome(page) {
   await gotoApp(page);
   await dismissQuickTipIfPresent(page);
-  await expect(page.getByRole('button', { name: /Nahrať spis|Nahrát spis/i }).first()).toBeVisible({
+  await expect(page.getByRole('button', { name: /Nahrať spis|Nahrát spis|Nahrať výpoveď|Nahrát/i }).first()).toBeVisible({
     timeout: 15_000
   });
   await expect(page.getByRole('button', { name: /Demo|demo spis|lokálne demo|lokální demo/i })).toHaveCount(0);
@@ -104,34 +113,15 @@ export const GUEST_TXT_FIXTURE = {
   ].join('\n')
 };
 
-/** Guest/offline empty case — clear persisted case on the app origin. */
-export async function resetGuestCaseStorage(page) {
-  await page.evaluate(async () => {
-    localStorage.clear();
-    await new Promise((resolve, reject) => {
-      const req = indexedDB.deleteDatabase('ForenzDetectiv_OfflineDB');
-      req.onsuccess = () => resolve();
-      req.onerror = () => reject(req.error || new Error('IDB delete failed'));
-      req.onblocked = () => resolve();
-    });
-  });
-}
-
 export async function gotoEmptyHeroHome(page) {
   await gotoApp(page, '/?view=hero');
-  await resetGuestCaseStorage(page);
-  await page.reload({ waitUntil: 'domcontentloaded' });
   await dismissQuickTipIfPresent(page);
-  await dismissCookieConsentIfPresent(page);
   await expect(page.getByTestId('home-file-input')).toBeAttached({ timeout: 15_000 });
 }
 
 export async function gotoEmptyWorkspace(page) {
   await gotoApp(page, '/');
-  await resetGuestCaseStorage(page);
-  await page.reload({ waitUntil: 'domcontentloaded' });
   await dismissQuickTipIfPresent(page);
-  await dismissCookieConsentIfPresent(page);
   await expect(page.getByTestId('scan-file-input')).toBeAttached({ timeout: 15_000 });
 }
 
@@ -152,18 +142,8 @@ export async function expectGuestTxtInArchive(page, fileTitle) {
   await expect(page.getByRole('paragraph').filter({ hasText: fileTitle }).first()).toBeVisible({ timeout: 15_000 });
 }
 
+/** Monetization is hard-disabled — pricing UI must stay absent. */
 export async function openPricingModal(page) {
-  const planBtn = page.locator('header.hidden.lg\\:flex, header').getByRole('button', { name: /Free|Pro|Agency/i }).first();
-  if (await planBtn.isVisible().catch(() => false)) {
-    await planBtn.click();
-    return;
-  }
-  const freeBtn = page.getByTitle('Licencie a plány');
-  if (await freeBtn.isVisible().catch(() => false)) {
-    await freeBtn.click();
-    return;
-  }
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByRole('button', { name: 'Menu' }).click();
-  await page.getByText(/Cenník/i).first().click();
+  await expect(page.getByPlaceholder(/PRO-LAWYER/i)).toHaveCount(0);
+  await expect(page.getByText(/^Cenník$/i)).toHaveCount(0);
 }

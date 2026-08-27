@@ -121,17 +121,17 @@ describe('PWA Manual Checklist Verification Suite (3 Lighthouse Items)', () => {
 
     test('Zdieľaný spis generuje bezpečný a unikátny deep link formát', () => {
       const generateSharedUrl = (origin, token) => `${origin}/shared/${token}`;
-      const origin = 'https://forenzdetectiv.sk';
+      const origin = 'https://forenz-detectiv.vercel.app';
       const sampleToken = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
 
       const deepLink = generateSharedUrl(origin, sampleToken);
       assert.strictEqual(deepLink, `${origin}/shared/${sampleToken}`);
-      assert.ok(deepLink.startsWith('https://forenzdetectiv.sk/shared/'));
+      assert.ok(deepLink.startsWith('https://forenz-detectiv.vercel.app/shared/'));
     });
 
     test('B2B Referral systém generuje platný tracking URL parameter (?ref=...) a pretrváva v relácii', () => {
       const getReferralUrl = (origin, userId) => `${origin}?ref=${userId}`;
-      const refUrl = getReferralUrl('https://forenzdetectiv.sk', 'ADV-88392');
+      const refUrl = getReferralUrl('https://forenz-detectiv.vercel.app', 'ADV-88392');
 
       const urlObj = new URL(refUrl);
       assert.strictEqual(urlObj.searchParams.get('ref'), 'ADV-88392');

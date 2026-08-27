@@ -16,7 +16,7 @@ UTM capture beží pri boote cez [`captureUtmParameters()`](../src/utils/utmTrac
 Príklad landing URL:
 
 ```
-https://forenzdetectiv.sk/?utm_source=google&utm_medium=cpc&utm_campaign=sk_forenz_search&utm_content=v1
+https://forenz-detectiv.vercel.app/?utm_source=google&utm_medium=cpc&utm_campaign=sk_forenz_search&utm_content=v1
 ```
 
 ## Kampane (checklist)

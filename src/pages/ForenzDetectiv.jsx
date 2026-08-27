@@ -1484,7 +1484,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
       </div>
 
       {/* Main Workspace View: HomeHero if on hero view, otherwise render the selected view */}
-      {documents.length === 0 && !loading && (activeView === 'hero' || !activeView) ? (
+      {documents.length === 0 && !loading ? (
         <HomeHero onScan={handleScan} onBulkScan={handleBulkScan} scanning={scanning} />
       ) : (
         <AnimatePresence mode="wait">

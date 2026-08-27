@@ -5,13 +5,13 @@ test.describe('ForenzDetectiv - Hlavné Analytické Centrum & Graf', () => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
 
-    // 1. Over prítomnosť hlavného titulku alebo loga ForenzDetectiv
-    const logoOrTitle = page.locator('header, h1, div').filter({ hasText: /ForenzDetectiv|Forenzný/i }).first();
+    // 1. Over prítomnosť hlavného titulku alebo loga
+    const logoOrTitle = page.locator('header, h1, div').filter({ hasText: /ForenzDetekt[ií]v|Forenzný/i }).first();
     await expect(logoOrTitle).toBeVisible({ timeout: 10000 });
 
-    // 2. Over panel nástrojov (Časová os, Graf, Rozpory, Sherlock)
+    // 2. Over branding v body
     const bodyText = await page.textContent('body');
-    expect(bodyText).toContain('ForenzDetectiv');
+    expect(bodyText).toMatch(/ForenzDetekt[ií]v/i);
 
     // 3. Over prítomnosť interaktívnych prepínačov (pohľad na graf / zoznam / os)
     const tabsOrButtons = page.locator('button, [role="tab"]');

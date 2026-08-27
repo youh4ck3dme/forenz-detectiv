@@ -4,7 +4,7 @@ Tento dokument popisuje, ako z PWA vytvoriť Trusted Web Activity (TWA) pre Goog
 
 ## Predpoklady
 
-- Nasadená HTTPS produkčná URL (napr. `https://forenzdetectiv.sk`)
+- Nasadená HTTPS produkčná URL: `https://forenz-detectiv.vercel.app` (alias `forenzdetectiv.vercel.app`; custom doména `forenzdetectiv.sk` — RB-06 / DNS)
 - Node.js 20+
 - Java JDK 17+
 - Android SDK / Bubblewrap CLI
@@ -34,7 +34,7 @@ keytool -list -v -keystore android.keystore -alias android
 ```
 
 3. Nahraď hodnotu `REPLACE_WITH_UPLOAD_KEY_SHA256` skutočným fingerprintom (formát `AA:BB:...`).
-4. Over na produkcii: `https://forenzdetectiv.sk/.well-known/assetlinks.json`
+4. Over na produkcii: `https://forenz-detectiv.vercel.app/.well-known/assetlinks.json`
 
 ## 3. Bubblewrap init
 

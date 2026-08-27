@@ -124,7 +124,6 @@ export default function HomeHero({ onScan, onBulkScan = null, scanning = false }
           <input
             ref={fileInputRef}
             type="file"
-            multiple
             data-testid="home-file-input"
             accept="image/*,application/pdf,.pdf,.png,.jpg,.jpeg,.webp,.txt,.docx,.doc,.odt"
             onChange={handleFileChange}

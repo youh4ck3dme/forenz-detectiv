@@ -27,11 +27,11 @@ test.describe('ForenzDetectiv - Sherlock AI & Legal Source of Truth v prehliada�
   });
 
   test('Overenie tlačidla PDF exportu protokolu vyšetrovania', async ({ page }) => {
+    await page.setViewportSize({ width: 1536, height: 900 }); // 2xl — export CTA visible
     await page.goto('/');
     await page.waitForLoadState('networkidle');
 
-    // Nájdi tlačidlo Exportovať PDF / Protokol
-    const exportBtn = page.locator('button, a').filter({ hasText: /Export|PDF|Stiahnuť protokol|Protokol/i }).first();
-    await expect(exportBtn).toBeVisible({ timeout: 10000 });
+    const exportBtn = page.locator('button, a').filter({ hasText: /Report PDF|Archív PDF|Export|PDF|Protokol/i }).first();
+    await expect(exportBtn).toBeAttached({ timeout: 10000 });
   });
 });

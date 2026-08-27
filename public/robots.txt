@@ -4,4 +4,4 @@ Allow: /
 Disallow: /api/
 Disallow: /shared/
 
-Sitemap: https://forenzdetectiv.sk/sitemap.xml
+Sitemap: https://forenz-detectiv.vercel.app/sitemap.xml
