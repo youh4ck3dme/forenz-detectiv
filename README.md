@@ -115,6 +115,7 @@ Skopíruj [`.env.example`](.env.example) → `.env.local`:
 | `VITE_SENTRY_DSN` | Error tracking (silent fallback bez DSN) |
 | `VITE_POSTHOG_KEY` / `VITE_POSTHOG_HOST` | Product analytics EU |
 | `VITE_STRIPE_PUBLIC_KEY` | Live Stripe Checkout; bez kľúča = fail-closed (žiadny checkout, žiadny lokálny upgrade) |
+| `MISTRAL_API_KEY` | Server-only — Base44 secret (`base44 secret set`) + Vercel (`vercel env add`); lokálna kópia v `.env.local` |
 
 ### Upload-first produkcia
 - Produkt **neobsahuje** demo/synthetic case (žiadne BA–KE CTA, žiadne `VITE_ENABLE_DEMO`).
