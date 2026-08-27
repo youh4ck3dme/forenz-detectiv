@@ -9,7 +9,22 @@ import { expect } from '@playwright/test';
 
 export async function gotoApp(page, pathName = '/') {
   await page.goto(pathName, { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('body')).toContainText(/ForenzDetectiv|ForenzDetektív/i, { timeout: 30_000 });
+  // Clear corrupted/stale offline case so empty-home E2E is deterministic
+  await page.evaluate(async () => {
+    try {
+      localStorage.removeItem('forenz_user_plan');
+      await new Promise((resolve, reject) => {
+        const req = indexedDB.deleteDatabase('ForenzDetectiv_OfflineDB');
+        req.onsuccess = () => resolve();
+        req.onerror = () => resolve();
+        req.onblocked = () => resolve();
+      });
+    } catch {
+      /* ignore */
+    }
+  });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await expect(page.locator('body')).toContainText(/ForenzDetekt[ií]v/i, { timeout: 30_000 });
 }
 
 export async function dismissQuickTipIfPresent(page) {
@@ -23,7 +38,7 @@ export async function dismissQuickTipIfPresent(page) {
 export async function expectUploadFirstHome(page) {
   await gotoApp(page);
   await dismissQuickTipIfPresent(page);
-  await expect(page.getByRole('button', { name: /Nahrať spis|Nahrát spis/i }).first()).toBeVisible({
+  await expect(page.getByRole('button', { name: /Nahrať spis|Nahrát spis|Nahrať výpoveď|Nahrát/i }).first()).toBeVisible({
     timeout: 15_000
   });
   await expect(page.getByRole('button', { name: /Demo|demo spis|lokálne demo|lokální demo/i })).toHaveCount(0);
@@ -78,18 +93,8 @@ export async function expectToastMatching(page, pattern) {
   await expect(toast).toContainText(pattern);
 }
 
+/** Monetization is hard-disabled — pricing UI must stay absent. */
 export async function openPricingModal(page) {
-  const planBtn = page.locator('header.hidden.lg\\:flex, header').getByRole('button', { name: /Free|Pro|Agency/i }).first();
-  if (await planBtn.isVisible().catch(() => false)) {
-    await planBtn.click();
-    return;
-  }
-  const freeBtn = page.getByTitle('Licencie a plány');
-  if (await freeBtn.isVisible().catch(() => false)) {
-    await freeBtn.click();
-    return;
-  }
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByRole('button', { name: 'Menu' }).click();
-  await page.getByText(/Cenník/i).first().click();
+  await expect(page.getByPlaceholder(/PRO-LAWYER/i)).toHaveCount(0);
+  await expect(page.getByText(/^Cenník$/i)).toHaveCount(0);
 }

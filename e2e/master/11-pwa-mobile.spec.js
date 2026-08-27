@@ -14,17 +14,18 @@ test.describe('S11 — PWA, mobilné UI & offline', () => {
     expect(pb).toBeTruthy();
   });
 
-  test('MobileDrawer: Menu otvorí účet / cenník', async ({ page }) => {
+  test('MobileDrawer: Menu otvorí účet (bez Cenník — monetizácia paused)', async ({ page }) => {
     await gotoApp(page);
     await dismissQuickTipIfPresent(page);
     await page.getByRole('button', { name: 'Menu' }).click();
-    await expect(page.getByText(/Cenník|Sprievodca|Audit/i).first()).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByText(/Sprievodca|Audit|Trust/i).first()).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByText(/Cenník/i)).toHaveCount(0);
   });
 
   test('Offline na empty home — UI ostáva použiteľné', async ({ page, context }) => {
     await expectUploadFirstHome(page);
     await context.setOffline(true);
-    await expect(page.locator('body')).toContainText(/ForenzDetectiv/i);
+    await expect(page.locator('body')).toContainText(/ForenzDetekt[ií]v/i);
     await context.setOffline(false);
   });
 });
@@ -42,20 +43,33 @@ test.describe('S11b — iPhone 17 logical 393×852', () => {
 });
 
 test.describe('S11c — iPhone Air logical 420×912', () => {
-  test.use({ viewport: { width: 420, height: 912 } });
+  test.use({
+    viewport: { width: 420, height: 912 },
+    deviceScaleFactor: 3
+  });
 
-  test('Touch chrome is below camera dead zone', async ({ page }) => {
+  test('Touch chrome is below camera dead zone; layout fills 100dvh', async ({ page }) => {
     await gotoApp(page);
     await dismissQuickTipIfPresent(page);
+    const layout = page.getByTestId('app-layout');
     const dead = page.getByTestId('camera-dead-zone');
     const bar = page.getByTestId('m3-app-bar');
-    await expect(dead).toBeVisible({ timeout: 15_000 });
+    await expect(layout).toBeVisible({ timeout: 15_000 });
+    await expect(dead).toBeVisible();
     await expect(bar).toBeVisible();
+    const layoutBox = await layout.boundingBox();
     const deadBox = await dead.boundingBox();
     const barBox = await bar.boundingBox();
+    expect(layoutBox).toBeTruthy();
     expect(deadBox).toBeTruthy();
     expect(barBox).toBeTruthy();
+    expect(Math.round(layoutBox.height)).toBeGreaterThanOrEqual(910);
+    expect(Math.round(layoutBox.height)).toBeLessThanOrEqual(914);
+    expect(deadBox.height).toBeGreaterThanOrEqual(54);
     expect(barBox.y).toBeGreaterThanOrEqual(deadBox.y + deadBox.height - 1);
+    await expect(page.getByTestId('mobile-bottom-nav')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Menu' })).toBeVisible();
+    const overflowX = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+    expect(overflowX).toBe(false);
   });
 });

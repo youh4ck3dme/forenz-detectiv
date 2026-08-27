@@ -31,7 +31,7 @@ test.describe('S02 — Mega Upload Pipeline & Bulk gates', () => {
     await expect(input).toBeAttached();
     const accept = await input.getAttribute('accept');
     expect(accept || '').toMatch(/pdf|application\/pdf/i);
-    await expect(page.locator('body')).toContainText('ForenzDetectiv');
+    await expect(page.locator('body')).toContainText(/ForenzDetekt[ií]v/i);
   });
 
   test('Bulk / hero file input existuje (multiple)', async ({ page }) => {

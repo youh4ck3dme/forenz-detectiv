@@ -27,7 +27,7 @@ export const useForenzStore = create((set, get) => ({
   toast: '',
   showStats: false,
   activeShare: null,
-  activeView: typeof window !== 'undefined' && window.innerWidth <= 640 ? 'overview' : 'graph',
+  activeView: 'hero',
   selectedDocId: null,
   selectedPerson: null,
   selectedEdge: null,

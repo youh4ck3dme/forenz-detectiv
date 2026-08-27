@@ -6,10 +6,10 @@ test.describe('S01 — Onboarding, Guest Mode & IndexedDB', () => {
     await gotoApp(page);
     await dismissQuickTipIfPresent(page);
 
-    await expect(page).toHaveTitle(/ForenzDetectiv/i);
-    await expect(page.locator('body')).toContainText(/ForenzDetectiv/i);
+    await expect(page).toHaveTitle(/ForenzDetekt|Alibi/i);
+    await expect(page.locator('body')).toContainText(/ForenzDetekt[ií]v/i);
     await expect(page.locator('.bg-slate-950').first()).toBeVisible();
-    await expect(page.getByRole('button', { name: /Nahrať spis|Nahrát spis/i }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /Nahrať spis|Nahrát spis|Nahrať výpoveď/i }).first()).toBeVisible();
     await expect(page.getByRole('button', { name: /Demo|demo spis/i })).toHaveCount(0);
   });
 
@@ -29,7 +29,7 @@ test.describe('S01 — Onboarding, Guest Mode & IndexedDB', () => {
     try {
       await context.setOffline(true);
       await page.evaluate(() => window.dispatchEvent(new Event('offline')));
-      await expect(page.locator('body')).toContainText('ForenzDetectiv');
+      await expect(page.locator('body')).toContainText(/ForenzDetekt[ií]v/i);
     } finally {
       await context.setOffline(false);
     }
