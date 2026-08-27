@@ -499,7 +499,7 @@ export async function chunkAndProcessPdf(file, handlers = {}) {
       }
 
       if (handlers.analyzeDocument) {
-        await handlers.analyzeDocument(pageDoc);
+        await handlers.analyzeDocument(pageDoc, pageFile);
       }
 
       // Phase 4: Done page

@@ -108,21 +108,41 @@ export const useForenzStore = create((set, get) => ({
     set({ loading: true });
 
     if (initialData) {
+      const seeded = sanitizeCasePayload(initialData);
       set({
-        documents: initialData.documents || [],
-        persons: initialData.persons || [],
-        relationships: initialData.relationships || [],
-        redFlags: initialData.redFlags || [],
-        flaggedPassages: initialData.flaggedPassages || [],
-        claims: initialData.claims || [],
-        events: initialData.events || [],
-        locations: initialData.locations || [],
-        vehicles: initialData.vehicles || [],
-        contradictions: initialData.contradictions || [],
-        overrides: initialData.overrides || [],
+        ...seeded,
         loading: false
       });
       return;
+    }
+
+    const hasAuthToken =
+      typeof window !== 'undefined' &&
+      !!(localStorage.getItem('base44_access_token') || localStorage.getItem('token'));
+
+    await purgeInvalidOfflineDocuments();
+
+    const loadOfflineSnapshot = async (toastMessage) => {
+      const offline = await getCaseOffline('current');
+      if (!offline) return false;
+      const safe = sanitizeCasePayload(offline);
+      const hasData =
+        safe.documents.length > 0 ||
+        safe.persons.length > 0 ||
+        safe.events.length > 0 ||
+        safe.claims.length > 0;
+      if (!hasData) return false;
+      set({ ...safe, loading: false });
+      if (toastMessage) get().showToast(toastMessage);
+      return true;
+    };
+
+    // Guest / offline-first: show cached case immediately when backend is unavailable
+    if (!hasAuthToken && !scope?.creatorId) {
+      const loaded = await loadOfflineSnapshot(null);
+      if (loaded) {
+        return;
+      }
     }
 
     try {
@@ -185,6 +205,16 @@ export const useForenzStore = create((set, get) => ({
         overrides: ovs || []
       });
 
+      const cloudEmpty =
+        freshData.documents.length === 0 &&
+        freshData.persons.length === 0 &&
+        freshData.events.length === 0;
+
+      if (cloudEmpty && !scope?.creatorId) {
+        const restored = await loadOfflineSnapshot('Načítané z offline vyšetrovacieho archívu');
+        if (restored) return;
+      }
+
       set({
         ...freshData,
         loading: false
@@ -199,18 +229,10 @@ export const useForenzStore = create((set, get) => ({
       saveCaseOffline('current', freshData);
     } catch (err) {
       console.error('Fetch zlyhal, skúšam načítať z offline cache:', err);
-      await purgeInvalidOfflineDocuments();
-      const offline = await getCaseOffline('current');
-      if (offline) {
-        const safe = sanitizeCasePayload(offline);
-        set({
-          ...safe,
-          loading: false
-        });
-        get().showToast('Načítané z offline vyšetrovacieho archívu');
-      } else {
+      const restored = await loadOfflineSnapshot('Načítané z offline vyšetrovacieho archívu');
+      if (!restored) {
         set({ loading: false });
-        get().showToast('Nepodarilo sa načítať dáta prípadu');
+        get().showToast('Nepodarilo sa načítať dáta prípadu — skúste nahrať spis znova');
       }
     }
   }

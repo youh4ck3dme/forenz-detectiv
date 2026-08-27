@@ -55,11 +55,13 @@ function drawRoundedRect(ctx, x, y, width, height, radius) {
 
 // Zlúčenie osôb s aplikovaním manuálnych IdentityOverride (merge/split)
 function buildMergedNodes(persons, overrides = []) {
-  const merges = overrides.filter((o) => o.override_type === 'merge');
-  const splits = overrides.filter((o) => o.override_type === 'split');
+  const safePersons = (persons || []).filter((p) => p && p.id && p.name);
+  const safeOverrides = (overrides || []).filter((o) => o && o.override_type);
+  const merges = safeOverrides.filter((o) => o.override_type === 'merge');
+  const splits = safeOverrides.filter((o) => o.override_type === 'split');
 
   const parent = {};
-  persons.forEach((p) => (parent[p.id] = p.id));
+  safePersons.forEach((p) => (parent[p.id] = p.id));
   const has = (id) => parent[id] != null;
   const find = (x) => {
     while (parent[x] !== x) {
@@ -90,10 +92,10 @@ function buildMergedNodes(persons, overrides = []) {
   });
 
   // 3. Auto-merge podľa mena
-  for (let i = 0; i < persons.length; i++) {
-    for (let j = i + 1; j < persons.length; j++) {
-      const a = persons[i];
-      const b = persons[j];
+  for (let i = 0; i < safePersons.length; i++) {
+    for (let j = i + 1; j < safePersons.length; j++) {
+      const a = safePersons[i];
+      const b = safePersons[j];
       if (find(a.id) === find(b.id)) continue;
       if (splitSet.has(a.id + '|' + b.id)) continue;
       if (namesMatch(a.name, b.name)) union(a.id, b.id);
@@ -107,7 +109,7 @@ function buildMergedNodes(persons, overrides = []) {
   });
 
   const groupMap = {};
-  persons.forEach((p) => {
+  safePersons.forEach((p) => {
     const root = find(p.id);
     if (!groupMap[root]) groupMap[root] = { id: `mn-${root}`, root, persons: [] };
     groupMap[root].persons.push(p);
@@ -119,8 +121,9 @@ function buildMergedNodes(persons, overrides = []) {
     const master = g.persons.find((pp) => pp.id === masterId);
     g.masterId = masterId;
     g.manualMerge = !!masterId;
-    g.name = master ? master.name : g.persons[0].name;
-    g.type = (master || g.persons[0]).type;
+    const primary = master || g.persons[0];
+    g.name = primary?.name || 'Neznáma osoba';
+    g.type = primary?.type;
     g.manualSplit = g.persons.some((p) => splitPersons.has(p.id));
     g.displayName = g.name;
   });
