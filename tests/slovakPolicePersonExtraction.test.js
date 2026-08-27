@@ -137,4 +137,20 @@ describe('Slovak police zápisnica person extraction', () => {
     assert.ok(!replaced.persons.some((p) => p.name === 'Ghost'));
     assert.ok(!replaced.events.some((e) => e.id === 'old_ev'));
   });
+
+  test('ZÁPISNICA O VÝSLUCHU OBVINENÉHO yields type obvinený (not remapped to podozrivý)', () => {
+    const lines = [
+      'ZÁPISNICA O VÝSLUCHU OBVINENÉHO',
+      'meno, priezvisko, dátum narodenia: Dimitri Cohen, 03.07.1987',
+      'predošlé meno a priezvisko: Marek Ivanka'
+    ];
+    const { persons } = buildEntitiesFromOcrText(
+      lines.join('\n'),
+      lines,
+      'doc_obvineny',
+      'Výpoveď číslo 2 - Dimitri Cohen.txt'
+    );
+    assert.strictEqual(persons[0].name, 'Dimitri Cohen');
+    assert.strictEqual(persons[0].type, 'obvinený');
+  });
 });

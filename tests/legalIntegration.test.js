@@ -136,12 +136,13 @@ describe('Legal Source of Truth Integration Tests (Zákon č. 300/2005 Z. z.)', 
   });
 
   // Test 7: Prompt injection vo výpovedi nemôže zmeniť právne inštrukcie
-  test('Test 7: Bezpečnostný preamble chráni pred prompt injection a fail-closed LEGAL_CONTEXT', () => {
+  test('Test 7: Bezpečnostný preamble chráni pred prompt injection a per-law LEGAL_CONTEXT', () => {
     assert.ok(AI_PROMPT_PREAMBLE.includes('UNTRUSTED DATA'));
     assert.ok(AI_PROMPT_PREAMBLE.includes('LEGAL_CONTEXT'));
-    assert.ok(AI_PROMPT_PREAMBLE.includes('fail-closed') || AI_PROMPT_PREAMBLE.includes('LEGAL_VERSION_UNAVAILABLE'));
+    assert.ok(AI_PROMPT_PREAMBLE.includes('PER-LAW'));
     assert.ok(!AI_PROMPT_PREAMBLE.includes('Jediným autoritatívnym zdrojom'));
     assert.ok(!/Jediným autoritatívnym.*300\/2005/.test(AI_PROMPT_PREAMBLE));
+    assert.ok(!AI_PROMPT_PREAMBLE.includes('alebo obsahuje LEGAL_SOURCE_UNAVAILABLE'));
   });
 
   // Test 8: Source hash mismatch -> zlyhá closed

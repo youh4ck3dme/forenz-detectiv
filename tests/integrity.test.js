@@ -112,12 +112,12 @@ describe('2. Zod AI Validation & Security Integrity', () => {
     assert.equal(valid.label, 'Ján Novák');
     assert.equal(valid.type, 'podozrivý');
 
-    // Neznámy typ automaticky padne na 'svedok'
+    // Neznámy typ automaticky padne na 'iná osoba' (nie falošne na svedok)
     const fallback = PersonNodeSchema.parse({
       label: 'Peter Kováč',
       type: 'mimozemstan'
     });
-    assert.equal(fallback.type, 'svedok');
+    assert.equal(fallback.type, 'iná osoba');
   });
 
   test('EdgeSchema orezáva biele znaky a validuje dĺžky reťazcov', () => {

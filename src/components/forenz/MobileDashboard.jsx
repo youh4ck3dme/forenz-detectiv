@@ -5,9 +5,13 @@ import { FileText, Loader2, AlertTriangle, Users, ChevronRight } from 'lucide-re
 
 const TYPE_COLOR = {
   'podozrivý': '#ef4444',
+  'obvinený': '#dc2626',
   'svedok': '#3b82f6',
+  'poškodený': '#ea580c',
   'obeť': '#f97316',
-  'alibi': '#22c55e'
+  'znalec': '#8b5cf6',
+  'alibi': '#22c55e',
+  'iná osoba': '#64748b'
 };
 
 function initials(name) {

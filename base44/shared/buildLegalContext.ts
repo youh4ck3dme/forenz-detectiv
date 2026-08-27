@@ -132,7 +132,10 @@ function renderContextBlock(
     'RULE: Substantive criminal-law version (TZ) MUST be selected by DATE_OF_CONDUCT only. Interrogation date must NOT select TZ version.'
   );
   lines.push(
-    'RULE: Never reconstruct Slovak law from model memory. Cite ONLY paragraphs listed below. If none are AVAILABLE, do not invent legal qualifications.'
+    'RULE: Never reconstruct Slovak law from model memory. Cite ONLY paragraphs listed under LAW entries with status AVAILABLE.'
+  );
+  lines.push(
+    'RULE (PER-LAW): Use legal assessment ONLY for a LAW entry with status AVAILABLE. A LAW entry with LEGAL_SOURCE_UNAVAILABLE or LEGAL_VERSION_UNAVAILABLE must not be used or reconstructed from memory. Unavailability of one law does NOT disable another independent law with status AVAILABLE. Overall STATUS PARTIAL does not mean all laws are unavailable.'
   );
 
   if (warnings.length) {
@@ -154,15 +157,18 @@ function renderContextBlock(
         lines.push(`    effective: ${p.effective_from} → ${p.effective_to}`);
         lines.push(`    source: ${p.sourceFile} p.${p.sourcePage}`);
         lines.push(`    sha256: ${p.sourceHash}`);
-        lines.push(`    text: ${p.text.slice(0, 1200)}${p.text.length > 1200 ? '…' : ''}`);
+        lines.push(`    text: ${p.text}`);
       }
     }
   }
 
-  if (status === 'LEGAL_VERSION_UNAVAILABLE' || status === 'LEGAL_SOURCE_UNAVAILABLE') {
+  const anyUsableLaw = laws.some(
+    (l) => l.status === 'AVAILABLE' && Array.isArray(l.paragraphs) && l.paragraphs.length > 0
+  );
+  if (!anyUsableLaw) {
     lines.push('');
     lines.push(
-      'FAIL-CLOSED: Extraction of persons/claims/events is allowed. Definitive legal qualification is FORBIDDEN.'
+      'FAIL-CLOSED: No LAW entry with status AVAILABLE and verified paragraphs. Extraction of persons/claims/events is allowed. Definitive legal qualification is FORBIDDEN for all laws.'
     );
   }
 

@@ -49,9 +49,11 @@ export default function AlibiImpossibleShareCard({
   const getPersonColor = (personName) => {
     const person = persons.find((p) => p.name === personName);
     if (person?.type === 'alibi') return '#3b82f6';
-    if (person?.type === 'podozrivý') return '#ef4444';
+    if (person?.type === 'podozrivý' || person?.type === 'obvinený') return '#ef4444';
     if (person?.type === 'svedok') return '#60a5fa';
-    if (person?.type === 'obeť') return '#f97316';
+    if (person?.type === 'obeť' || person?.type === 'poškodený') return '#f97316';
+    if (person?.type === 'znalec') return '#8b5cf6';
+    return '#64748b';
     return '#84cc16';
   };
 

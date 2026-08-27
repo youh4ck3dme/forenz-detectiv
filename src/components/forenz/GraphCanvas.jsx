@@ -173,8 +173,8 @@ export default function GraphCanvas({
 
   // Farby podľa témy
   const RING = dark
-    ? { 'podozrivý': '#f87171', 'svedok': '#60a5fa', 'alibi': '#38bdf8', 'obeť': '#94a3b8' }
-    : { 'podozrivý': '#CE1126', 'svedok': '#003DA5', 'alibi': '#0284c7', 'obeť': '#64748b' };
+    ? { 'podozrivý': '#f87171', 'obvinený': '#f87171', 'svedok': '#60a5fa', 'poškodený': '#fb923c', 'alibi': '#38bdf8', 'obeť': '#94a3b8', 'znalec': '#a78bfa', 'iná osoba': '#94a3b8' }
+    : { 'podozrivý': '#CE1126', 'obvinený': '#B91C1C', 'svedok': '#003DA5', 'poškodený': '#C2410C', 'alibi': '#0284c7', 'obeť': '#64748b', 'znalec': '#7C3AED', 'iná osoba': '#64748b' };
 
   const C = dark
     ? { bg: '#0f172a', nodeFill: '#1e293b', edge: 'rgba(96,165,250,0.22)', edgeActive: '#60a5fa', edgeRed: '#f87171', name: '#f1f5f9', label: '#94a3b8', time: '#cbd5e1', pill: '#0f172a', pillStroke: 'rgba(255,255,255,0.15)' }
@@ -331,9 +331,9 @@ export default function GraphCanvas({
     ctx.strokeStyle = ringColor;
     ctx.fillStyle = C.nodeFill;
 
-    if (type === 'podozrivý') {
+    if (type === 'podozrivý' || type === 'obvinený') {
       drawOctagon(ctx, x, y, r);
-    } else if (type === 'obeť') {
+    } else if (type === 'obeť' || type === 'poškodený') {
       drawTriangle(ctx, x, y, r);
     } else if (type === 'alibi') {
       drawRoundedRect(ctx, x - r, y - r, 2 * r, 2 * r, 6);

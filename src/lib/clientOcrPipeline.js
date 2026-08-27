@@ -49,17 +49,22 @@ function normalizeRole(roleRaw) {
     .toLowerCase()
     .normalize('NFD')
     .replace(/\p{M}/gu, '');
-  if (/podozriv|zadrz|obvinen/.test(r)) return 'podozrivý';
+  if (/obvinen/.test(r)) return 'obvinený';
+  if (/podozriv|zadrz/.test(r)) return 'podozrivý';
   if (r === 'svedka' || r === 'svedok') return 'svedok';
+  if (/poskod/.test(r)) return 'poškodený';
   if (/obet/.test(r)) return 'obeť';
+  if (/znalec/.test(r)) return 'znalec';
   if (r === 'alibi') return 'alibi';
-  return String(roleRaw || 'svedok').toLowerCase();
+  return 'iná osoba';
 }
 
 function inferSubjectRole(documentTitle, headerLines) {
   const ctx = `${documentTitle}\n${(headerLines || []).slice(0, 8).join('\n')}`.toLowerCase();
-  if (/podozriv|zadržan|zadrz|obvinen|výsluch zadržan|vypoved zadrz/.test(ctx)) return 'podozrivý';
+  if (/obvinen/.test(ctx)) return 'obvinený';
+  if (/podozriv|zadržan|zadrz|výsluch zadržan|vypoved zadrz/.test(ctx)) return 'podozrivý';
   if (/svedok|sviedok/.test(ctx)) return 'svedok';
+  if (/poškoden|poskoden/.test(ctx)) return 'poškodený';
   return 'podozrivý';
 }
 

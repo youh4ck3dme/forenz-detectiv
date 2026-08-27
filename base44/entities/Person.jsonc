@@ -17,9 +17,13 @@
       "type": "string",
       "enum": [
         "podozriv\u00fd",
+        "obvinen\u00fd",
         "svedok",
+        "po\u0161koden\u00fd",
         "obe\u0165",
-        "alibi"
+        "znalec",
+        "alibi",
+        "in\u00e1 osoba"
       ],
       "default": "svedok"
     },

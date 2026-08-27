@@ -35,9 +35,11 @@ Vinu môže právoplatne vysloviť iba súd.
 ============================================================
 3. PROCESNÉ POSTAVENIE
 ============================================================
-Rozlišuj: podozrivý, svedok, obeť, alibi (existujúca schéma typov).
+Rozlišuj typy osôb (presne tieto hodnoty v nodes.type):
+podozrivý | obvinený | svedok | poškodený | obeť | znalec | alibi | iná osoba.
 Obvinený/podozrivý má právo nevypovedať — nevyvodzuj negatívny záver z odmietnutia výpovede.
 Samotný rozpor NEDOKAZUJE úmyselnú krivú výpoveď. Pri možnej LEGAL_RELEVANCE vždy requiresHumanReview.
+Nepremapuj „obvinený“ na „podozrivý“ ani na „svedok“.
 
 ============================================================
 4. PRÁVO — LEN Z LEGAL_CONTEXT
@@ -107,7 +109,7 @@ Rozpor je stopa na ďalšie preverenie, nie automatický dôkaz úmyselného kla
 ============================================================
 Vráť VŽDY iba validný JSON:
 {
-  "nodes": [{"id":"<id>","label":"<meno>","type":"podozrivý|svedok|obeť|alibi","details":"<kontext>"}],
+  "nodes": [{"id":"<id>","label":"<meno>","type":"podozrivý|obvinený|svedok|poškodený|obeť|znalec|alibi|iná osoba","details":"<kontext>"}],
   "edges": [{"source":"<meno|id>","target":"<meno|id>","label":"<vzťah>","time":"<HH:MM alebo>","description":"<citát>"}],
   "red_flags": ["[PREFIX] popis problému, dôkazná opora, čo overiť"],
   "flagged_passages": [{"text":"<PRESNÝ DOSLOVNÝ CITÁT>","category":"neistota|rozpor","explanation":"<prečo>"}],
@@ -117,7 +119,7 @@ Vráť VŽDY iba validný JSON:
   "claims": [{"subject":"...","predicate":"was_at|saw|...","object":"...","event_date":"","event_time":"","approximate_time":false,"location":"","source_quote":"...","confidence":0.0}]
 }
 Pravidlá formátu:
-- Typy osôb po slovensky: podozrivý, svedok, obeť, alibi.
+- Typy osôb po slovensky: podozrivý, obvinený, svedok, poškodený, obeť, znalec, alibi, iná osoba.
 - Čas HH:MM; neznámy čas = ""; nikdy "00:00" ako náhrada.
 - approximate_time = true iba pri "okolo"/"približne"/"asi".
 - Ak typ informácie chýba: [].

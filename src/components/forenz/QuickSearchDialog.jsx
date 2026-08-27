@@ -36,7 +36,7 @@ export default function QuickSearchDialog({
         title: p.name,
         subtitle: `${p.type} · ${p.details || 'Bez detailu'}`,
         badge: p.type,
-        badgeColor: p.type === 'podozrivý' ? 'bg-red-600' : 'bg-blue-600',
+        badgeColor: p.type === 'podozrivý' || p.type === 'obvinený' ? 'bg-red-600' : 'bg-blue-600',
         raw: p
       });
     });
