@@ -91,6 +91,52 @@ describe('Cohen chronology merit/Q&A extraction', () => {
     assert.strictEqual(graphNodes.length, persons.length - 1);
   });
 
+  test('filters sentence-fragment and legal noise from person list', () => {
+    const { persons, relationships } = buildEntitiesFromOcrText(
+      FIXTURE_TEXT,
+      FIXTURE_LINES,
+      DOC_ID,
+      DOC_TITLE
+    );
+
+    const noiseExact = [
+      'Ja som',
+      'Ak',
+      'On',
+      'To',
+      'Postup',
+      'Trestného poriadku',
+      'Proste som',
+      'Erikovi Babčanovi',
+      'Následne mi',
+      'Jeho mal',
+      'Vtedy som',
+      'Skyrčák ich',
+      'PZ',
+      'PZ mjr'
+    ];
+    for (const noise of noiseExact) {
+      assert.ok(
+        !persons.some((p) => p.name === noise),
+        `noise person must be absent: ${noise}`
+      );
+    }
+
+    const noiseFragments = ['Ja som', 'Proste som', 'Trestného poriadku', ' som ', ' poriadku '];
+    for (const fragment of noiseFragments) {
+      assert.ok(
+        !persons.some((p) => p.name.includes(fragment)),
+        `person name must not contain fragment: ${fragment}`
+      );
+    }
+
+    assert.ok(persons.length >= 6);
+    assert.ok(persons.length <= 16);
+    assert.ok(!persons.some((p) => p.name === 'Erikovi Babčanovi'));
+    assert.ok(persons.some((p) => p.name === 'Erik Babčan'));
+    assert.strictEqual(relationships.length, persons.length - 1);
+  });
+
   test('rehydrateMissingEntities rebuilds from extracted_text with counts + version', () => {
     const snapshot = {
       documents: [{
