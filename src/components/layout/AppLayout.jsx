@@ -11,7 +11,7 @@ export default function AppLayout({
   return (
     <div
       data-testid="app-layout"
-      className="h-dvh flex flex-col overflow-hidden bg-slate-950 text-slate-100"
+      className="h-dvh flex flex-col overflow-hidden bg-white text-slate-900"
     >
       <div className="camera-dead-zone" aria-hidden="true" data-testid="camera-dead-zone" />
       <div className="touch-below-camera">

@@ -71,16 +71,15 @@ export default function HomeHero({ onScan, onBulkScan = null, scanning = false }
   };
 
   return (
-    <div className="relative w-full flex-1 flex flex-col items-center justify-center p-4 lg:p-8 overflow-y-auto bg-slate-950 text-slate-100">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[400px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+    <div className="relative w-full flex-1 flex flex-col items-center justify-center p-4 lg:p-8 overflow-y-auto bg-white text-slate-900">
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[280px] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-4xl w-full flex flex-col items-center text-center z-10 my-auto">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-medium text-slate-300 shadow-sm mb-6"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-slate-200 text-xs font-medium text-slate-700 shadow-sm mb-6"
         >
           <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
           <span className="text-amber-400 font-semibold">ForenzDetectiv AI</span>
@@ -92,17 +91,17 @@ export default function HomeHero({ onScan, onBulkScan = null, scanning = false }
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-[1.15]"
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 max-w-3xl leading-[1.15]"
         >
-          {t('hero.headlineBefore')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">{t('hero.headlineMid')}</span> {t('hero.headlineAnd')}{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-300 to-red-500">{t('hero.headlineEnd')}</span>
+          {t('hero.headlineBefore')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600">{t('hero.headlineMid')}</span> {t('hero.headlineAnd')}{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-500 to-red-600">{t('hero.headlineEnd')}</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="text-sm sm:text-base text-slate-400 max-w-2xl mt-4 mb-8 leading-relaxed"
+          className="text-sm sm:text-base text-slate-600 max-w-2xl mt-4 mb-8 leading-relaxed"
         >
           {t('hero.subheadline')}
         </motion.p>
@@ -118,7 +117,7 @@ export default function HomeHero({ onScan, onBulkScan = null, scanning = false }
           className={`w-full max-w-2xl p-6 sm:p-8 rounded-3xl border-2 border-dashed transition-all cursor-pointer relative overflow-hidden group shadow-2xl ${
             isDragOver
               ? 'border-amber-400 bg-amber-500/10 scale-[1.01]'
-              : 'border-slate-800 bg-slate-900/80 hover:border-amber-500/50 hover:bg-slate-900'
+              : 'border-slate-200 bg-white hover:border-amber-500/50 hover:bg-white'
           }`}
         >
           <input
@@ -136,10 +135,10 @@ export default function HomeHero({ onScan, onBulkScan = null, scanning = false }
             </div>
 
             <div className="space-y-1">
-              <h2 className="text-base sm:text-lg font-semibold text-white">
+              <h2 className="text-base sm:text-lg font-semibold text-slate-900">
                 {scanning ? t('hero.dropScanning') : t('hero.dropTitle')}
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 {t('hero.dropHint')}
               </p>
             </div>
@@ -171,37 +170,37 @@ export default function HomeHero({ onScan, onBulkScan = null, scanning = false }
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.5 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-3xl mt-8 pt-6 border-t border-slate-900"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-3xl mt-8 pt-6 border-t border-slate-200"
         >
-          <div className="flex items-center gap-2 text-left p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/40">
-            <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" />
+          <div className="flex items-center gap-2 text-left p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+            <AlertTriangle className="w-4 h-4 text-red-500 shrink-0" />
             <div>
-              <div className="text-xs font-semibold text-slate-200">{t('hero.badgeContradictions')}</div>
-              <div className="text-[11px] text-slate-400">{t('hero.badgeCitations')}</div>
+              <div className="text-xs font-semibold text-slate-800">{t('hero.badgeContradictions')}</div>
+              <div className="text-[11px] text-slate-500">{t('hero.badgeCitations')}</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-left p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/40">
-            <MapPin className="w-4 h-4 text-blue-400 shrink-0" />
+          <div className="flex items-center gap-2 text-left p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+            <MapPin className="w-4 h-4 text-blue-500 shrink-0" />
             <div>
-              <div className="text-xs font-semibold text-slate-200">{t('hero.badgeMap')}</div>
-              <div className="text-[11px] text-slate-400">{t('hero.badgeHaversine')}</div>
+              <div className="text-xs font-semibold text-slate-800">{t('hero.badgeMap')}</div>
+              <div className="text-[11px] text-slate-500">{t('hero.badgeHaversine')}</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-left p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/40">
-            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="flex items-center gap-2 text-left p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+            <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
             <div>
-              <div className="text-xs font-semibold text-slate-200">{t('hero.badgeSandbox')}</div>
-              <div className="text-[11px] text-slate-400">{t('hero.badgeGdpr')}</div>
+              <div className="text-xs font-semibold text-slate-800">{t('hero.badgeSandbox')}</div>
+              <div className="text-[11px] text-slate-500">{t('hero.badgeGdpr')}</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-left p-2.5 rounded-xl bg-slate-900/40 border border-slate-800/40">
-            <Scale className="w-4 h-4 text-amber-400 shrink-0" />
+          <div className="flex items-center gap-2 text-left p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+            <Scale className="w-4 h-4 text-amber-500 shrink-0" />
             <div>
-              <div className="text-xs font-semibold text-slate-200">{t('hero.badgePdf')}</div>
-              <div className="text-[11px] text-slate-400">{t('hero.badgeSha')}</div>
+              <div className="text-xs font-semibold text-slate-800">{t('hero.badgePdf')}</div>
+              <div className="text-[11px] text-slate-500">{t('hero.badgeSha')}</div>
             </div>
           </div>
         </motion.div>
@@ -215,7 +214,7 @@ export default function HomeHero({ onScan, onBulkScan = null, scanning = false }
           <button
             type="button"
             onClick={() => setLeadOpen(true)}
-            className="text-xs text-slate-400 hover:text-amber-400 transition-colors"
+            className="text-xs text-slate-500 hover:text-amber-600 transition-colors"
           >
             {t('hero.pilotLink')}
           </button>

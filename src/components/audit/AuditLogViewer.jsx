@@ -22,11 +22,11 @@ export default function AuditLogViewer({ isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl bg-slate-950 border-slate-800 text-slate-100 p-6 max-h-[85vh] flex flex-col">
+      <DialogContent className="max-w-4xl bg-white border-slate-200 text-slate-900 p-6 max-h-[85vh] flex flex-col">
         <DialogHeader>
           <div className="flex items-center gap-2 text-amber-500">
             <ShieldCheck className="h-5 w-5" />
-            <DialogTitle className="text-xl font-bold text-white">
+            <DialogTitle className="text-xl font-bold text-slate-900">
               Forenzný Audit Log v2 (Reťazec dôkazov)
             </DialogTitle>
           </div>
@@ -36,7 +36,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
         </DialogHeader>
 
         {/* Filters and Controls */}
-        <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-slate-800">
+        <div className="flex flex-wrap items-center justify-between gap-3 py-3 border-b border-slate-200">
           <div className="flex items-center gap-2 flex-1 min-w-[200px]">
             <div className="relative w-full">
               <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-500" />
@@ -45,7 +45,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
                 placeholder="Hľadať v záznamoch..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
             <select
               value={filterAction}
               onChange={(e) => setFilterAction(e.target.value)}
-              className="bg-slate-900 border border-slate-800 text-xs text-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none"
+              className="bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 focus:outline-none"
             >
               <option value="ALL">Všetky akcie</option>
               <option value="CASE_CREATED">Vytvorenie spisu</option>
@@ -69,7 +69,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
               variant="outline"
               size="sm"
               onClick={exportLogsAsCsv}
-              className="border-slate-800 text-slate-300 hover:text-white text-xs gap-1"
+              className="border-slate-200 text-slate-700 hover:text-slate-900 text-xs gap-1"
             >
               <Download className="h-3.5 w-3.5 text-emerald-400" /> CSV
             </Button>
@@ -79,7 +79,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
               variant="outline"
               size="sm"
               onClick={exportLogsAsTxt}
-              className="border-slate-800 text-slate-300 hover:text-white text-xs gap-1"
+              className="border-slate-200 text-slate-700 hover:text-slate-900 text-xs gap-1"
             >
               <FileText className="h-3.5 w-3.5 text-blue-400" /> TXT
             </Button>
@@ -107,7 +107,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
             filteredLogs.map((log) => (
               <div
                 key={log.id}
-                className="bg-slate-900/80 border border-slate-800/90 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:border-slate-700 transition-colors"
+                className="bg-white border border-slate-200/90 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:border-slate-300 transition-colors"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -119,7 +119,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
                       {new Date(log.timestamp).toLocaleTimeString('sk-SK')} ({new Date(log.timestamp).toLocaleDateString('sk-SK')})
                     </span>
                   </div>
-                  <p className="text-slate-200 text-xs font-sans">
+                  <p className="text-slate-800 text-xs font-sans">
                     {typeof log.details === 'object' ? JSON.stringify(log.details) : log.details}
                   </p>
                 </div>
@@ -133,11 +133,11 @@ export default function AuditLogViewer({ isOpen, onClose }) {
         </div>
 
         {/* Footer */}
-        <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+        <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
           <span className="text-xs text-slate-400">
             Záznamov: {filteredLogs.length} / {logs.length}
           </span>
-          <Button type="button" variant="ghost" onClick={onClose} className="text-slate-400 hover:text-white text-xs">
+          <Button type="button" variant="ghost" onClick={onClose} className="text-slate-400 hover:text-slate-900 text-xs">
             Zavrieť
           </Button>
         </div>

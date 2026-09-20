@@ -1280,7 +1280,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
 
   if (loading) {
     return (
-      <div className="h-dvh flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="h-dvh flex items-center justify-center bg-white">
         <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
       </div>
     );
@@ -1326,10 +1326,10 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
   );
 
   const bulkBanner = bulkProgress ? (
-        <div className="px-4 py-2 bg-slate-900 border-b border-slate-800 flex items-center justify-between gap-3 text-xs text-slate-300 shrink-0 shadow-md">
+        <div className="px-4 py-2 bg-white border-b border-slate-200 flex items-center justify-between gap-3 text-xs text-slate-700 shrink-0 shadow-md">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <Loader2 className="w-4 h-4 text-blue-400 animate-spin shrink-0" />
-            <span className="font-medium text-slate-200 truncate">
+            <span className="font-medium text-slate-800 truncate">
               {bulkProgress.statusText || `Spracovanie: ${bulkProgress.done} z ${bulkProgress.total}`}
             </span>
             <span className="shrink-0 tabular-nums whitespace-nowrap text-slate-400 text-[11px] hidden sm:inline">
@@ -1338,7 +1338,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            <div className="w-24 sm:w-44 h-2 rounded-full bg-slate-800 overflow-hidden flex border border-slate-700/60">
+            <div className="w-24 sm:w-44 h-2 rounded-full bg-slate-200 overflow-hidden flex border border-slate-200">
               <div
                 className="h-full bg-emerald-500 transition-all duration-300"
                 style={{
@@ -1442,7 +1442,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
       )}
     >
       {/* Navigation View Tabs (Desktop & Tablet) */}
-      <div className="hidden lg:flex shrink-0 items-center px-4 py-2 border-b border-slate-800 bg-slate-950/90 backdrop-blur-md">
+      <div className="hidden lg:flex shrink-0 items-center px-4 py-2 border-b border-slate-200 bg-white/90 backdrop-blur-md">
         <div className="flex items-center gap-1.5">
           <button
             type="button"
@@ -1450,7 +1450,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               activeView === 'graph'
                 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
+                : 'text-slate-400 hover:text-slate-800 hover:bg-white border border-transparent'
             }`}
           >
             <Network className="w-3.5 h-3.5 text-amber-400" />
@@ -1463,7 +1463,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               activeView === 'archive'
                 ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
+                : 'text-slate-400 hover:text-slate-800 hover:bg-white border border-transparent'
             }`}
           >
             <Layers className="w-3.5 h-3.5 text-blue-400" />
@@ -1476,7 +1476,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               activeView === 'map'
                 ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
+                : 'text-slate-400 hover:text-slate-800 hover:bg-white border border-transparent'
             }`}
           >
             <MapPin className="w-3.5 h-3.5 text-cyan-400" />
@@ -1489,7 +1489,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               activeView === 'timeline'
                 ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
+                : 'text-slate-400 hover:text-slate-800 hover:bg-white border border-transparent'
             }`}
           >
             <Clock className="w-3.5 h-3.5 text-indigo-400" />
@@ -1499,7 +1499,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
           <button
             type="button"
             onClick={() => handleViewChange('sherlock')}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition-all"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-slate-800 hover:bg-white border border-transparent transition-all"
             title="Otvoriť Sherlock AI vyšetrovacieho asistenta"
           >
             <Search className="w-3.5 h-3.5 text-amber-400" />
@@ -1512,7 +1512,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               activeView === 'identity'
                 ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
+                : 'text-slate-400 hover:text-slate-800 hover:bg-white border border-transparent'
             }`}
           >
             <Users className="w-3.5 h-3.5 text-purple-400" />

@@ -67,15 +67,15 @@ export default function ArchiveViewer({ documents = [], selectedDocId, onSelect 
   };
 
   const btn =
-    'w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0 shadow-sm';
+    'w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-800 border border-slate-200 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0 shadow-sm';
 
   return (
-    <div className="flex-1 flex flex-col bg-slate-950 min-h-0 overflow-hidden">
-      <div className="shrink-0 flex items-center gap-1.5 px-3 py-2 border-b border-slate-800 bg-slate-900/90">
+    <div className="flex-1 flex flex-col bg-white min-h-0 overflow-hidden">
+      <div className="shrink-0 flex items-center gap-1.5 px-3 py-2 border-b border-slate-200 bg-white/90">
         <button className={btn} onClick={() => prevDoc && onSelect(prevDoc.id)} disabled={!prevDoc} title="Predchádzajúci">
           <ChevronLeft className="w-4 h-4" />
         </button>
-        <span className="text-xs text-slate-300 font-medium truncate flex-1 text-center px-2">{doc?.title || '—'}</span>
+        <span className="text-xs text-slate-700 font-medium truncate flex-1 text-center px-2">{doc?.title || '—'}</span>
         <button className={btn} onClick={() => nextDoc && onSelect(nextDoc.id)} disabled={!nextDoc} title="Nasledujúci">
           <ChevronRight className="w-4 h-4" />
         </button>
@@ -103,7 +103,7 @@ export default function ArchiveViewer({ documents = [], selectedDocId, onSelect 
               <iframe
                 src={`${doc.image_url}#toolbar=1&navpanes=0`}
                 title={doc.title}
-                className="w-full h-full rounded-xl border border-slate-800 bg-slate-900 shadow-2xl"
+                className="w-full h-full rounded-xl border border-slate-200 bg-white shadow-2xl"
               />
             </div>
           ) : (

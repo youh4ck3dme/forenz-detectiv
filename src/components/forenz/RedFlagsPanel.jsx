@@ -38,17 +38,17 @@ export default function RedFlagsPanel({
   };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-900 border-t border-slate-800">
-      <div className="px-4 py-3 sticky top-0 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 flex items-center gap-2 z-10">
+    <div className="flex-1 overflow-y-auto bg-white border-t border-slate-200">
+      <div className="px-4 py-3 sticky top-0 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center gap-2 z-10">
         <ShieldAlert className="w-4 h-4 text-red-400" />
-        <h3 className="text-xs font-semibold text-slate-100">Analýza dôveryhodnosti</h3>
+        <h3 className="text-xs font-semibold text-slate-900">Analýza dôveryhodnosti</h3>
         <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-red-950 text-red-400 font-semibold border border-red-800">
           {redFlags.length + contradictions.length}
         </span>
       </div>
       <div className="p-3 space-y-2">
         {redFlags.length === 0 && contradictions.length === 0 ? (
-          <div className="text-center py-6 px-4 bg-slate-900/40 border border-slate-800 rounded-xl">
+          <div className="text-center py-6 px-4 bg-white/40 border border-slate-200 rounded-xl">
             <ShieldAlert className="w-7 h-7 mx-auto mb-2 text-slate-600 opacity-60" />
             <p className="text-xs text-slate-400">
               Žiadne varovania. Naskenujte výpovede pre automatickú detekciu nezrovnalostí a nemožných alibi.
@@ -67,7 +67,7 @@ export default function RedFlagsPanel({
                     <ShieldAlert className="w-3.5 h-3.5" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-medium text-slate-200 leading-snug">
+                    <p className="text-xs font-medium text-slate-800 leading-snug">
                       {c.explanation || c.type?.replace(/_/g, ' ') || 'Detegovaný rozpor'}
                     </p>
                     <div className="flex items-center justify-between gap-2 mt-2 flex-wrap">
@@ -117,7 +117,7 @@ export default function RedFlagsPanel({
                       {isCritical ? <ShieldAlert className="w-3.5 h-3.5" /> : <AlertTriangle className="w-3.5 h-3.5" />}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-xs font-medium text-slate-200 leading-snug">{rf.description}</p>
+                      <p className="text-xs font-medium text-slate-800 leading-snug">{rf.description}</p>
                       <div className="flex items-center justify-between gap-2 mt-2 flex-wrap">
                         <div className="flex items-center gap-2">
                           <span className={`text-[9px] font-semibold px-2 py-0.5 rounded uppercase tracking-wider ${

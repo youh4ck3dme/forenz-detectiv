@@ -12,7 +12,7 @@ export default function TimeSlider({ min, max, value, onChange, replaying, onTog
   };
 
   return (
-    <div className="flex items-center gap-3 px-4 py-3 bg-slate-900/80 border-t border-slate-800 shrink-0">
+    <div className="flex items-center gap-3 px-4 py-3 bg-white border-t border-slate-200 shrink-0">
       <button
         onClick={onToggleReplay}
         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-white transition ${
@@ -36,8 +36,8 @@ export default function TimeSlider({ min, max, value, onChange, replaying, onTog
         className="flex-1 accent-blue-500 cursor-pointer"
       />
       <span className="hidden sm:inline text-xs text-slate-500 w-12 text-right shrink-0">{formatMinutes(max)}</span>
-      <span className="text-sm font-mono text-blue-300 w-12 text-center shrink-0 tabular-nums">{formatMinutes(value)}</span>
-      <button onClick={() => onChange(max)} title="Zobraziť všetky vzťahy" className="hidden sm:block text-slate-400 hover:text-white shrink-0">
+      <span className="text-sm font-mono text-blue-600 w-12 text-center shrink-0 tabular-nums">{formatMinutes(value)}</span>
+      <button onClick={() => onChange(max)} title="Zobraziť všetky vzťahy" className="hidden sm:block text-slate-400 hover:text-slate-900 shrink-0">
         <RotateCcw className="w-4 h-4" />
       </button>
     </div>

@@ -517,9 +517,9 @@ export default function GraphCanvas({
 
   if (!graphData.nodes.length) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-slate-900 border border-slate-800 rounded-2xl text-blue-400 min-h-0 m-2">
+      <div className="flex-1 flex items-center justify-center bg-white border border-slate-200 rounded-2xl text-blue-400 min-h-0 m-2">
         <div className="text-center px-6">
-          <div className="text-base text-slate-200 font-semibold">Žiadne osoby na zobrazenie v grafe</div>
+          <div className="text-base text-slate-800 font-semibold">Žiadne osoby na zobrazenie v grafe</div>
           <div className="text-xs mt-1 text-slate-400">Naskenujte alebo nahrajte výpoveď pre vytvorenie interaktívneho pavúka vzťahov.</div>
         </div>
       </div>
@@ -529,7 +529,7 @@ export default function GraphCanvas({
   return (
     <div
       ref={containerRef}
-      className="relative flex-1 bg-slate-950 border border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-0 w-full h-full"
+      className="relative flex-1 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden min-h-0 w-full h-full"
     >
       <ForceGraph2D
         ref={fgRef}
@@ -560,21 +560,21 @@ export default function GraphCanvas({
       <div className="absolute top-3 right-3 flex flex-col gap-1.5 z-20">
         <button
           onClick={handleZoomIn}
-          className="w-9 h-9 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-blue-400 border border-slate-800 flex items-center justify-center shadow-md transition-all"
+          className="w-9 h-9 rounded-xl bg-white/90 hover:bg-slate-100 text-blue-400 border border-slate-200 flex items-center justify-center shadow-md transition-all"
           title="Priblížiť"
         >
           <ZoomIn className="w-4 h-4" />
         </button>
         <button
           onClick={handleZoomOut}
-          className="w-9 h-9 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-blue-400 border border-slate-800 flex items-center justify-center shadow-md transition-all"
+          className="w-9 h-9 rounded-xl bg-white/90 hover:bg-slate-100 text-blue-400 border border-slate-200 flex items-center justify-center shadow-md transition-all"
           title="Oddialiť"
         >
           <ZoomOut className="w-4 h-4" />
         </button>
         <button
           onClick={handleZoomFit}
-          className="w-9 h-9 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-blue-400 border border-slate-800 flex items-center justify-center shadow-md transition-all"
+          className="w-9 h-9 rounded-xl bg-white/90 hover:bg-slate-100 text-blue-400 border border-slate-200 flex items-center justify-center shadow-md transition-all"
           title="Vycentrovať graf"
         >
           <Maximize2 className="w-4 h-4" />
@@ -582,7 +582,7 @@ export default function GraphCanvas({
       </div>
 
       {/* Legenda typov osôb */}
-      <div className="absolute bottom-3 left-3 flex flex-wrap gap-3 text-xs px-3.5 py-2 rounded-xl bg-slate-900/95 border border-slate-800 shadow-md z-20 text-slate-300">
+      <div className="absolute bottom-3 left-3 flex flex-wrap gap-3 text-xs px-3.5 py-2 rounded-xl bg-white/95 border border-slate-200 shadow-md z-20 text-slate-700">
         <Legend color="#f87171" label="Podozrivý" shape="oct" />
         <Legend color="#60a5fa" label="Svedok" shape="circle" />
         <Legend color="#94a3b8" label="Obeť" shape="tri" />
@@ -591,7 +591,7 @@ export default function GraphCanvas({
 
       {/* Focus Mode info */}
       {focusId && (
-        <div className="absolute top-3 left-3 px-3 py-1.5 rounded-xl bg-slate-900/95 border border-slate-800 text-xs text-blue-400 shadow-md z-20">
+        <div className="absolute top-3 left-3 px-3 py-1.5 rounded-xl bg-white/95 border border-slate-200 text-xs text-blue-400 shadow-md z-20">
           Focus Mode — stlačte <strong>Esc</strong> pre zrušenie
         </div>
       )}
@@ -627,7 +627,7 @@ export default function GraphCanvas({
             )}
             <button
               onClick={() => setMultiSel(new Set())}
-              className="w-9 h-9 rounded-2xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-white/50 dark:hover:bg-slate-700 flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-2xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-800 hover:bg-white/50 dark:hover:bg-slate-700 flex items-center justify-center transition-colors"
               title="Zrušiť výber"
             >
               <X className="w-4 h-4" />
@@ -657,11 +657,11 @@ export default function GraphCanvas({
                   className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-2xl border text-left transition-colors ${
                     dialog.masterId === g.id
                       ? 'border-indigo-500 bg-indigo-500/10'
-                      : 'border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      : 'border-slate-200 dark:border-slate-300 hover:bg-slate-100 dark:hover:bg-slate-100'
                   }`}
                 >
                   <span className={`w-4 h-4 rounded-full border-2 shrink-0 ${dialog.masterId === g.id ? 'border-indigo-500 bg-indigo-500' : 'border-slate-300 dark:border-slate-600'}`} />
-                  <span className="text-sm font-medium text-slate-900 dark:text-slate-100">{g.displayName}</span>
+                  <span className="text-sm font-medium text-slate-900 dark:text-slate-900">{g.displayName}</span>
                   <span className="ml-auto text-[10px] text-slate-400">{g.persons.length} os.</span>
                 </button>
               ))}
@@ -671,7 +671,7 @@ export default function GraphCanvas({
           {dialog?.mode === 'split' && (
             <div className="space-y-1.5 max-h-56 overflow-y-auto">
               {dialog.groups[0].persons.map((p) => (
-                <div key={p.id} className="px-3 py-2 rounded-2xl bg-slate-100 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100">
+                <div key={p.id} className="px-3 py-2 rounded-2xl bg-slate-100 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-900">
                   {p.name}
                   {p.document_title && <span className="text-[10px] text-slate-400 ml-2">({p.document_title})</span>}
                 </div>
@@ -683,7 +683,7 @@ export default function GraphCanvas({
             value={dialog?.note || ''}
             onChange={(e) => setDialog((d) => ({ ...d, note: e.target.value }))}
             placeholder="Dôvod (voliteľné)"
-            className="w-full rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 outline-none focus:ring-2 ring-indigo-500"
+            className="w-full rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-300 px-3 py-2 text-sm text-slate-900 dark:text-slate-900 outline-none focus:ring-2 ring-indigo-500"
           />
 
           <AlertDialogFooter>
@@ -714,7 +714,7 @@ function Legend({ color, label, shape }) {
     icon = <span className="w-3 h-3 rounded-[2px] shrink-0" style={{ background: color }} />;
   }
   return (
-    <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-medium">
+    <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-700 font-medium">
       {icon}
       <span>{label}</span>
     </div>

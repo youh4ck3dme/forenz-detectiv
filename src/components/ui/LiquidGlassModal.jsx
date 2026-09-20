@@ -21,7 +21,7 @@ export default function LiquidGlassModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-slate-950/75 backdrop-blur-xl transition-opacity"
+          className="fixed inset-0 bg-white/40 backdrop-blur-xl transition-opacity"
           onClick={onClose}
         />
 
@@ -31,7 +31,7 @@ export default function LiquidGlassModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 16 }}
           transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-          className={`relative w-full ${maxWidth} rounded-3xl md:rounded-[32px] liquid-glass-panel p-5 sm:p-7 text-slate-900 dark:text-slate-100 shadow-2xl overflow-hidden z-10 ${className}`}
+          className={`relative w-full ${maxWidth} rounded-3xl md:rounded-[32px] liquid-glass-panel p-5 sm:p-7 text-slate-900 dark:text-slate-900 shadow-2xl overflow-hidden z-10 ${className}`}
         >
           {/* Slovak Tri-Color Subtle Accent Bar */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-white to-red-600 z-20" />
@@ -46,7 +46,7 @@ export default function LiquidGlassModal({
               {onClose && (
                 <button
                   onClick={onClose}
-                  className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-500 dark:text-slate-300 flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-500 dark:text-slate-700 flex items-center justify-center transition-colors"
                   aria-label="Zavrieť dialóg"
                 >
                   <X className="w-4 h-4" />

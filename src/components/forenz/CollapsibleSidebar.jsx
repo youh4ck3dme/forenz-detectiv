@@ -34,7 +34,7 @@ export default function CollapsibleSidebar({ side, collapsed, onToggle, expanded
             exit={{ scale: 0.6, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 200, damping: 30 }}
             onClick={onToggle}
-            className={`hidden lg:flex absolute top-4 z-30 items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl text-blue-400 text-xs font-semibold hover:bg-slate-800 transition-colors ${side === 'left' ? 'left-4' : 'right-4'}`}
+            className={`hidden lg:flex absolute top-4 z-30 items-center gap-1.5 px-3 py-2 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xl text-blue-400 text-xs font-semibold hover:bg-slate-100 transition-colors ${side === 'left' ? 'left-4' : 'right-4'}`}
           >
             {side === 'left' ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
             {Icon && <Icon className="w-3.5 h-3.5" />}
@@ -50,7 +50,7 @@ function Handle({ side, onToggle }) {
   return (
     <button
       onClick={onToggle}
-      className="w-4 shrink-0 flex items-center justify-center text-slate-500 hover:text-blue-400 hover:bg-slate-800/80 rounded-lg transition-colors"
+      className="w-4 shrink-0 flex items-center justify-center text-slate-500 hover:text-blue-400 hover:bg-slate-100 rounded-lg transition-colors"
       title="Zbaliť panel"
     >
       {side === 'left' ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}

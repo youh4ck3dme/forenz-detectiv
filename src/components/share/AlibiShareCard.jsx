@@ -37,14 +37,14 @@ export default function AlibiShareCard({
       ref={cardRef}
       id="alibi-share-card"
       style={{ width: '1200px', height: '630px', fontFamily: 'Inter, system-ui, sans-serif' }}
-      className="relative flex flex-col justify-between bg-slate-950 text-slate-100 p-12 select-none overflow-hidden border border-slate-800 shadow-2xl rounded-2xl"
+      className="relative flex flex-col justify-between bg-white text-slate-900 p-12 select-none overflow-hidden border border-slate-200 shadow-2xl rounded-2xl"
     >
       {/* Background ambient lighting */}
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-red-600/15 rounded-full blur-3xl pointer-events-none" />
 
       {/* 1. Header */}
-      <div className="flex items-center justify-between z-10 border-b border-slate-800/80 pb-6">
+      <div className="flex items-center justify-between z-10 border-b border-slate-200 pb-6">
         <div className="flex items-center gap-4">
           <div className="h-12 w-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 shadow-lg shadow-amber-500/5">
             <ShieldCheck className="h-7 w-7 text-amber-400" />
@@ -73,14 +73,14 @@ export default function AlibiShareCard({
         {/* Left 7 cols: Route & Speed calculation */}
         <div className="col-span-7 flex flex-col justify-center space-y-6">
           <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-slate-400 font-mono">
-            <span className="px-2 py-1 bg-slate-900 rounded border border-slate-800 text-slate-300">
+            <span className="px-2 py-1 bg-white rounded border border-slate-200 text-slate-700">
               Spis: {data.caseTitle}
             </span>
             <span>•</span>
             <span className="text-amber-400 font-semibold">{displayName}</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 bg-slate-900/90 border border-slate-800 p-5 rounded-xl backdrop-blur">
+          <div className="grid grid-cols-2 gap-4 bg-white/90 border border-slate-200 p-5 rounded-xl backdrop-blur">
             <div className="space-y-1">
               <div className="flex items-center gap-1.5 text-xs text-slate-400">
                 <MapPin className="h-4 w-4 text-emerald-400" />
@@ -93,7 +93,7 @@ export default function AlibiShareCard({
               </div>
             </div>
 
-            <div className="space-y-1 border-l border-slate-800 pl-4">
+            <div className="space-y-1 border-l border-slate-200 pl-4">
               <div className="flex items-center gap-1.5 text-xs text-slate-400">
                 <MapPin className="h-4 w-4 text-red-400" />
                 <span>Cieľový bod (Lokalita B)</span>
@@ -133,22 +133,22 @@ export default function AlibiShareCard({
 
         {/* Right 5 cols: Quotation excerpts */}
         <div className="col-span-5 flex flex-col justify-center space-y-4">
-          <div className="p-4 bg-slate-900/90 border border-slate-800 rounded-xl space-y-2">
+          <div className="p-4 bg-white/90 border border-slate-200 rounded-xl space-y-2">
             <div className="flex items-center gap-2 text-xs text-amber-400 font-semibold">
               <FileText className="h-4 w-4" />
               <span>Dôkaz č. 1</span>
             </div>
-            <p className="text-xs italic text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded border border-slate-800/80">
+            <p className="text-xs italic text-slate-700 leading-relaxed bg-slate-50 p-3 rounded border border-slate-200">
               {displayCitationA}
             </p>
           </div>
 
-          <div className="p-4 bg-slate-900/90 border border-slate-800 rounded-xl space-y-2">
+          <div className="p-4 bg-white/90 border border-slate-200 rounded-xl space-y-2">
             <div className="flex items-center gap-2 text-xs text-red-400 font-semibold">
               <FileText className="h-4 w-4" />
               <span>Dôkaz č. 2 (Protirečenie)</span>
             </div>
-            <p className="text-xs italic text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded border border-slate-800/80">
+            <p className="text-xs italic text-slate-700 leading-relaxed bg-slate-50 p-3 rounded border border-slate-200">
               {displayCitationB}
             </p>
           </div>
@@ -156,13 +156,13 @@ export default function AlibiShareCard({
       </div>
 
       {/* 3. Footer */}
-      <div className="flex items-center justify-between z-10 border-t border-slate-800/80 pt-5">
+      <div className="flex items-center justify-between z-10 border-t border-slate-200 pt-5">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-400">
+          <div className="w-8 h-8 rounded bg-white border border-slate-200 flex items-center justify-center text-amber-400">
             <QrCode className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-200">Overené vyšetrovacím systémom ForenzDetectiv</p>
+            <p className="text-xs font-semibold text-slate-800">Overené vyšetrovacím systémom ForenzDetectiv</p>
             <p className="text-[10px] text-slate-500 font-mono">forenz-detectiv.vercel.app · 100% citácie zo spisov · Kryptografická integrita</p>
           </div>
         </div>

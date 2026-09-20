@@ -5,7 +5,6 @@ import { base44 } from '@/api/base44Client';
 import { useForenzStore } from '@/store/useForenzStore';
 import { usePlanStore } from '@/store/usePlanStore';
 import { useAuditStore } from '@/store/useAuditStore';
-import ThemeToggle from '@/components/ui/ThemeToggle';
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher';
 import {
   Network,
@@ -52,8 +51,8 @@ const PIE_COLORS = ['#f59e0b', '#06b6d4', '#6366f1', '#10b981', '#f43f5e'];
 function CustomChartTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-slate-900/95 border border-slate-800 backdrop-blur-md px-3 py-2 rounded-xl shadow-2xl text-xs">
-        <p className="font-semibold text-slate-200 mb-1">{label || payload[0].name}</p>
+      <div className="bg-white/95 border border-slate-200 backdrop-blur-md px-3 py-2 rounded-xl shadow-2xl text-xs">
+        <p className="font-semibold text-slate-800 mb-1">{label || payload[0].name}</p>
         <p className="text-amber-400 font-mono font-bold">
           {payload[0].value} {payload[0].unit || 'záznamov'}
         </p>
@@ -70,7 +69,7 @@ function ForensicKpiCard({ label, value, subtext, icon: Icon, color, trend, dela
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay }}
-      className="relative group p-4 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-md hover:border-slate-700 transition-all shadow-glass hover:shadow-glow-blue overflow-hidden"
+      className="relative group p-4 rounded-2xl bg-white border border-slate-200 backdrop-blur-md hover:border-slate-300 transition-all shadow-glass hover:shadow-glow-blue overflow-hidden"
     >
       <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full pointer-events-none" />
       <div className="flex items-center justify-between mb-3">
@@ -83,7 +82,7 @@ function ForensicKpiCard({ label, value, subtext, icon: Icon, color, trend, dela
         </div>
       </div>
       <div className="flex items-baseline gap-2">
-        <span className="text-2xl font-black text-slate-100 tabular-nums tracking-tight">{value}</span>
+        <span className="text-2xl font-black text-slate-900 tabular-nums tracking-tight">{value}</span>
         {trend && (
           <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
             {trend}
@@ -220,19 +219,19 @@ export default function Dashboard() {
   const contradictions = data?.contradictions || [];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-amber-500/30">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col selection:bg-amber-500/30">
       
       {/* ========================================================================= */}
       {/* 1. EXECUTIVE FORENSIC HEADER */}
       {/* ========================================================================= */}
-      <header className="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
+      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
           
           {/* Brand + Back Link */}
           <div className="flex items-center gap-3">
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-semibold shadow-sm transition-all group focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 text-xs font-semibold shadow-sm transition-all group focus:outline-none focus:ring-2 focus:ring-amber-500/50"
               title="Návrat do vyšetrovacej pracovnej plochy"
               aria-label="Späť na spis"
             >
@@ -240,16 +239,16 @@ export default function Dashboard() {
               <span>Späť na spis</span>
             </Link>
 
-            <div className="h-4 w-px bg-slate-800 hidden sm:block" />
+            <div className="h-4 w-px bg-slate-200 hidden sm:block" />
 
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500/20 via-blue-600/30 to-indigo-600/40 p-0.5 flex items-center justify-center border border-amber-500/30 shadow-glass-sm">
-                <div className="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
+                <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center">
                   <Network className="w-4 h-4 text-amber-400" />
                 </div>
               </div>
               <div>
-                <h1 className="text-sm font-bold text-slate-100 leading-tight">
+                <h1 className="text-sm font-bold text-slate-900 leading-tight">
                   Vyšetrovací Dashboard & Intelligence
                 </h1>
                 <p className="text-[10px] text-slate-400 font-mono uppercase tracking-wider -mt-0.5">
@@ -269,14 +268,13 @@ export default function Dashboard() {
                   ? 'bg-purple-500/15 text-purple-300 border-purple-500/40'
                   : plan === 'pro'
                   ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 ring-1 ring-amber-500/30'
-                  : 'bg-slate-900 text-slate-300 border-slate-800'
+                  : 'bg-white text-slate-700 border-slate-200'
               }`}
             >
               <Zap className="w-3 h-3 text-amber-400 fill-amber-400" />
               <span className="uppercase">{plan}</span>
             </div>
 
-            <ThemeToggle />
           </div>
 
         </div>
@@ -294,7 +292,7 @@ export default function Dashboard() {
               <Activity className="w-5 h-5 animate-pulse" />
             </div>
             <div>
-              <h2 className="text-xs font-bold text-slate-200 uppercase tracking-wide">
+              <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wide">
                 Forenzná Dôkazná Situácia
               </h2>
               <p className="text-xs text-slate-400 mt-0.5">
@@ -371,10 +369,10 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           
           {/* Chart 1: Rozpory v čase */}
-          <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-md shadow-glass flex flex-col justify-between">
+          <div className="p-5 rounded-2xl bg-white border border-slate-200 backdrop-blur-md shadow-glass flex flex-col justify-between">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wide">
+                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wide">
                   Rozpory a Alibi Konflikty v Čase
                 </h3>
                 <p className="text-[11px] text-slate-400 mt-0.5">Výskyt kolízií v priebehu vyšetrovania</p>
@@ -404,10 +402,10 @@ export default function Dashboard() {
           </div>
 
           {/* Chart 2: Stavy dokumentov */}
-          <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-md shadow-glass flex flex-col justify-between">
+          <div className="p-5 rounded-2xl bg-white border border-slate-200 backdrop-blur-md shadow-glass flex flex-col justify-between">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wide">
+                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wide">
                   Stav Spracovania Spisov (OCR & NLP)
                 </h3>
                 <p className="text-[11px] text-slate-400 mt-0.5">Rozdelenie dokumentov podľa pipeline</p>
@@ -446,10 +444,10 @@ export default function Dashboard() {
           </div>
 
           {/* Chart 3: Top Kľúčoví Aktéri (Sieťová Centralita) */}
-          <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-md shadow-glass">
+          <div className="p-5 rounded-2xl bg-white border border-slate-200 backdrop-blur-md shadow-glass">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wide">
+                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wide">
                   Kľúčoví Aktéri (Sieťová Centralita)
                 </h3>
                 <p className="text-[11px] text-slate-400 mt-0.5">Osoby s najvyššou frekvenciou väzieb vo výpovediach</p>
@@ -479,10 +477,10 @@ export default function Dashboard() {
           </div>
 
           {/* Chart 4: Kategorizácia varovaní */}
-          <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-md shadow-glass">
+          <div className="p-5 rounded-2xl bg-white border border-slate-200 backdrop-blur-md shadow-glass">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wide">
+                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wide">
                   Typy Identifikovaných Anomálií
                 </h3>
                 <p className="text-[11px] text-slate-400 mt-0.5">Forenzná kategorizácia nezrovnalostí</p>
@@ -510,10 +508,10 @@ export default function Dashboard() {
         {/* ========================================================================= */}
         {/* 5. AUDIT LOG & RECENT EVIDENCE TRAIL */}
         {/* ========================================================================= */}
-        <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-md shadow-glass">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 backdrop-blur-md shadow-glass">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wide">
+              <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wide">
                 Reťazec Dôkazov (Chain of Custody · Posledné Akcie)
               </h3>
               <p className="text-[11px] text-slate-400 mt-0.5">Nezmeniteľná stopa vyšetrovacích krokov a exportov</p>
@@ -523,7 +521,7 @@ export default function Dashboard() {
             </span>
           </div>
 
-          <div className="divide-y divide-slate-800/60 max-h-56 overflow-y-auto pr-1">
+          <div className="divide-y divide-slate-200 max-h-56 overflow-y-auto pr-1">
             {auditLogs.length === 0 ? (
               <p className="text-xs text-slate-500 py-4 text-center">Zatiaľ žiadne zaznamenané operácie.</p>
             ) : (
@@ -532,7 +530,7 @@ export default function Dashboard() {
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                     <span className="font-mono text-slate-400 shrink-0">{log.id}</span>
-                    <span className="font-semibold text-slate-200 truncate">
+                    <span className="font-semibold text-slate-800 truncate">
                       {log.action}
                     </span>
                   </div>

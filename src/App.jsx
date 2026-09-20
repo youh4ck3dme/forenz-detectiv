@@ -45,7 +45,7 @@ export default function App() {
   return (
     <ErrorBoundary>
       <I18nProvider>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" forcedTheme="light" enableSystem={false}>
           <PwaInstallProvider>
             <AuthProvider>
               <QueryClientProvider client={queryClientInstance}>

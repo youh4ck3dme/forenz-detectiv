@@ -49,11 +49,11 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md bg-slate-950 border-slate-800 text-slate-100 p-6">
+      <DialogContent className="max-w-md bg-white border-slate-200 text-slate-900 p-6">
         <DialogHeader className="space-y-1.5">
           <div className="flex items-center gap-2 text-amber-500">
             <Building2 className="h-5 w-5" />
-            <DialogTitle className="text-xl font-bold text-white">
+            <DialogTitle className="text-xl font-bold text-slate-900">
               14-Dňový Pilot pre Advokátske Kancelárie
             </DialogTitle>
           </div>
@@ -67,9 +67,9 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
             <div className="w-12 h-12 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
               <CheckCircle2 className="h-6 w-6" />
             </div>
-            <h4 className="text-base font-bold text-white">Žiadosť bola odoslaná!</h4>
+            <h4 className="text-base font-bold text-slate-900">Žiadosť bola odoslaná!</h4>
             <p className="text-xs text-slate-400 max-w-xs mx-auto">
-              Náš tím vás bude kontaktovať do 24 hodín na e-mail <strong className="text-slate-200">{formData.email}</strong> s prístupovými údajmi.
+              Náš tím vás bude kontaktovať do 24 hodín na e-mail <strong className="text-slate-800">{formData.email}</strong> s prístupovými údajmi.
             </p>
             <Button
               type="button"
@@ -82,47 +82,47 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-3.5 my-2">
             <div className="space-y-1">
-              <label className="text-xs text-slate-300 font-medium">Meno a priezvisko</label>
+              <label className="text-xs text-slate-700 font-medium">Meno a priezvisko</label>
               <input
                 type="text"
                 required
                 placeholder="JUDr. Meno Priezvisko"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs text-slate-300 font-medium">Názov kancelárie / inštitúcie</label>
+              <label className="text-xs text-slate-700 font-medium">Názov kancelárie / inštitúcie</label>
               <input
                 type="text"
                 required
                 placeholder="Názov advokátskej kancelárie"
                 value={formData.firm}
                 onChange={(e) => setFormData({ ...formData, firm: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs text-slate-300 font-medium">Pracovný e-mail</label>
+              <label className="text-xs text-slate-700 font-medium">Pracovný e-mail</label>
               <input
                 type="email"
                 required
                 placeholder="kovac@ak-partners.sk"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs text-slate-300 font-medium">Počet právnikov / vyšetrovateľov v tíme</label>
+              <label className="text-xs text-slate-700 font-medium">Počet právnikov / vyšetrovateľov v tíme</label>
               <select
                 value={formData.lawyersCount}
                 onChange={(e) => setFormData({ ...formData, lawyersCount: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
               >
                 <option value="1-5">1 – 5 právnikov</option>
                 <option value="6-15">6 – 15 právnikov</option>
@@ -130,8 +130,8 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
               </select>
             </div>
 
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
-              <Button type="button" variant="ghost" onClick={onClose} className="text-slate-400 hover:text-white text-xs">
+            <div className="pt-3 border-t border-slate-200 flex items-center justify-between gap-2">
+              <Button type="button" variant="ghost" onClick={onClose} className="text-slate-400 hover:text-slate-900 text-xs">
                 Zrušiť
               </Button>
               <Button

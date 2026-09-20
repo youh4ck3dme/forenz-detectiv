@@ -154,7 +154,7 @@ export default function SherlockChat({ persons = [], edges = [], redFlags = [], 
                     <span className={`font-semibold ${p.category === 'rozpor' ? 'text-red-400' : 'text-amber-400'}`}>
                       {p.category === 'rozpor' ? 'Rozpor' : 'Neistota'}
                     </span>
-                    <p className="text-slate-300 italic mt-0.5">„{p.text}"</p>
+                    <p className="text-slate-700 italic mt-0.5">„{p.text}"</p>
                     {p.explanation && <p className="text-slate-400 mt-1 text-[11px]">{p.explanation}</p>}
                   </div>
                 ))}
@@ -174,12 +174,12 @@ export default function SherlockChat({ persons = [], edges = [], redFlags = [], 
             </div>
           ) : (
             <div key={i} className="flex gap-2">
-              <div className="w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 mt-0.5">
+              <div className="w-6 h-6 rounded-lg bg-slate-800 border border-slate-300 flex items-center justify-center shrink-0 mt-0.5">
                 <Search className="w-3 h-3 text-blue-400" />
               </div>
-              <div className="max-w-[85%] bg-slate-800/80 border border-slate-700/80 text-slate-200 text-xs rounded-xl rounded-bl-sm px-3 py-2 whitespace-pre-wrap leading-relaxed shadow-sm">
+              <div className="max-w-[85%] bg-slate-800/80 border border-slate-200 text-slate-800 text-xs rounded-xl rounded-bl-sm px-3 py-2 whitespace-pre-wrap leading-relaxed shadow-sm">
                 {m.confidence === 'high' && (
-                  <div className="flex items-center gap-1.5 mb-1.5 pb-1 border-b border-slate-700">
+                  <div className="flex items-center gap-1.5 mb-1.5 pb-1 border-b border-slate-300">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                     <span className="text-[9px] font-semibold uppercase tracking-wide text-emerald-400">Overená analýza</span>
                   </div>
@@ -191,16 +191,16 @@ export default function SherlockChat({ persons = [], edges = [], redFlags = [], 
         )}
         {busy && (
           <div className="flex gap-2">
-            <div className="w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center">
+            <div className="w-6 h-6 rounded-lg bg-slate-800 border border-slate-300 flex items-center justify-center">
               <Loader2 className="w-3 h-3 text-blue-400 animate-spin" />
             </div>
-            <div className="bg-slate-800/80 border border-slate-700/80 text-slate-400 text-xs rounded-xl px-3 py-2">Sherlock analyzuje fakty…</div>
+            <div className="bg-slate-800/80 border border-slate-200 text-slate-400 text-xs rounded-xl px-3 py-2">Sherlock analyzuje fakty…</div>
           </div>
         )}
         <div ref={endRef} />
       </div>
 
-      <div className="p-2.5 border-t border-slate-800 bg-slate-900/90 flex gap-2">
+      <div className="p-2.5 border-t border-slate-200 bg-white/90 flex gap-2">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -209,7 +209,7 @@ export default function SherlockChat({ persons = [], edges = [], redFlags = [], 
           }}
           onFocus={() => endRef.current?.scrollIntoView({ behavior: 'smooth' })}
           placeholder="Napíšte otázku vyšetrovateľovi…"
-          className="flex-1 bg-slate-950 border border-slate-800 text-slate-100 text-xs rounded-xl px-3 py-2 min-h-[44px] outline-none focus:border-blue-500 placeholder:text-slate-500"
+          className="flex-1 bg-white border border-slate-200 text-slate-900 text-xs rounded-xl px-3 py-2 min-h-[44px] outline-none focus:border-blue-500 placeholder:text-slate-400"
         />
         <button
           type="button"
@@ -229,7 +229,7 @@ export default function SherlockChat({ persons = [], edges = [], redFlags = [], 
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="fixed right-4 lg:right-6 z-50 w-12 h-12 min-h-[44px] min-w-[44px] rounded-2xl flex items-center justify-center shadow-2xl transition-all bg-slate-900/95 hover:bg-slate-800 text-blue-400 hover:text-blue-300 border border-slate-700/80 backdrop-blur-xl hover:scale-105 active:scale-95"
+        className="fixed right-4 lg:right-6 z-50 w-12 h-12 min-h-[44px] min-w-[44px] rounded-2xl flex items-center justify-center shadow-2xl transition-all bg-white/95 hover:bg-slate-100 text-blue-400 hover:text-blue-300 border border-slate-200 backdrop-blur-xl hover:scale-105 active:scale-95"
         style={{ bottom: 'calc(var(--sheet-offset) + 0.75rem)' }}
         title="Sherlock AI Forenzný Asistent"
         aria-label="Sherlock AI Forenzný Asistent"
@@ -254,19 +254,19 @@ export default function SherlockChat({ persons = [], edges = [], redFlags = [], 
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 20 }}
               transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-              className="fixed right-6 z-50 w-[24rem] h-[min(30rem,85dvh)] max-h-[85dvh] bg-slate-900/95 backdrop-blur-2xl border border-slate-700/80 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+              className="fixed right-6 z-50 w-[24rem] h-[min(30rem,85dvh)] max-h-[85dvh] bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
               style={{ bottom: 'calc(var(--sheet-offset) + 4.5rem)' }}
             >
-              <div className="px-3.5 py-2.5 border-b border-slate-800 flex items-center gap-2 bg-slate-900/90">
+              <div className="px-3.5 py-2.5 border-b border-slate-200 flex items-center gap-2 bg-white/90">
                 <div className="w-6 h-6 rounded-lg bg-blue-950/60 border border-blue-500/30 flex items-center justify-center">
                   <Sparkles className="w-3.5 h-3.5 text-blue-400" />
                 </div>
-                <span className="text-xs font-semibold text-slate-100">Sherlock AI Forenzný Asistent</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 font-mono">v1.2</span>
+                <span className="text-xs font-semibold text-slate-900">Sherlock AI Forenzný Asistent</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-300 font-mono">v1.2</span>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="ml-auto p-1 min-h-[44px] min-w-[44px] text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg transition-colors"
+                  className="ml-auto p-1 min-h-[44px] min-w-[44px] text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
                   title="Zatvoriť okno"
                   aria-label="Zatvoriť okno"
                 >

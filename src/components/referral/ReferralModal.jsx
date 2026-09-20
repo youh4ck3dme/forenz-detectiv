@@ -25,12 +25,12 @@ export default function ReferralModal({ isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg bg-slate-950 border-slate-800 text-slate-100 p-6">
+      <DialogContent className="max-w-lg bg-white border-slate-200 text-slate-900 p-6">
         <DialogHeader className="text-center sm:text-center space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 mx-auto">
             <Gift className="h-6 w-6 text-amber-400" />
           </div>
-          <DialogTitle className="text-2xl font-bold text-white">
+          <DialogTitle className="text-2xl font-bold text-slate-900">
             Pozvite kolegu advokáta
           </DialogTitle>
           <DialogDescription className="text-slate-400 text-xs max-w-sm mx-auto">
@@ -39,13 +39,13 @@ export default function ReferralModal({ isOpen, onClose }) {
         </DialogHeader>
 
         {/* Benefits Card */}
-        <div className="my-3 p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2.5 text-xs text-slate-300">
+        <div className="my-3 p-4 rounded-xl bg-white/90 border border-slate-200 space-y-2.5 text-xs text-slate-700">
           <div className="flex items-start gap-2.5">
             <div className="p-1 rounded bg-amber-500/20 text-amber-400 mt-0.5">
               <Users className="h-3.5 w-3.5" />
             </div>
             <div>
-              <p className="font-semibold text-white">Ako funguje odkaz?</p>
+              <p className="font-semibold text-slate-900">Ako funguje odkaz?</p>
               <p className="text-slate-400 mt-0.5">
                 Keď kolega otvorí váš odkaz, systém si zapamätá odporúcuťeľa pre budúcu registráciu. Pro odmeny sa aktivujú až po nasadení serverovej referral logiky.
               </p>
@@ -61,12 +61,12 @@ export default function ReferralModal({ isOpen, onClose }) {
               type="text"
               readOnly
               value={refLink}
-              className="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-amber-400 flex-1 select-all focus:outline-none"
+              className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-mono text-amber-400 flex-1 select-all focus:outline-none"
             />
             <Button
               type="button"
               onClick={handleCopy}
-              className="bg-slate-800 hover:bg-slate-700 text-slate-200 gap-1.5"
+              className="bg-slate-800 hover:bg-slate-700 text-slate-800 gap-1.5"
             >
               {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4 text-slate-400" />}
               {copied ? 'Skopírované' : 'Kopírovať'}
@@ -75,12 +75,12 @@ export default function ReferralModal({ isOpen, onClose }) {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-800 mt-2">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-200 mt-2">
           <Button
             type="button"
             variant="ghost"
             onClick={onClose}
-            className="text-slate-400 hover:text-white"
+            className="text-slate-400 hover:text-slate-900"
           >
             Zavrieť
           </Button>

@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 0 0% 100%;
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -50,7 +50,8 @@
   @media (max-width: 1023px) {
     :root {
       --camera-inset-top: max(var(--safe-top), 54px);
-      --nav-h: 3.5rem;
+      /* pill bar (h-14) + top padding (pt-1) for floating liquid-glass nav */
+      --nav-h: 4rem;
       --sheet-offset: calc(var(--nav-h) + max(0.5rem, var(--safe-bottom)));
     }
   }
@@ -114,16 +115,6 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
-    background-image:
-      radial-gradient(at 10% 10%, rgba(11, 59, 140, 0.06) 0px, transparent 50%),
-      radial-gradient(at 90% 90%, rgba(238, 28, 37, 0.05) 0px, transparent 50%);
-    background-attachment: fixed;
-  }
-
-  .dark body {
-    background-image:
-      radial-gradient(at 10% 10%, rgba(37, 99, 235, 0.12) 0px, transparent 50%),
-      radial-gradient(at 90% 90%, rgba(238, 28, 37, 0.08) 0px, transparent 50%);
   }
 }
 
