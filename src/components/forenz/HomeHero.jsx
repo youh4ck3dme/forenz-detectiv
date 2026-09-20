@@ -72,8 +72,7 @@ export default function HomeHero({ onScan, onBulkScan = null, scanning = false }
 
   return (
     <div className="relative w-full flex-1 flex flex-col items-center justify-center p-4 lg:p-8 overflow-y-auto bg-white text-slate-900">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[400px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[280px] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-4xl w-full flex flex-col items-center text-center z-10 my-auto">
         <motion.div
