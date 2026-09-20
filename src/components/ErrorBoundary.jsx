@@ -66,9 +66,9 @@ export default class ErrorBoundary extends React.Component {
 
       if (isWidget) {
         return (
-          <div className="w-full h-full min-h-[160px] p-4 flex flex-col items-center justify-center rounded-2xl bg-slate-900/90 border border-red-500/30 text-slate-200 text-center shadow-lg">
+          <div className="w-full h-full min-h-[160px] p-4 flex flex-col items-center justify-center rounded-2xl bg-white/90 border border-red-500/30 text-slate-800 text-center shadow-lg">
             <AlertTriangle className="w-6 h-6 text-amber-400 mb-2" />
-            <h4 className="text-sm font-semibold text-slate-100">Modul zlyhal</h4>
+            <h4 className="text-sm font-semibold text-slate-900">Modul zlyhal</h4>
             <p className="text-xs text-slate-400 max-w-xs mt-1 mb-3">
               {this.state.error?.message || 'Nastala neočakávaná chyba pri vykresľovaní.'}
               {' '}Skúste obnoviť modul. Ak problém pretrváva, vymažte lokálne dáta prehliadača (IndexedDB) a nahrajte spis znova.
@@ -84,8 +84,8 @@ export default class ErrorBoundary extends React.Component {
       }
 
       return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-slate-950 p-4 text-slate-100">
-          <div className="max-w-md w-full p-6 lg:p-8 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl relative overflow-hidden">
+        <div className="min-h-screen w-full flex items-center justify-center bg-white p-4 text-slate-900">
+          <div className="max-w-md w-full p-6 lg:p-8 rounded-3xl bg-white border border-slate-200 shadow-2xl relative overflow-hidden">
             <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-red-500/10 blur-3xl pointer-events-none" />
             <div className="absolute -bottom-24 -left-24 w-48 h-48 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
 
@@ -101,7 +101,7 @@ export default class ErrorBoundary extends React.Component {
             </p>
 
             {this.state.error?.message && (
-              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs font-mono text-slate-300 break-words mb-5">
+              <div className="p-3 rounded-xl bg-white/90 border border-slate-200 text-xs font-mono text-slate-700 break-words mb-5">
                 {this.state.error.message}
               </div>
             )}
@@ -116,14 +116,14 @@ export default class ErrorBoundary extends React.Component {
 
               <button
                 onClick={this.handleDownloadLog}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs border border-slate-700 transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-700 font-medium text-xs border border-slate-300 transition-colors"
               >
                 <Download className="w-3.5 h-3.5 text-blue-400" /> Stiahnuť diagnostický log
               </button>
 
               <a
                 href="/"
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-transparent hover:bg-slate-800/60 text-slate-400 font-medium text-xs transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-transparent hover:bg-slate-100/60 text-slate-400 font-medium text-xs transition-colors"
               >
                 <Home className="w-3.5 h-3.5" /> Návrat na domovskú stránku
               </a>

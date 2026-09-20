@@ -54,10 +54,10 @@ export default function ArchiveFilmstrip({
   };
 
   return (
-    <div className="shrink-0 bg-slate-900 border-b border-slate-800">
+    <div className="shrink-0 bg-white border-b border-slate-200">
       <div className="px-4 py-2 flex items-center gap-2 flex-wrap">
         <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Archív dokumentov</span>
-        <span className="text-xs text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-700 font-mono">{documents.length}</span>
+        <span className="text-xs text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-300 font-mono">{documents.length}</span>
         {!readOnly && onScan && (
           <div className="ml-auto flex items-center gap-1.5">
             {onBulkScan && (
@@ -99,10 +99,10 @@ export default function ArchiveFilmstrip({
               className={`group relative shrink-0 w-44 rounded-xl border overflow-hidden transition-all text-left shadow-sm ${
                 active
                   ? 'border-blue-500 ring-1 ring-blue-500/50 bg-slate-800'
-                  : 'border-slate-800 bg-slate-900/70 hover:border-slate-700 hover:bg-slate-800/60'
+                  : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-100/60'
               }`}
             >
-              <div className="relative h-24 bg-slate-950 overflow-hidden">
+              <div className="relative h-24 bg-white overflow-hidden">
                 {doc.image_url && !(/\.pdf$/i.test(doc.image_url) || /\.pdf$/i.test(doc.title || '')) ? (
                   <img
                     src={doc.image_url}
@@ -113,7 +113,7 @@ export default function ArchiveFilmstrip({
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                   />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-slate-950 text-slate-400 group-hover:bg-slate-900/80 transition-colors">
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-white text-slate-400 group-hover:bg-white transition-colors">
                     <FileText className="w-8 h-8 text-amber-500/80 mb-1" />
                     <span className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
                       PDF SPIS
@@ -125,7 +125,7 @@ export default function ArchiveFilmstrip({
                 </span>
               </div>
               <div className="p-2.5">
-                <p className="text-xs font-medium text-slate-200 truncate">{doc.title}</p>
+                <p className="text-xs font-medium text-slate-800 truncate">{doc.title}</p>
                 {date && <p className="text-[10px] text-slate-500 mt-0.5">{date}</p>}
                 <div className="flex items-center gap-2 mt-1.5 text-[10px] text-slate-400 flex-wrap">
                   <span className="inline-flex items-center gap-0.5" title="Osoby"><Users className="w-3 h-3 text-cyan-400" />{doc.person_count ?? 0}</span>

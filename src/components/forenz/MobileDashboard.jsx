@@ -21,23 +21,23 @@ function initials(name) {
 
 function MetricCard({ icon: Icon, label, value, color }) {
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-3 flex flex-col gap-1">
+    <div className="rounded-2xl bg-slate-50 border border-slate-200 p-3 flex flex-col gap-1">
       <div className="flex items-center gap-1.5">
         <span className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: `${color}22`, color }}>
           <Icon className="w-3.5 h-3.5" />
         </span>
-        <span className="text-[10px] uppercase tracking-wide text-slate-400">{label}</span>
+        <span className="text-[10px] uppercase tracking-wide text-slate-500">{label}</span>
       </div>
-      <p className="text-2xl font-semibold text-slate-100 tabular-nums">{value}</p>
+      <p className="text-2xl font-semibold text-slate-900 tabular-nums">{value}</p>
     </div>
   );
 }
 
 function MiniCard({ label, value, color }) {
   return (
-    <div className="flex-1 rounded-2xl bg-white/5 border border-white/10 p-2.5 text-center">
+    <div className="flex-1 rounded-2xl bg-slate-50 border border-slate-200 p-2.5 text-center">
       <p className="text-xl font-semibold tabular-nums" style={{ color }}>{value}</p>
-      <p className="text-[10px] text-slate-400 mt-0.5">{label}</p>
+      <p className="text-[10px] text-slate-500 mt-0.5">{label}</p>
     </div>
   );
 }
@@ -51,7 +51,7 @@ function Gauge({ percent }) {
     <div className="flex flex-col items-center">
       <div className="relative w-32 h-32">
         <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" />
+          <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(148,163,184,0.35)" strokeWidth="10" />
           <circle
             cx="60" cy="60" r={r} fill="none"
             stroke={good ? '#22c55e' : '#f59e0b'}
@@ -61,11 +61,11 @@ function Gauge({ percent }) {
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-3xl font-semibold text-slate-100 tabular-nums">{Math.round(percent)}%</span>
-          <span className="text-[10px] text-slate-400 uppercase tracking-wide">úspešnosť</span>
+          <span className="text-3xl font-semibold text-slate-900 tabular-nums">{Math.round(percent)}%</span>
+          <span className="text-[10px] text-slate-500 uppercase tracking-wide">úspešnosť</span>
         </div>
       </div>
-      <p className={`text-sm mt-1 ${good ? 'text-emerald-400' : 'text-amber-400'}`}>
+      <p className={`text-sm mt-1 ${good ? 'text-emerald-600' : 'text-amber-600'}`}>
         {good ? 'Skvelá práca!' : 'Prebieha analýza'}
       </p>
     </div>
@@ -126,7 +126,7 @@ export default function MobileDashboard({ documents, persons, relationships, _re
       {/* Úspešnosť */}
       <div>
         <SectionTitle>Úspešnosť analýz</SectionTitle>
-        <div className="rounded-2xl bg-white/5 border border-white/10 p-4 flex flex-col items-center">
+        <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4 flex flex-col items-center">
           <Gauge percent={stats.successRate} />
           <div className="flex gap-2 w-full mt-4">
             <MiniCard label="Dokumenty" value={stats.total} color="#3b82f6" />
@@ -139,15 +139,15 @@ export default function MobileDashboard({ documents, persons, relationships, _re
       {/* Aktivita */}
       <div>
         <SectionTitle>Aktivita</SectionTitle>
-        <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+        <div className="rounded-2xl bg-slate-50 border border-slate-200 overflow-hidden">
           {recent.length === 0 ? (
             <p className="text-xs text-slate-500 text-center py-6">Zatiaľ žiadna aktivita.</p>
           ) : (
             recent.map((doc) => (
-              <div key={doc.id} className="flex items-center gap-3 px-3 py-2.5 border-b border-white/5 last:border-0">
+              <div key={doc.id} className="flex items-center gap-3 px-3 py-2.5 border-b border-slate-100 last:border-0">
                 <span className="w-2 h-2 rounded-full shrink-0" style={{ background: statusDot(doc.status) }} />
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm text-slate-200 truncate">{doc.title}</p>
+                  <p className="text-sm text-slate-800 truncate">{doc.title}</p>
                   <p className="text-[10px] text-slate-500">
                     {formatDistanceToNow(new Date(doc.created_date), { addSuffix: true, locale: sk })}
                   </p>
@@ -155,7 +155,7 @@ export default function MobileDashboard({ documents, persons, relationships, _re
               </div>
             ))
           )}
-          <button className="w-full flex items-center justify-center gap-1 py-2.5 text-xs text-blue-400 hover:text-blue-300">
+          <button className="w-full flex items-center justify-center gap-1 py-2.5 text-xs text-blue-600 hover:text-blue-700">
             Zobraziť všetku aktivitu <ChevronRight className="w-3 h-3" />
           </button>
         </div>
@@ -165,14 +165,14 @@ export default function MobileDashboard({ documents, persons, relationships, _re
       {topPersons.length > 0 && (
         <div>
           <SectionTitle>Najaktívnejšie osoby</SectionTitle>
-          <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+          <div className="rounded-2xl bg-slate-50 border border-slate-200 overflow-hidden">
             {topPersons.map((p) => {
               const color = TYPE_COLOR[p.type] || '#3b82f6';
               return (
                 <button
                   key={p.id}
                   onClick={() => onSelectPerson(p)}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors text-left"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 border-b border-slate-100 last:border-0 hover:bg-slate-100 transition-colors text-left"
                 >
                   <span
                     className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-semibold shrink-0"
@@ -180,7 +180,7 @@ export default function MobileDashboard({ documents, persons, relationships, _re
                   >
                     {initials(p.name)}
                   </span>
-                  <span className="flex-1 text-sm text-slate-200 truncate min-w-0">{p.name}</span>
+                  <span className="flex-1 text-sm text-slate-800 truncate min-w-0">{p.name}</span>
                   <span className="text-[11px] text-slate-500 shrink-0">{p.links} väzieb</span>
                 </button>
               );

@@ -28,7 +28,7 @@ export default function M3NavBar({ activeView, onTabChange, onSherlock }) {
   return (
     <nav
       data-testid="mobile-bottom-nav"
-      className="lg:hidden shrink-0 z-40 bg-transparent px-3 pt-1 text-slate-100"
+      className="lg:hidden shrink-0 z-40 bg-transparent px-3 pt-1 text-slate-900"
       style={{ paddingBottom: 'max(0.5rem, var(--safe-bottom, 0px))' }}
     >
       <div className="liquid-glass-panel flex items-stretch h-14 rounded-full overflow-hidden">
@@ -41,8 +41,8 @@ export default function M3NavBar({ activeView, onTabChange, onSherlock }) {
               onClick={() => handle(tab)}
               className={`relative flex-1 flex flex-col items-center justify-center gap-0.5 mx-0.5 my-1 rounded-2xl transition-all min-h-[44px] min-w-[44px] ${
                 active
-                  ? 'text-amber-400 font-bold bg-amber-400/15'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                  ? 'text-amber-500 font-bold bg-amber-400/15'
+                  : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100/80'
               }`}
             >
               <tab.icon className="w-5 h-5" />

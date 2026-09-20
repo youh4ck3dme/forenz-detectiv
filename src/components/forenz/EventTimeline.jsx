@@ -105,13 +105,13 @@ export default function EventTimeline({
   }, [sortedEvents, selectedPersonFilter, typeFilter, onlyConflicts, onlyAlibi, search, safeContradictions, hasAlibiPerson]);
 
   return (
-    <div className="flex flex-col h-full bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden p-4">
+    <div className="flex flex-col h-full bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden p-4">
       {/* Hlavička & Ovládací panel */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5 text-blue-400" />
-            <h3 className="font-semibold text-slate-100 text-sm">Časová os vyšetrovania</h3>
+            <h3 className="font-semibold text-slate-900 text-sm">Časová os vyšetrovania</h3>
             <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-950 text-blue-300 border border-blue-800">
               {filteredEvents.length} udalostí
             </span>
@@ -128,7 +128,7 @@ export default function EventTimeline({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Hľadať v udalostiach..."
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500"
             />
           </div>
 
@@ -137,7 +137,7 @@ export default function EventTimeline({
             className={`px-3 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-all ${
               onlyConflicts
                 ? 'bg-red-950 text-red-300 border border-red-800 shadow-sm'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                : 'bg-slate-800 text-slate-700 hover:bg-slate-700 border border-slate-300'
             }`}
           >
             <ShieldAlert className="w-3.5 h-3.5 text-red-400" />
@@ -148,7 +148,7 @@ export default function EventTimeline({
             className={`px-3 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-all ${
               onlyAlibi
                 ? 'bg-blue-950 text-blue-300 border border-blue-800 shadow-sm'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                : 'bg-slate-800 text-slate-700 hover:bg-slate-700 border border-slate-300'
             }`}
           >
             <ShieldAlert className="w-3.5 h-3.5 text-blue-400" />
@@ -158,7 +158,7 @@ export default function EventTimeline({
       </div>
 
       {/* Filtre (Osoby a Typy) */}
-      <div className="flex flex-wrap items-center gap-2 py-2.5 border-b border-slate-800 text-xs">
+      <div className="flex flex-wrap items-center gap-2 py-2.5 border-b border-slate-200 text-xs">
         <div className="flex items-center gap-1.5 text-slate-400">
           <Filter className="w-3.5 h-3.5" />
           <span>Osoba:</span>
@@ -166,7 +166,7 @@ export default function EventTimeline({
         <select
           value={selectedPersonFilter}
           onChange={(e) => setSelectedPersonFilter(e.target.value)}
-          className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 outline-none"
+          className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-800 outline-none"
         >
           <option value="all">Všetky osoby ({safePersons.length})</option>
           {safePersons.map((p) => (
@@ -185,7 +185,7 @@ export default function EventTimeline({
                 className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition ${
                   typeFilter === 'all'
                     ? 'bg-blue-600 text-white'
-                    : 'bg-slate-800 text-slate-400 hover:bg-slate-700 border border-slate-700'
+                    : 'bg-slate-800 text-slate-400 hover:bg-slate-700 border border-slate-300'
                 }`}
               >
                 Všetky typy
@@ -197,7 +197,7 @@ export default function EventTimeline({
                   className={`px-2 py-0.5 rounded-md text-[11px] font-medium capitalize transition ${
                     typeFilter === t
                       ? 'bg-blue-600 text-white'
-                      : 'bg-slate-800 text-slate-400 hover:bg-slate-700 border border-slate-700'
+                      : 'bg-slate-800 text-slate-400 hover:bg-slate-700 border border-slate-300'
                   }`}
                 >
                   {t}
@@ -248,7 +248,7 @@ export default function EventTimeline({
                         ? 'bg-red-950/25 border-red-900/60 hover:border-red-700'
                         : hasAlibi
                           ? 'bg-blue-950/25 border-blue-900/60 hover:border-blue-700'
-                          : 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700 shadow-sm'
+                          : 'bg-slate-50 border-slate-200 hover:border-slate-300 shadow-sm'
                     }`}
                   >
                     {/* Horný riadok: Čas, Dátum & Typ */}
@@ -270,7 +270,7 @@ export default function EventTimeline({
                         )}
 
                         {ev.date && (
-                          <span className="text-xs font-medium text-slate-300 flex items-center gap-1">
+                          <span className="text-xs font-medium text-slate-700 flex items-center gap-1">
                             <Calendar className="w-3 h-3 text-slate-500" />
                             {ev.date}
                           </span>
@@ -279,7 +279,7 @@ export default function EventTimeline({
 
                       <div className="flex items-center gap-1.5">
                         {ev.type && (
-                          <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-slate-800 text-slate-700 border border-slate-300">
                             {ev.type}
                           </span>
                         )}
@@ -294,11 +294,11 @@ export default function EventTimeline({
                     </div>
 
                     {/* Názov a popis */}
-                    <h4 className="text-xs font-semibold text-slate-100 leading-snug">{ev.title}</h4>
-                    {ev.description && <p className="text-xs text-slate-300 mt-1 leading-relaxed">{ev.description}</p>}
+                    <h4 className="text-xs font-semibold text-slate-900 leading-snug">{ev.title}</h4>
+                    {ev.description && <p className="text-xs text-slate-700 mt-1 leading-relaxed">{ev.description}</p>}
 
                     {/* Zúčastnené osoby & Miesto */}
-                    <div className="flex flex-wrap items-center gap-2 mt-2.5 pt-2 border-t border-slate-800 text-xs">
+                    <div className="flex flex-wrap items-center gap-2 mt-2.5 pt-2 border-t border-slate-200 text-xs">
                       {ev.location && (
                         <div className="flex items-center gap-1 text-slate-400 font-medium">
                           <MapPin className="w-3 h-3 text-red-400 shrink-0" />
@@ -316,7 +316,7 @@ export default function EventTimeline({
                                 const pObj = safePersons.find((p) => p.name === name);
                                 if (pObj && onSelectPerson) onSelectPerson(pObj);
                               }}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-800 text-blue-300 border border-slate-700 font-medium text-[10px] hover:bg-slate-700 transition-colors"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-800 text-blue-300 border border-slate-300 font-medium text-[10px] hover:bg-slate-700 transition-colors"
                             >
                               {name}
                             </span>
@@ -332,18 +332,18 @@ export default function EventTimeline({
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
-                          className="mt-3 pt-3 border-t border-slate-800 space-y-2 text-xs"
+                          className="mt-3 pt-3 border-t border-slate-200 space-y-2 text-xs"
                         >
                           {ev.source_quote && (
-                            <div className="bg-slate-950/60 p-2.5 rounded-lg border-l-2 border-blue-500">
+                            <div className="bg-slate-50 p-2.5 rounded-lg border-l-2 border-blue-500">
                               <span className="text-[10px] text-slate-500 uppercase font-semibold">Pôvodná citácia z výpovede:</span>
-                              <p className="italic text-slate-300 mt-0.5 leading-relaxed">„{ev.source_quote}"</p>
+                              <p className="italic text-slate-700 mt-0.5 leading-relaxed">„{ev.source_quote}"</p>
                             </div>
                           )}
 
                           {ev.document_title && (
                             <p className="text-[10px] text-slate-400">
-                              Zdrojový spis: <span className="font-mono text-slate-200">{ev.document_title}</span>
+                              Zdrojový spis: <span className="font-mono text-slate-800">{ev.document_title}</span>
                             </p>
                           )}
                         </motion.div>

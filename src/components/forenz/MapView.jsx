@@ -166,24 +166,24 @@ export default function MapView({
   const defaultCenter = [48.7363, 19.1462];
 
   return (
-    <div className={`w-full h-full relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-xl flex flex-col ${className}`}>
+    <div className={`w-full h-full relative rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-xl flex flex-col ${className}`}>
       {/* Horná info lišta mapy */}
-      <div className="px-4 py-3 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 z-10 shrink-0">
+      <div className="px-4 py-3 bg-white/95 backdrop-blur-md border-b border-slate-200 flex flex-wrap items-center justify-between gap-2 z-10 shrink-0">
         <div className="flex items-center gap-2">
           <MapPin className="w-4 h-4 text-blue-400" />
-          <h3 className="text-xs font-semibold text-slate-100">Geografická mapa vyšetrovania & Alibi</h3>
+          <h3 className="text-xs font-semibold text-slate-900">Geografická mapa vyšetrovania & Alibi</h3>
         </div>
 
         {/* Person Filters */}
         <div className="flex items-center gap-2 flex-wrap text-xs">
           {subjectsWithRoutes.length > 1 && (
-            <div className="flex items-center gap-1.5 bg-slate-950 px-2 py-1 rounded-lg border border-slate-800">
+            <div className="flex items-center gap-1.5 bg-white px-2 py-1 rounded-lg border border-slate-200">
               <Filter className="w-3 h-3 text-slate-400" />
               <button
                 type="button"
                 onClick={() => setSelectedPersonFilter('ALL')}
                 className={`px-1.5 py-0.5 rounded text-[10px] font-semibold transition-colors ${
-                  selectedPersonFilter === 'ALL' ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-white'
+                  selectedPersonFilter === 'ALL' ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-slate-900'
                 }`}
               >
                 Všetky trasy
@@ -194,7 +194,7 @@ export default function MapView({
                   type="button"
                   onClick={() => setSelectedPersonFilter(sub)}
                   className={`px-1.5 py-0.5 rounded text-[10px] font-semibold transition-colors ${
-                    selectedPersonFilter === sub ? 'bg-red-500 text-white' : 'text-slate-400 hover:text-white'
+                    selectedPersonFilter === sub ? 'bg-red-500 text-white' : 'text-slate-400 hover:text-slate-900'
                   }`}
                 >
                   {sub}
@@ -203,7 +203,7 @@ export default function MapView({
             </div>
           )}
 
-          <span className="flex items-center gap-1.5 text-blue-400 font-medium bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-700">
+          <span className="flex items-center gap-1.5 text-blue-400 font-medium bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-300">
             <span className="w-2 h-2 rounded-full bg-blue-500" /> {mapPoints.length} lokalít
           </span>
           {impossibleRoutes.length > 0 && (
@@ -224,7 +224,7 @@ export default function MapView({
       )}
 
       {/* Map Container s tmavou témou */}
-      <div className="flex-1 w-full h-full min-h-[360px] relative z-0 bg-slate-950">
+      <div className="flex-1 w-full h-full min-h-[360px] relative z-0 bg-white">
         <MapContainer
           center={defaultCenter}
           zoom={7}

@@ -28,7 +28,7 @@ export default function BottomSheet({
       <DrawerContent
         data-testid="m3-bottom-sheet"
         className={cn(
-          'mt-[var(--camera-inset-top)] bg-slate-900 border-slate-800 text-slate-100',
+          'mt-[var(--camera-inset-top)] bg-white border-slate-200 text-slate-900',
           SNAP_MAX[snap] || SNAP_MAX.half,
           className
         )}
@@ -36,7 +36,7 @@ export default function BottomSheet({
       >
         {(title || description) && (
           <DrawerHeader className="text-left">
-            {title ? <DrawerTitle className="text-slate-100">{title}</DrawerTitle> : null}
+            {title ? <DrawerTitle className="text-slate-900">{title}</DrawerTitle> : null}
             {description ? (
               <DrawerDescription className="text-slate-400">{description}</DrawerDescription>
             ) : null}

@@ -10,9 +10,9 @@ const STATUS = {
 
 function Count({ icon: Icon, label, n }) {
   return (
-    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs">
+    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs">
       <Icon className="w-3 h-3 text-blue-400 shrink-0" />
-      <span className="text-slate-200 font-semibold tabular-nums">{n}</span>
+      <span className="text-slate-800 font-semibold tabular-nums">{n}</span>
       <span className="text-slate-500 text-[10px]">{label}</span>
     </div>
   );
@@ -22,7 +22,7 @@ function LinkRow({ onClick, children }) {
   return (
     <button
       onClick={onClick}
-      className="group w-full flex items-center gap-1.5 text-left rounded-lg px-2.5 py-1.5 hover:bg-slate-800/80 transition-colors"
+      className="group w-full flex items-center gap-1.5 text-left rounded-lg px-2.5 py-1.5 hover:bg-slate-100 transition-colors"
     >
       <span className="flex-1 min-w-0">{children}</span>
       <ExternalLink className="w-3 h-3 text-slate-600 group-hover:text-blue-400 shrink-0" />
@@ -34,7 +34,7 @@ function Section({ title, accent, children }) {
   return (
     <div>
       <h4 className={`text-[10px] font-semibold uppercase tracking-wider mb-1.5 ${accent === 'red' ? 'text-red-400' : 'text-slate-400'}`}>{title}</h4>
-      <div className="rounded-xl bg-slate-950/60 border border-slate-800/80 overflow-hidden divide-y divide-slate-800/60">{children}</div>
+      <div className="rounded-xl bg-slate-50 border border-slate-200 overflow-hidden divide-y divide-slate-200">{children}</div>
     </div>
   );
 }
@@ -76,7 +76,7 @@ export default function ArchiveMetaPanel({
     : [];
 
   return (
-    <div className="w-full lg:w-80 shrink-0 bg-slate-900 border-t lg:border-t-0 lg:border-l border-slate-800 flex flex-col max-h-[40vh] lg:max-h-none min-w-0 overflow-hidden">
+    <div className="w-full lg:w-80 shrink-0 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col max-h-[40vh] lg:max-h-none min-w-0 overflow-hidden">
       <div className="overflow-y-auto flex-1">
         {!doc ? (
           <div className="p-6 text-center text-slate-500 text-xs">
@@ -87,7 +87,7 @@ export default function ArchiveMetaPanel({
           <div className="p-3.5 space-y-4">
             {/* Header */}
             <div>
-              <h3 className="text-xs font-semibold text-slate-100 break-words">{doc.title}</h3>
+              <h3 className="text-xs font-semibold text-slate-900 break-words">{doc.title}</h3>
               <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                 <span className={`text-[9px] font-semibold px-2 py-0.5 rounded ${(STATUS[doc.status] || STATUS.pending).cls}`}>
                   {(STATUS[doc.status] || STATUS.pending).label}
@@ -99,7 +99,7 @@ export default function ArchiveMetaPanel({
                   </span>
                 )}
               </div>
-              {doc.summary && <p className="text-[11px] text-slate-300 mt-2 leading-relaxed bg-slate-950/40 p-2 rounded-lg border border-slate-800">{doc.summary}</p>}
+              {doc.summary && <p className="text-[11px] text-slate-700 mt-2 leading-relaxed bg-slate-50 p-2 rounded-lg border border-slate-200">{doc.summary}</p>}
               {readOnly && <p className="text-[10px] text-violet-400 mt-1.5">Len na čítanie</p>}
             </div>
 
@@ -119,7 +119,7 @@ export default function ArchiveMetaPanel({
               <Section title="Osoby v spise">
                 {docPersons.map((p) => (
                   <LinkRow key={p.id} onClick={() => onJumpToPerson(p)}>
-                    <span className="text-xs font-medium text-slate-200">{p.name}</span>
+                    <span className="text-xs font-medium text-slate-800">{p.name}</span>
                     <span className="text-[10px] text-slate-500 ml-1">[{p.type}]</span>
                     {p.details && <span className="block text-[10px] text-slate-400 truncate">{p.details}</span>}
                   </LinkRow>
@@ -132,7 +132,7 @@ export default function ArchiveMetaPanel({
               <Section title="Zaznamenané udalosti">
                 {docEvents.map((e) => (
                   <div key={e.id} className="px-2.5 py-1.5 text-xs">
-                    <span className="font-medium text-slate-200">{e.title}</span>
+                    <span className="font-medium text-slate-800">{e.title}</span>
                     <span className="block text-[10px] text-slate-400">
                       {[e.time || e.date, e.location].filter(Boolean).join(' · ') || '—'}
                     </span>
@@ -154,7 +154,7 @@ export default function ArchiveMetaPanel({
                         <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded ${c.severity === 'high' ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-amber-950 text-amber-300 border border-amber-800'}`}>
                           {c.severity}
                         </span>
-                        <span className="ml-1 text-xs text-slate-300">{c.type?.replace(/_/g, ' ')}</span>
+                        <span className="ml-1 text-xs text-slate-700">{c.type?.replace(/_/g, ' ')}</span>
                         {c.explanation && <span className="block text-[10px] text-slate-400">{c.explanation}</span>}
                       </LinkRow>
                     </div>
@@ -162,7 +162,7 @@ export default function ArchiveMetaPanel({
                       <button
                         type="button"
                         onClick={() => onCrossExamine(c)}
-                        className="px-2 text-amber-400 hover:text-amber-300 hover:bg-slate-800/80 transition-colors"
+                        className="px-2 text-amber-400 hover:text-amber-300 hover:bg-slate-100 transition-colors"
                         title="Krížový výsluch"
                         data-testid="archive-cross-exam"
                       >
@@ -198,8 +198,8 @@ export default function ArchiveMetaPanel({
                           </button>
                         )}
                       </div>
-                      <p className="text-slate-200 italic mt-1 leading-relaxed">„{displayText}"</p>
-                      {p.explanation && <p className="text-slate-400 mt-1.5 text-[11px] bg-slate-900/60 p-1.5 rounded">{p.explanation}</p>}
+                      <p className="text-slate-800 italic mt-1 leading-relaxed">„{displayText}"</p>
+                      {p.explanation && <p className="text-slate-400 mt-1.5 text-[11px] bg-slate-50 p-1.5 rounded">{p.explanation}</p>}
                     </div>
                   );
                 })}
@@ -209,8 +209,8 @@ export default function ArchiveMetaPanel({
                   const displayText = isLong && !isExpanded ? `${c.source_quote.slice(0, 120)}...` : c.source_quote;
 
                   return (
-                    <div key={c.id} className="p-2.5 text-xs bg-slate-950/40 border-l-2 border-slate-700">
-                      <span className="text-slate-300 font-medium">{c.subject} {c.predicate} {c.object}</span>
+                    <div key={c.id} className="p-2.5 text-xs bg-slate-50 border-l-2 border-slate-300">
+                      <span className="text-slate-700 font-medium">{c.subject} {c.predicate} {c.object}</span>
                       {c.source_quote && (
                         <div className="mt-1">
                           <p className="text-slate-400 italic">„{displayText}"</p>

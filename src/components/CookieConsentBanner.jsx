@@ -36,16 +36,16 @@ export default function CookieConsentBanner() {
       aria-label="Cookie consent"
       className="fixed bottom-0 left-0 right-0 z-[9999] p-4 sm:p-0"
     >
-      <div className="max-w-2xl mx-auto mb-4 sm:mb-6 p-4 sm:p-5 rounded-2xl bg-slate-900/95 backdrop-blur-2xl border border-slate-700/60 shadow-2xl shadow-black/40">
+      <div className="max-w-2xl mx-auto mb-4 sm:mb-6 p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-2xl border border-slate-200 shadow-2xl shadow-slate-200/80">
         <div className="flex items-start gap-3">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+          <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
-            <p className="text-sm text-slate-200 font-medium mb-1">Súkromie & Cookies</p>
-            <p className="text-xs text-slate-400 leading-relaxed mb-3">
+            <p className="text-sm text-slate-800 font-medium mb-1">Súkromie & Cookies</p>
+            <p className="text-xs text-slate-600 leading-relaxed mb-3">
               Používame anonymizovanú analytiku (PostHog EU) a sledovanie chýb (Sentry) na zlepšenie kvality.
               Vaše dokumenty sú spracovávané výlučne pre účely analýzy a nikdy nie sú zdieľané.
               {' '}
-              <Link to="/privacy" className="text-blue-400 hover:text-blue-300 underline underline-offset-2">
+              <Link to="/privacy" className="text-blue-600 hover:text-blue-700 underline underline-offset-2">
                 Zásady ochrany súkromia
               </Link>
             </p>
@@ -60,7 +60,7 @@ export default function CookieConsentBanner() {
               <button
                 type="button"
                 onClick={decline}
-                className="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-colors border border-slate-700"
+                className="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-700 text-xs font-medium transition-colors border border-slate-300"
               >
                 Len nevyhnutné
               </button>
@@ -69,7 +69,7 @@ export default function CookieConsentBanner() {
           <button
             type="button"
             onClick={decline}
-            className="p-1 rounded-lg text-slate-500 hover:text-slate-300 hover:bg-slate-800 transition-colors shrink-0"
+            className="p-1 rounded-lg text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
             aria-label="Zavrieť"
           >
             <X className="w-4 h-4" />

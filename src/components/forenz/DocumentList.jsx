@@ -54,14 +54,14 @@ export default function DocumentList({
   }, [hierarchy]);
 
   return (
-    <div className="w-full h-full shrink-0 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl flex flex-col max-h-[20vh] lg:max-h-none overflow-hidden">
-      <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
-        <h2 className="text-sm font-semibold text-slate-100 flex items-center gap-2">
+    <div className="w-full h-full shrink-0 bg-white border border-slate-200 rounded-2xl shadow-xl flex flex-col max-h-[20vh] lg:max-h-none overflow-hidden">
+      <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between bg-white/90">
+        <h2 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
           <FileText className="w-4 h-4 text-blue-400" />
           Výpovede & Spisy
         </h2>
         <span
-          className="text-xs text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-700 font-mono"
+          className="text-xs text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-300 font-mono"
           title={`${hierarchy.length} spisov celkovo (${totalPageCount} strán)`}
         >
           {documents.length}
@@ -74,7 +74,7 @@ export default function DocumentList({
           className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all ${
             !selectedDocId
               ? 'bg-blue-600/20 text-blue-300 border border-blue-500/40 shadow-sm'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 border border-transparent'
+              : 'text-slate-400 hover:text-slate-800 hover:bg-slate-100 border border-transparent'
           }`}
         >
           🌐 Všetky spisy (kompletný pavúk)
@@ -99,7 +99,7 @@ export default function DocumentList({
                 className={`group cursor-pointer rounded-xl border p-2.5 transition-all ${
                   isSelected
                     ? 'bg-blue-600/15 border-blue-500/50 shadow-sm'
-                    : 'bg-slate-900/50 border-slate-800/80 hover:bg-slate-800/70 hover:border-slate-700'
+                    : 'bg-white/50 border-slate-200 hover:bg-slate-100/70 hover:border-slate-300'
                 }`}
               >
                 <div className="flex items-start gap-2.5">
@@ -114,7 +114,7 @@ export default function DocumentList({
                   )}
 
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-medium text-slate-200 truncate">{doc.title}</p>
+                    <p className="text-xs font-medium text-slate-800 truncate">{doc.title}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <span className={`text-[10px] px-1.5 py-0.5 rounded-md ${badge.cls}`}>{badge.label}</span>
                       {doc.status === 'done' && (
@@ -176,7 +176,7 @@ export default function DocumentList({
           return (
             <div
               key={containerDoc.id}
-              className="rounded-xl border border-slate-800/90 bg-slate-900/60 overflow-hidden transition-all shadow-sm"
+              className="rounded-xl border border-slate-200/90 bg-slate-50 overflow-hidden transition-all shadow-sm"
             >
               {/* Parent Container Header */}
               <div
@@ -184,14 +184,14 @@ export default function DocumentList({
                 className={`group cursor-pointer p-2.5 transition-all flex items-start gap-2 ${
                   isContainerSelected
                     ? 'bg-amber-500/15 border-b border-amber-500/30'
-                    : 'hover:bg-slate-800/70'
+                    : 'hover:bg-slate-100/70'
                 }`}
               >
                 {/* Collapsible toggle */}
                 <button
                   type="button"
                   onClick={(e) => toggleCollapse(containerDoc.id, e)}
-                  className="p-0.5 text-slate-400 hover:text-slate-100 transition-colors mt-0.5 shrink-0 rounded hover:bg-slate-700/60"
+                  className="p-0.5 text-slate-400 hover:text-slate-900 transition-colors mt-0.5 shrink-0 rounded hover:bg-slate-700/60"
                   title={isCollapsed ? 'Rozbaliť stránky' : 'Zbaliť stránky'}
                   aria-label={isCollapsed ? 'Rozbaliť stránky' : 'Zbaliť stránky'}
                 >
@@ -214,7 +214,7 @@ export default function DocumentList({
                 {/* Container details */}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-1">
-                    <p className="text-xs font-semibold text-slate-100 truncate" title={containerDoc.title}>
+                    <p className="text-xs font-semibold text-slate-900 truncate" title={containerDoc.title}>
                       {containerDoc.title}
                     </p>
                   </div>
@@ -290,7 +290,7 @@ export default function DocumentList({
 
               {/* Child Pages Tree Items */}
               {!isCollapsed && (
-                <div className="pl-6 pr-2 py-1.5 space-y-1 bg-slate-950/40 border-t border-slate-800/50">
+                <div className="pl-6 pr-2 py-1.5 space-y-1 bg-slate-50 border-t border-slate-200">
                   {item.pages.length === 0 && (
                     <p className="text-[11px] text-slate-500 italic py-1 px-2">
                       Spracovávam strany PDF...
@@ -308,7 +308,7 @@ export default function DocumentList({
                         className={`group/page cursor-pointer rounded-lg border p-2 transition-all flex items-start gap-2 relative ${
                           isPageSelected
                             ? 'bg-blue-600/20 border-blue-500/60 shadow-sm'
-                            : 'bg-slate-900/70 border-slate-800/70 hover:bg-slate-800/70 hover:border-slate-700'
+                            : 'bg-white border-slate-200/70 hover:bg-slate-100/70 hover:border-slate-300'
                         }`}
                       >
                         {/* Page indicator symbol */}
@@ -330,7 +330,7 @@ export default function DocumentList({
                             <span className="text-[11px] font-mono font-medium text-amber-300 bg-amber-500/10 px-1 py-0.2 rounded border border-amber-500/20 shrink-0">
                               s. {pageDoc.page_number || '?'}/{pageDoc.page_count || item.totalPages}
                             </span>
-                            <p className="text-xs text-slate-200 truncate font-medium">
+                            <p className="text-xs text-slate-800 truncate font-medium">
                               {pageDoc.title}
                             </p>
                           </div>

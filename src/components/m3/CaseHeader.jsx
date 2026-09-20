@@ -12,7 +12,7 @@ export default function CaseHeader({
   if (!sharedBy && !documents.length) return null;
 
   return (
-    <div data-testid="case-header" className="shrink-0 border-b border-slate-800/80 bg-slate-950/80">
+    <div data-testid="case-header" className="shrink-0 border-b border-slate-200 bg-white/90">
       {sharedBy && (
         <div className="flex items-center justify-between px-4 py-1.5 bg-violet-950/80 border-b border-violet-800/60 text-violet-200 text-xs">
           <div className="flex items-center gap-2 min-w-0">

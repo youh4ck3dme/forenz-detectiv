@@ -21,7 +21,6 @@ import {
   MoreHorizontal,
   ChevronDown
 } from 'lucide-react';
-import ThemeToggle from '@/components/ui/ThemeToggle';
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher';
 import ScanButton from '@/components/forenz/ScanButton';
 import BulkScanButton from '@/components/forenz/BulkScanButton';
@@ -75,27 +74,27 @@ export default function AppBar({
   return (
     <header
       data-testid="m3-app-bar"
-      className="shrink-0 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md z-30 transition-colors"
+      className="shrink-0 border-b border-slate-200 bg-white/90 backdrop-blur-md z-30 transition-colors shadow-sm"
     >
       <div className="max-w-[1920px] mx-auto px-3 sm:px-4 h-14 flex items-center justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             type="button"
             onClick={onOpenMobileMenu}
-            className="lg:hidden min-h-[44px] min-w-[44px] p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+            className="lg:hidden min-h-[44px] min-w-[44px] p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             aria-label="Menu"
           >
             <Menu className="w-5 h-5" />
           </button>
 
           <Link to="/" className="flex items-center gap-2 group focus:outline-none" aria-label="ForenzDetektív - Domovská stránka">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500/20 via-blue-600/30 to-indigo-600/40 p-0.5 flex items-center justify-center border border-amber-500/30 shadow-glass-sm group-hover:border-amber-400 transition-all">
-              <div className="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
-                <Network className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500/20 via-blue-600/30 to-indigo-600/40 p-0.5 flex items-center justify-center border border-amber-500/30 shadow-sm group-hover:border-amber-400 transition-all">
+              <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center">
+                <Network className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
               </div>
             </div>
             <div className="hidden sm:flex flex-col text-left">
-              <span className="text-sm font-bold tracking-tight text-slate-100 group-hover:text-amber-300 transition-colors">
+              <span className="text-sm font-bold tracking-tight text-slate-900 group-hover:text-amber-600 transition-colors">
                 ForenzDetektív
               </span>
               <span className="text-[9px] font-mono text-slate-500 tracking-wider uppercase -mt-0.5">
@@ -117,7 +116,7 @@ export default function AppBar({
                 ? 'bg-purple-500/15 text-purple-300 border-purple-500/40 shadow-purple-500/10'
                 : plan === 'pro'
                 ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-amber-500/15 ring-1 ring-amber-500/30'
-                : 'bg-slate-800/90 text-slate-300 border-slate-700 hover:bg-slate-800 hover:border-amber-500/40'
+                : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-amber-500/40'
             }`}
             title="Kliknite pre správu plánu a licencie"
           >
@@ -131,14 +130,14 @@ export default function AppBar({
           <button
             type="button"
             onClick={onOpenSearch}
-            className="w-full flex items-center justify-between px-3 py-1.5 min-h-[44px] rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700 text-xs shadow-inner transition-all group"
+            className="w-full flex items-center justify-between px-3 py-1.5 min-h-[44px] rounded-xl bg-white/90 hover:bg-slate-100 text-slate-400 hover:text-slate-800 border border-slate-200 hover:border-slate-300 text-xs shadow-inner transition-all group"
             title="Rýchle vyhľadávanie v spise (Ctrl+K)"
           >
             <div className="flex items-center gap-2 min-w-0">
               <SearchIcon className="w-3.5 h-3.5 text-blue-400 shrink-0 group-hover:text-amber-400 transition-colors" />
               <span className="truncate">{t('nav.search') || 'Hľadať v spise...'}</span>
             </div>
-            <kbd className="hidden sm:inline-block text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">
+            <kbd className="hidden sm:inline-block text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-white text-slate-400 border border-slate-200">
               Ctrl+K
             </kbd>
           </button>
@@ -148,7 +147,7 @@ export default function AppBar({
           <button
             type="button"
             onClick={onOpenSearch}
-            className="lg:hidden min-h-[44px] min-w-[44px] p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 transition-colors"
+            className="lg:hidden min-h-[44px] min-w-[44px] p-2 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
             title="Hľadať v spise"
             aria-label="Vyhľadávanie"
           >
@@ -159,7 +158,7 @@ export default function AppBar({
             <button
               type="button"
               onClick={onOpenIntro}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 text-xs font-medium transition-colors"
               title="Sprievodca systémom"
             >
               <HelpCircle className="w-3.5 h-3.5 text-blue-400" />
@@ -173,7 +172,7 @@ export default function AppBar({
               className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl text-xs font-medium border transition-colors ${
                 showStats
                   ? 'bg-blue-600/20 text-blue-300 border-blue-500/40'
-                  : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:bg-slate-800 hover:text-slate-200'
+                  : 'bg-white text-slate-400 border-slate-200 hover:bg-slate-100 hover:text-slate-800'
               }`}
               title="Štatistiky spisu (vysunúť)"
             >
@@ -183,7 +182,7 @@ export default function AppBar({
 
             <Link
               to="/dashboard"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 text-xs font-medium transition-colors"
               title="Otvoriť vyšetrovací dashboard"
             >
               <LayoutDashboard className="w-3.5 h-3.5 text-indigo-400" />
@@ -193,7 +192,7 @@ export default function AppBar({
             <button
               type="button"
               onClick={onNavigateIdentity}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 text-xs font-medium transition-colors"
               title="Správa identít a zlúčenie profilov"
             >
               <Users className="w-3.5 h-3.5 text-cyan-400" />
@@ -203,7 +202,7 @@ export default function AppBar({
             <button
               type="button"
               onClick={onOpenTrust}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 text-xs font-medium transition-colors"
               title="Bezpečnostný audit & LEA Trust Pack"
             >
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
@@ -213,7 +212,7 @@ export default function AppBar({
             <button
               type="button"
               onClick={onOpenAudit}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 text-xs font-medium transition-colors"
               title="Reťazec dôkazov (Audit Log)"
             >
               <ScrollText className="w-3.5 h-3.5 text-amber-400" />
@@ -224,7 +223,7 @@ export default function AppBar({
             <button
               type="button"
               onClick={onOpenReferral}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200 text-xs font-medium transition-colors"
               title="Referral — zdieľať pozvánkový odkaz"
             >
               <Gift className="w-3.5 h-3.5 text-pink-400" />
@@ -237,7 +236,7 @@ export default function AppBar({
             <button
               type="button"
               onClick={() => setToolsDropdownOpen((prev) => !prev)}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-medium transition-colors"
             >
               <MoreHorizontal className="w-3.5 h-3.5 text-slate-400" />
               <span>Nástroje</span>
@@ -245,11 +244,11 @@ export default function AppBar({
             </button>
 
             {toolsDropdownOpen && (
-              <div className="absolute right-0 top-full mt-1.5 w-48 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl p-1.5 z-50 flex flex-col gap-0.5 animate-in fade-in zoom-in-95 duration-150">
+              <div className="absolute right-0 top-full mt-1.5 w-48 rounded-2xl bg-white border border-slate-200 shadow-2xl p-1.5 z-50 flex flex-col gap-0.5 animate-in fade-in zoom-in-95 duration-150">
                 <button
                   type="button"
                   onClick={() => { onOpenIntro?.(); setToolsDropdownOpen(false); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 text-left"
+                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-left"
                 >
                   <HelpCircle className="w-4 h-4 text-blue-400" />
                   <span>Sprievodca</span>
@@ -257,7 +256,7 @@ export default function AppBar({
                 <Link
                   to="/dashboard"
                   onClick={() => setToolsDropdownOpen(false)}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 text-left"
+                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-left"
                 >
                   <LayoutDashboard className="w-4 h-4 text-indigo-400" />
                   <span>Dashboard</span>
@@ -265,7 +264,7 @@ export default function AppBar({
                 <button
                   type="button"
                   onClick={() => { onNavigateIdentity?.(); setToolsDropdownOpen(false); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 text-left"
+                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-left"
                 >
                   <Users className="w-4 h-4 text-cyan-400" />
                   <span>Správa identít</span>
@@ -273,7 +272,7 @@ export default function AppBar({
                 <button
                   type="button"
                   onClick={() => { onOpenTrust?.(); setToolsDropdownOpen(false); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 text-left"
+                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-left"
                 >
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   <span>Trust Pack</span>
@@ -281,7 +280,7 @@ export default function AppBar({
                 <button
                   type="button"
                   onClick={() => { onOpenAudit?.(); setToolsDropdownOpen(false); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 text-left"
+                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-left"
                 >
                   <ScrollText className="w-4 h-4 text-amber-400" />
                   <span>Audit log</span>
@@ -290,7 +289,7 @@ export default function AppBar({
                 <button
                   type="button"
                   onClick={() => { onOpenReferral?.(); setToolsDropdownOpen(false); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 text-left"
+                  className="w-full flex items-center gap-2.5 px-3 py-2 min-h-[44px] rounded-xl text-xs text-slate-700 hover:text-slate-900 hover:bg-slate-100 text-left"
                 >
                   <Gift className="w-4 h-4 text-pink-400" />
                   <span>Referral program</span>
@@ -298,10 +297,6 @@ export default function AppBar({
                 )}
               </div>
             )}
-          </div>
-
-          <div className="hidden sm:block">
-            <ThemeToggle />
           </div>
 
           {!readOnly && (
@@ -334,7 +329,7 @@ export default function AppBar({
           <div className="relative">
             <button
               type="button"
-              className="min-h-[44px] min-w-[44px] p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 transition-colors"
+              className="min-h-[44px] min-w-[44px] p-2 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
               title={alertCount > 0 ? `${alertCount} aktívnych varovaní a rozporov` : 'Žiadne nové varovania'}
               aria-label="Upozornenia"
             >
@@ -352,7 +347,7 @@ export default function AppBar({
               type="button"
               onClick={onExport}
               disabled={!persons.length}
-              className="hidden 2xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 disabled:opacity-40 text-xs font-medium transition-colors"
+              className="hidden 2xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 disabled:opacity-40 text-xs font-medium transition-colors"
               title="Exportovať znalecký posudok do PDF"
             >
               <Download className="w-3.5 h-3.5 text-emerald-400" />
@@ -365,7 +360,7 @@ export default function AppBar({
               type="button"
               onClick={onExportAll}
               disabled={!documents.length}
-              className="hidden 2xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 disabled:opacity-40 text-xs font-medium transition-colors"
+              className="hidden 2xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 disabled:opacity-40 text-xs font-medium transition-colors"
               title="Hromadný export celého archívu do PDF"
             >
               <Archive className="w-3.5 h-3.5 text-amber-400" />
@@ -377,7 +372,7 @@ export default function AppBar({
             <button
               type="button"
               onClick={onClearCase}
-              className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800 text-xs font-medium transition-colors"
+              className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1.5 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-800 border border-slate-200 text-xs font-medium transition-colors"
               title="Zavrieť aktuálny spis a vytvoriť nový"
             >
               <Trash2 className="w-3.5 h-3.5 text-slate-500" />

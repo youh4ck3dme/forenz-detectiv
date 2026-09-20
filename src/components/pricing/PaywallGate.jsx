@@ -30,7 +30,7 @@ export default function PaywallGate({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md bg-slate-950 border-slate-800 text-slate-100 p-6 text-center">
+      <DialogContent className="max-w-md bg-white border-slate-200 text-slate-900 p-6 text-center">
         <div className="mx-auto w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 mb-2">
           <ShieldAlert className="h-6 w-6 text-amber-400" />
         </div>
@@ -44,7 +44,7 @@ export default function PaywallGate({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="my-4 p-4 rounded-xl bg-slate-900 border border-slate-800 text-left space-y-2 text-xs text-slate-300">
+        <div className="my-4 p-4 rounded-xl bg-white border border-slate-200 text-left space-y-2 text-xs text-slate-700">
           <p className="font-semibold text-amber-400 flex items-center gap-1.5">
             <Sparkles className="h-4 w-4" /> S licenciou Pro získate:
           </p>
@@ -67,7 +67,7 @@ export default function PaywallGate({
             type="button"
             variant="ghost"
             onClick={onClose}
-            className="flex-1 text-slate-400 hover:text-white"
+            className="flex-1 text-slate-400 hover:text-slate-900"
           >
             Neskôr
           </Button>

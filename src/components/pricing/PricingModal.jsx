@@ -17,7 +17,7 @@ export default function PricingModal({ isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md bg-slate-950 border-slate-800 text-slate-100 p-6">
+      <DialogContent className="max-w-md bg-white border-slate-200 text-slate-900 p-6">
         <DialogHeader className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold mx-auto">
             <Zap className="h-3.5 w-3.5" />

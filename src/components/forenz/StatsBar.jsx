@@ -92,14 +92,14 @@ export default function StatsBar({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.96 }}
             transition={{ duration: 0.22, ease: 'easeOut' }}
-            className="pointer-events-auto w-[min(100vw-1.5rem,22rem)] sm:w-[28rem] max-h-[min(70vh,28rem)] overflow-y-auto rounded-2xl border border-slate-700/80 bg-slate-950/95 backdrop-blur-xl shadow-2xl shadow-black/40 p-3"
+            className="pointer-events-auto w-[min(100vw-1.5rem,22rem)] sm:w-[28rem] max-h-[min(70vh,28rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-white/95 backdrop-blur-xl shadow-2xl shadow-slate-200/80 p-3"
           >
             <div className="flex items-center justify-between gap-2 mb-2 px-0.5">
-              <span className="text-xs font-medium text-slate-300">Štatistiky spisu</span>
+              <span className="text-xs font-medium text-slate-700">Štatistiky spisu</span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 transition-colors"
+                className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
                 aria-label="Zbaliť štatistiky"
               >
                 Zbaliť
@@ -110,7 +110,7 @@ export default function StatsBar({
               {chips.map((c) => (
                 <div
                   key={c.label}
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-900 border border-slate-800/90 min-w-0"
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-white border border-slate-200/90 min-w-0"
                 >
                   <span
                     className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0"
@@ -120,7 +120,7 @@ export default function StatsBar({
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="text-slate-500 text-[10px] truncate leading-tight">{c.label}</div>
-                    <div className="font-semibold text-slate-100 tabular-nums text-sm leading-tight">{c.value}</div>
+                    <div className="font-semibold text-slate-900 tabular-nums text-sm leading-tight">{c.value}</div>
                   </div>
                 </div>
               ))}
@@ -133,10 +133,10 @@ export default function StatsBar({
         type="button"
         data-testid="stats-drawer-toggle"
         onClick={() => setOpen(!open)}
-        className={`pointer-events-auto relative inline-flex items-center gap-2 rounded-full border px-3.5 py-2.5 text-xs font-medium shadow-lg shadow-black/30 backdrop-blur-md transition-colors ${
+        className={`pointer-events-auto relative inline-flex items-center gap-2 rounded-full border px-3.5 py-2.5 text-xs font-medium shadow-lg shadow-slate-200/60 backdrop-blur-md transition-colors ${
           open
             ? 'bg-blue-600/90 text-white border-blue-400/50'
-            : 'bg-slate-900/95 text-slate-200 border-slate-700 hover:border-slate-500 hover:bg-slate-800'
+            : 'bg-white/95 text-slate-800 border-slate-300 hover:border-slate-500 hover:bg-slate-100'
         }`}
         aria-expanded={open}
         aria-controls="stats-drawer-panel"
