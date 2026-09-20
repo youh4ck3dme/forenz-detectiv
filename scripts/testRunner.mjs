@@ -21,10 +21,13 @@ for (const file of testFiles) {
   try {
     // Node 22.14 cannot import .ts from tests without stripping types.
     // GitHub Actions Node 22.x is the same gate as npm test.
-    const out = execSync(`node --experimental-strip-types --test "${relPath}"`, {
-      encoding: 'utf-8',
-      stdio: ['ignore', 'pipe', 'pipe']
-    });
+    const out = execSync(
+      `node --import ./scripts/registerNpmSpecifierLoader.mjs --experimental-strip-types --test "${relPath}"`,
+      {
+        encoding: 'utf-8',
+        stdio: ['ignore', 'pipe', 'pipe']
+      }
+    );
     const match = out.match(/✔/g);
     const count = match ? match.length : 1;
     totalPassed += count;

@@ -33,9 +33,12 @@ export default defineConfig({
     react()
   ],
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src')
-    },
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, './src') },
+      // Base44 Deno functions use npm:pkg@version; remap for Vite/browser.
+      { find: /^npm:zod(@.*)?$/, replacement: 'zod' },
+      { find: /^npm:haversine-distance(@.*)?$/, replacement: 'haversine-distance' }
+    ],
     dedupe: ['react', 'react-dom']
   },
   optimizeDeps: {

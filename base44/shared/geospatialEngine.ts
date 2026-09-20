@@ -1,7 +1,7 @@
 // Geospatiálny a cestovný motor pre ForenzDetectiv.
 // Vypočítava vzdialenosti medzi slovenskými a európskymi mestami,
 // minimálny potrebný čas na presun a deteguje fyzikálne nemožné alibi.
-import haversine from 'haversine-distance';
+import haversine from 'npm:haversine-distance@1.2.4';
 import { parseTimeToMinutes } from './forenzCore.ts';
 
 export interface GeoLocation {
