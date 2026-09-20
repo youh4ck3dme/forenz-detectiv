@@ -50,7 +50,8 @@
   @media (max-width: 1023px) {
     :root {
       --camera-inset-top: max(var(--safe-top), 54px);
-      --nav-h: 3.5rem;
+      /* pill bar (h-14) + top padding (pt-1) for floating liquid-glass nav */
+      --nav-h: 4rem;
       --sheet-offset: calc(var(--nav-h) + max(0.5rem, var(--safe-bottom)));
     }
   }
