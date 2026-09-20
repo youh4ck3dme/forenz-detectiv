@@ -23,7 +23,7 @@ export default function PricingModal({ isOpen, onClose }) {
             <Zap className="h-3.5 w-3.5" />
             <span>{t('pricing.badge')}</span>
           </div>
-          <DialogTitle className="text-xl font-bold text-white">
+          <DialogTitle className="text-xl font-bold text-slate-900">
             {t('pricing.title')}
           </DialogTitle>
           <DialogDescription className="text-slate-400 text-sm">

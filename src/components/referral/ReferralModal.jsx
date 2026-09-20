@@ -30,7 +30,7 @@ export default function ReferralModal({ isOpen, onClose }) {
           <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 mx-auto">
             <Gift className="h-6 w-6 text-amber-400" />
           </div>
-          <DialogTitle className="text-2xl font-bold text-white">
+          <DialogTitle className="text-2xl font-bold text-slate-900">
             Pozvite kolegu advokáta
           </DialogTitle>
           <DialogDescription className="text-slate-400 text-xs max-w-sm mx-auto">
@@ -45,7 +45,7 @@ export default function ReferralModal({ isOpen, onClose }) {
               <Users className="h-3.5 w-3.5" />
             </div>
             <div>
-              <p className="font-semibold text-white">Ako funguje odkaz?</p>
+              <p className="font-semibold text-slate-900">Ako funguje odkaz?</p>
               <p className="text-slate-400 mt-0.5">
                 Keď kolega otvorí váš odkaz, systém si zapamätá odporúcuťeľa pre budúcu registráciu. Pro odmeny sa aktivujú až po nasadení serverovej referral logiky.
               </p>

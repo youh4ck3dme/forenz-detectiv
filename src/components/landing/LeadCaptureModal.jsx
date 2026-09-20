@@ -53,7 +53,7 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
         <DialogHeader className="space-y-1.5">
           <div className="flex items-center gap-2 text-amber-500">
             <Building2 className="h-5 w-5" />
-            <DialogTitle className="text-xl font-bold text-white">
+            <DialogTitle className="text-xl font-bold text-slate-900">
               14-Dňový Pilot pre Advokátske Kancelárie
             </DialogTitle>
           </div>
@@ -67,7 +67,7 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
             <div className="w-12 h-12 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
               <CheckCircle2 className="h-6 w-6" />
             </div>
-            <h4 className="text-base font-bold text-white">Žiadosť bola odoslaná!</h4>
+            <h4 className="text-base font-bold text-slate-900">Žiadosť bola odoslaná!</h4>
             <p className="text-xs text-slate-400 max-w-xs mx-auto">
               Náš tím vás bude kontaktovať do 24 hodín na e-mail <strong className="text-slate-800">{formData.email}</strong> s prístupovými údajmi.
             </p>
@@ -89,7 +89,7 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
                 placeholder="JUDr. Meno Priezvisko"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500"
               />
             </div>
 
@@ -101,7 +101,7 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
                 placeholder="Názov advokátskej kancelárie"
                 value={formData.firm}
                 onChange={(e) => setFormData({ ...formData, firm: e.target.value })}
-                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500"
               />
             </div>
 
@@ -113,7 +113,7 @@ export default function LeadCaptureModal({ isOpen, onClose }) {
                 placeholder="kovac@ak-partners.sk"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500"
               />
             </div>
 

@@ -26,7 +26,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
         <DialogHeader>
           <div className="flex items-center gap-2 text-amber-500">
             <ShieldCheck className="h-5 w-5" />
-            <DialogTitle className="text-xl font-bold text-white">
+            <DialogTitle className="text-xl font-bold text-slate-900">
               Forenzný Audit Log v2 (Reťazec dôkazov)
             </DialogTitle>
           </div>
@@ -45,7 +45,7 @@ export default function AuditLogViewer({ isOpen, onClose }) {
                 placeholder="Hľadať v záznamoch..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                className="w-full bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>

@@ -93,15 +93,15 @@ export default class ErrorBoundary extends React.Component {
               <ShieldAlert className="w-6 h-6" />
             </div>
 
-            <h2 className="text-xl font-bold tracking-tight text-white mb-2">
+            <h2 className="text-xl font-bold tracking-tight text-slate-900 mb-2">
               Chyba systému ForenzDetectiv
             </h2>
-            <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+            <p className="text-sm text-slate-600 mb-4 leading-relaxed">
               Nastala neočakávaná výnimka pri spracovaní. Vaše lokálne dáta a spisy sú bezpečne chránené v databáze.
             </p>
 
             {this.state.error?.message && (
-              <div className="p-3 rounded-xl bg-white/90 border border-slate-200 text-xs font-mono text-slate-700 break-words mb-5">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-700 break-words mb-5">
                 {this.state.error.message}
               </div>
             )}
@@ -116,14 +116,14 @@ export default class ErrorBoundary extends React.Component {
 
               <button
                 onClick={this.handleDownloadLog}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-700 font-medium text-xs border border-slate-300 transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs border border-slate-200 transition-colors"
               >
-                <Download className="w-3.5 h-3.5 text-blue-400" /> Stiahnuť diagnostický log
+                <Download className="w-3.5 h-3.5 text-blue-500" /> Stiahnuť diagnostický log
               </button>
 
               <a
                 href="/"
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-transparent hover:bg-slate-100/60 text-slate-400 font-medium text-xs transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-transparent hover:bg-slate-100 text-slate-500 font-medium text-xs transition-colors"
               >
                 <Home className="w-3.5 h-3.5" /> Návrat na domovskú stránku
               </a>

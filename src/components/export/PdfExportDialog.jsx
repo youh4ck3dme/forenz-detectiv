@@ -103,7 +103,7 @@ export default function PdfExportDialog({
         <DialogHeader>
           <div className="flex items-center gap-2 text-amber-500">
             <ShieldCheck className="h-5 w-5" />
-            <DialogTitle className="text-xl font-bold text-white">
+            <DialogTitle className="text-xl font-bold text-slate-900">
               Súdny PDF Protokol s Kryptografickým Hashom
             </DialogTitle>
           </div>

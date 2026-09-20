@@ -36,7 +36,7 @@ export default function PaywallGate({
         </div>
 
         <DialogHeader className="space-y-1.5">
-          <DialogTitle className="text-xl font-bold text-white">
+          <DialogTitle className="text-xl font-bold text-slate-900">
             {titleMap[reason] || titleMap.limit_cases}
           </DialogTitle>
           <DialogDescription className="text-slate-400 text-xs">

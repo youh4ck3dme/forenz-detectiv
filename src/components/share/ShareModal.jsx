@@ -66,7 +66,7 @@ export default function ShareModal({
         <DialogHeader>
           <div className="flex items-center gap-2 text-amber-500">
             <Sparkles className="h-5 w-5" />
-            <DialogTitle className="text-xl font-bold text-white">
+            <DialogTitle className="text-xl font-bold text-slate-900">
               Virálna Karta: Geograficky Nemožné Alibi
             </DialogTitle>
           </div>

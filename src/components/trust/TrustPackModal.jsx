@@ -42,7 +42,7 @@ export default function TrustPackModal({ isOpen, onClose }) {
         <DialogHeader className="space-y-2">
           <div className="flex items-center gap-2 text-amber-500">
             <ShieldCheck className="h-6 w-6" />
-            <DialogTitle className="text-2xl font-bold text-white">
+            <DialogTitle className="text-2xl font-bold text-slate-900">
               Bezpečnosť, Dôvera & LEA Trust Pack
             </DialogTitle>
           </div>
