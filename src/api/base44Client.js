@@ -31,6 +31,7 @@ if (typeof globalThis !== 'undefined') {
 const { appId, apiKey, token, functionsVersion, appBaseUrl } = appParams;
 
 // Create a client configured to communicate directly with Base44 platform
+// (optional legacy auth/entities/share — AI uses /api → Mistral instead)
 export const base44 = createClient({
   appId: appId || '6a81f5e7f4adbf6a9523b9d8',
   token,
@@ -40,6 +41,26 @@ export const base44 = createClient({
   requiresAuth: false,
   appBaseUrl: appBaseUrl || 'https://app.base44.com'
 });
+
+// Block legacy Base44 AI function names — use src/lib/aiClient.js → /api/*
+const BLOCKED_AI_FUNCTIONS = new Set([
+  'analyzeDocument',
+  'sherlockChat',
+  'generateExpertSummary',
+  'recoverStuckDocuments',
+  'generateCrossExamination'
+]);
+const originalInvoke = base44.functions?.invoke?.bind(base44.functions);
+if (originalInvoke) {
+  base44.functions.invoke = async (name, payload) => {
+    if (BLOCKED_AI_FUNCTIONS.has(String(name))) {
+      throw new Error(
+        `Base44 AI function "${name}" is disabled. Use /api Mistral routes via aiClient.`
+      );
+    }
+    return originalInvoke(name, payload);
+  };
+}
 
 // Bezpečný wrapper pre base44.auth.me — bez fake admin guest používateľa
 const originalMe = base44.auth.me ? base44.auth.me.bind(base44.auth) : null;

@@ -1,7 +1,7 @@
 ﻿import React, { useState, useRef, useEffect } from 'react';
 import { Search, X, Send, Loader2, AlertTriangle, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { base44 } from '@/api/base44Client';
+import { sherlockWithMistral } from '@/lib/aiClient';
 import { parseTimeToMinutes } from '@/lib/forenzUtils';
 import BottomSheet from '@/components/m3/BottomSheet';
 
@@ -114,8 +114,8 @@ export default function SherlockChat({ persons = [], edges = [], redFlags = [], 
           role: m.role === 'user' ? 'user' : 'assistant',
           text: m.text
         }));
-        const res = await base44.functions.invoke('sherlockChat', { question: text, context: ctx, history: historyPayload });
-        answer = res?.data?.answer || res?.data?.error || 'Nepodarilo sa získať odpoveď.';
+        const res = await sherlockWithMistral({ question: text, context: ctx, history: historyPayload });
+        answer = res?.answer || res?.error || 'Nepodarilo sa získať odpoveď.';
         confidence = parseConfidence(answer);
       } else {
         answer = localAnswer(text, persons, edges, redFlags);

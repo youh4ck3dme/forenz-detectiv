@@ -807,23 +807,24 @@ export function mergeClientOcrIntoCase(caseSnapshot, analysisPayload, documentId
   const mergedPersons = [...(base.persons || []), ...(entities.persons || [])];
   const mergedRelationships = [...(base.relationships || []), ...(entities.relationships || [])];
   const mergedFlagged = [...(base.flaggedPassages || []), ...(entities.flaggedPassages || [])];
+  const mergedRedFlags = [...(base.redFlags || []), ...(entities.redFlags || [])];
   documents = applyEntityCountsToDocuments(documents, documentId, {
     persons: mergedPersons,
     relationships: mergedRelationships,
     flaggedPassages: mergedFlagged,
-    redFlags: base.redFlags || []
+    redFlags: mergedRedFlags
   });
 
   return {
     documents,
     persons: mergedPersons,
     relationships: mergedRelationships,
-    redFlags: base.redFlags || [],
+    redFlags: mergedRedFlags,
     flaggedPassages: mergedFlagged,
     claims: [...(base.claims || []), ...(entities.claims || [])],
     events: [...(base.events || []), ...(entities.events || [])],
-    locations: base.locations || [],
-    vehicles: base.vehicles || [],
+    locations: [...(base.locations || []), ...(entities.locations || [])],
+    vehicles: [...(base.vehicles || []), ...(entities.vehicles || [])],
     contradictions: base.contradictions || [],
     overrides: base.overrides || []
   };
@@ -841,11 +842,12 @@ export function replaceDocumentEntitiesInCase(caseSnapshot, documentId, entities
   const mergedPersons = [...withoutDoc(base.persons), ...(entities.persons || [])];
   const mergedRelationships = [...withoutDoc(base.relationships), ...(entities.relationships || [])];
   const mergedFlagged = [...withoutDoc(base.flaggedPassages), ...(entities.flaggedPassages || [])];
+  const mergedRedFlags = [...withoutDoc(base.redFlags), ...(entities.redFlags || [])];
   const syncedDocuments = applyEntityCountsToDocuments(documents, documentId, {
     persons: mergedPersons,
     relationships: mergedRelationships,
     flaggedPassages: mergedFlagged,
-    redFlags: base.redFlags || []
+    redFlags: mergedRedFlags
   });
 
   return {
@@ -854,8 +856,11 @@ export function replaceDocumentEntitiesInCase(caseSnapshot, documentId, entities
     persons: mergedPersons,
     relationships: mergedRelationships,
     flaggedPassages: mergedFlagged,
+    redFlags: mergedRedFlags,
     claims: [...withoutDoc(base.claims), ...(entities.claims || [])],
-    events: [...withoutDoc(base.events), ...(entities.events || [])]
+    events: [...withoutDoc(base.events), ...(entities.events || [])],
+    locations: [...withoutDoc(base.locations), ...(entities.locations || [])],
+    vehicles: [...withoutDoc(base.vehicles), ...(entities.vehicles || [])]
   };
 }
 
