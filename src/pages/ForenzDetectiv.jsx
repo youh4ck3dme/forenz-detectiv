@@ -47,6 +47,8 @@ import {
 } from '@/lib/bulkUploadSync';
 import { isGuestOfflineSession } from '@/lib/guestMode';
 import { withAiRetry } from '@/lib/aiRetry';
+import { analyzeWithMistral, resolveImageDataUrl } from '@/lib/aiClient';
+import { mistralAnalysisToEntities } from '@/lib/mistralAnalysis';
 import { trackFileUploaded, trackContradictionViewed, trackPdfExported, trackCaseCreated, trackCourtDossierExported, trackCrossExamGenerated } from '@/lib/analytics';
 import { Network, Loader2, Layers, Users, FileText, ShieldAlert, Clock, MapPin, Search, XOctagon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -361,24 +363,76 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
     }
   };
 
-  const invokeAnalyze = async (doc, title) => {
-    if (doc?.__localOnly) return null;
+  const applyMistralAnalysis = async (doc, analysis, { replace = true } = {}) => {
+    if (!doc?.id || !analysis) return;
+    const payload = mistralAnalysisToEntities(analysis, doc.id, doc.title);
+    await cacheAnalysisOffline(doc.id, payload);
+
+    const state = useForenzStore.getState();
+    const caseBase = {
+      documents: state.documents,
+      persons: state.persons,
+      relationships: state.relationships,
+      redFlags: state.redFlags,
+      flaggedPassages: state.flaggedPassages,
+      claims: state.claims,
+      events: state.events,
+      locations: state.locations,
+      vehicles: state.vehicles,
+      contradictions: state.contradictions,
+      overrides: state.overrides
+    };
+    const merged = replace
+      ? replaceDocumentEntitiesInCase(caseBase, doc.id, payload.entities, payload.documentPatch)
+      : mergeClientOcrIntoCase(caseBase, payload, doc.id);
+    useForenzStore.setState(merged);
+    await saveCaseOffline('current', sanitizeCasePayload(merged));
+  };
+
+  const invokeAnalyze = async (doc, title, imageSource, textContent) => {
     const res = await withAiRetry(
-      () => base44.functions.invoke('analyzeDocument', {
-        documentId: doc.id,
-        documentTitle: title || doc.title
-      }),
+      async () => {
+        let imageDataUrl = '';
+        let text = typeof textContent === 'string' ? textContent : '';
+        if (!text && doc?.extracted_text) text = String(doc.extracted_text);
+
+        if (imageSource) {
+          imageDataUrl = await resolveImageDataUrl(imageSource);
+        } else if (doc?.image_url) {
+          try {
+            imageDataUrl = await resolveImageDataUrl(doc.image_url);
+          } catch {
+            imageDataUrl = '';
+          }
+        }
+
+        if (!imageDataUrl && !text) {
+          const blob = await getFileBlobOffline(doc.id).catch(() => null);
+          if (blob) imageDataUrl = await resolveImageDataUrl(blob);
+        }
+
+        if (!imageDataUrl && !text) {
+          throw new Error('missing_analysis_input');
+        }
+
+        return analyzeWithMistral({
+          imageDataUrl: imageDataUrl || undefined,
+          text: text || undefined,
+          documentTitle: title || doc.title
+        });
+      },
       {
         maxRetries: 2,
         initialDelayMs: 1200,
         onRetry: ({ attempt }) => {
-          showToast(`AI server je vyťažený, opakujem pokus (${attempt}/2)...`);
+          showToast(`Mistral AI je vyťažené, opakujem pokus (${attempt}/2)...`);
         }
       }
     );
-    if (res?.data && res.data.ok === false) {
-      throw new Error(res.data.error || 'AI analýza zlyhala');
+    if (!res?.ok || !res.analysis) {
+      throw new Error(res?.error || 'AI analýza zlyhala');
     }
+    await applyMistralAnalysis(doc, res.analysis, { replace: true });
     return res;
   };
 
@@ -424,12 +478,11 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
   };
 
   const analyzeWithClientFallback = async (doc, title, imageSource, controller) => {
-    if (doc?.__localOnly) return { usedClient: false };
     try {
-      await invokeAnalyze(doc, title);
+      await invokeAnalyze(doc, title, imageSource);
       return { usedClient: false };
     } catch (err) {
-      console.warn('[Upload] Cloud AI unavailable, trying client OCR/text fallback:', err);
+      console.warn('[Upload] Mistral AI unavailable, trying client OCR/text fallback:', err);
       if (!imageSource) return { usedClient: false, error: err };
       const ocrResult = await runOcrWithFallback(imageSource, { signal: controller?.signal });
       if (ocrResult?.ok) {
@@ -581,21 +634,23 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
         await applyClientOcrAnalysis(doc, ocrShape);
         showToast(`Textový spis "${file.name}" spracovaný (offline režim).`);
 
-        if (!doc.__localOnly && !isGuestOfflineSession()) {
-          try {
-            setBulkProgress({
-              total: 1,
-              done: 0,
-              analyzing: 1,
-              failed: 0,
-              percent: 75,
-              statusText: `AI extrakcia: ${file.name}...`
-            });
-            await invokeAnalyze(doc, file.name);
+        try {
+          setBulkProgress({
+            total: 1,
+            done: 0,
+            analyzing: 1,
+            failed: 0,
+            percent: 75,
+            statusText: `Mistral AI extrakcia: ${file.name}...`
+          });
+          await invokeAnalyze(doc, file.name, null, ocrShape.text);
+          if (!doc.__localOnly && !isGuestOfflineSession()) {
             await fetchData();
-          } catch (err) {
-            console.warn('[Upload] Cloud AI skipped for text file:', err);
+          } else {
+            await persistLocalCaseSnapshot();
           }
+        } catch (err) {
+          console.warn('[Upload] Mistral AI skipped for text file:', err);
         }
         return;
       }
@@ -852,7 +907,7 @@ export default function ForenzDetectiv({ readOnly = false, scope = null, sharedB
           if (Number.isFinite(slotsLeft)) slotsLeft = Math.max(0, slotsLeft - 1);
           setBulkProgress((p) => ({ ...p, done: (p?.done || 0) + 1 }));
           try {
-            await invokeAnalyze(doc, file.name);
+            await invokeAnalyze(doc, file.name, null, ocrShape.text);
           } catch {
             /* client text analysis already applied */
           }

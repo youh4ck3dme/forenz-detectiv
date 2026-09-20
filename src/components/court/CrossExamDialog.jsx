@@ -4,10 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Scale, Loader2, Copy, CheckCircle2, Gavel, Shield } from 'lucide-react';
 import {
   CROSS_EXAM_MODES,
-  generateCrossExamination,
-  createBase44CrossExamInvoker
+  generateCrossExamination
 } from '@/lib/crossExamination';
-import { base44 } from '@/api/base44Client';
 
 const MODE_LIST = Object.values(CROSS_EXAM_MODES);
 
@@ -46,14 +44,13 @@ export default function CrossExamDialog({
     setLoading(true);
     setError(null);
     try {
-      const aiInvoke = createBase44CrossExamInvoker(base44);
       const out = await generateCrossExamination({
         target,
         mode: modeId,
         documents,
         claims,
         contradictions,
-        aiInvoke
+        aiInvoke: null
       });
       setResult(out);
       onGenerated?.(out);

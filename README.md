@@ -17,9 +17,8 @@ Postavené na platforme **Base44** (backend-as-a-service: auth, databáza, integ
 
 **Známe obmedzenia bez Base44 backendu:**
 
-- Cloud AI (`analyzeDocument` / Pixtral) nebeží — fallback na client OCR.
-- Prihlásenie, sync medzi zariadeniami a zdieľanie prípadov cez cloud nie sú dostupné.
-- Hosted Base44 backend môže vracať **503**, kým nie je app publishnutá s `MISTRAL_API_KEY` (pozri [Backend nedostupný](#backend-nedostupný-503--hosťovský-režim)).
+- AI analýza ide cez **Vercel `/api` → Mistral** (`MISTRAL_API_KEY` na serveri, nie vo frontende). Bez kľúča na Vercel ostane client OCR fallback.
+- Prihlásenie, sync medzi zariadeniami a zdieľanie prípadov cez Base44 cloud nie sú povinné (guest/offline).
 - Po neúspešnom uploade môže stará IndexedDB cache spôsobiť pád tabov — vymaž site data v DevTools.
 
 Ops backlog (billing, PostHog, Stripe, custom doména): [`docs/REMAINING_BACKLOG.md`](docs/REMAINING_BACKLOG.md).
