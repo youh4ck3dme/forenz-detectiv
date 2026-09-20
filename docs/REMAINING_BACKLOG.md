@@ -1,6 +1,6 @@
 # Remaining backlog — po PROMPT-01..12 (100 %)
 
-Stav (2026-08-27): **guest/offline produkcia na [forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) je LIVE a smoke-overená.**  
+Stav (2026-09-20): **guest/offline produkcia na [forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) je LIVE** (light UI + liquid-glass footer merged #26). Alias `forenzdetectiv.vercel.app` → **402**.  
 Live Vercel volá Base44 appId `6a7ed366df1f1138ad653044` (entity API **200**). Cloud `analyzeDocument` (Mistral/Pixtral) stále vyžaduje owner `MISTRAL_API_KEY` + function deploy. Stripe/TWA/Ads ostávajú deferred.
 
 **Zámerné rozhodnutia (neotvárať znova):**
@@ -20,7 +20,7 @@ Live Vercel volá Base44 appId `6a7ed366df1f1138ad653044` (entity API **200**). 
 
 | Oblasť | Stav |
 |--------|------|
-| Frontend deploy (Vercel) | [forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) + alias `forenzdetectiv.vercel.app` |
+| Frontend deploy (Vercel) | [forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) — light UI #26; alias `forenzdetectiv.vercel.app` = 402 |
 | Upload PNG / TXT / PDF, client OCR, offline IndexedDB | ✅ (live smoke TXT PASS) |
 | PDF page-chunking + progress / cancel / retry UI | ✅ |
 | Demo/synthetic case odstránený | ✅ |
