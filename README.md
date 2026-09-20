@@ -8,8 +8,9 @@ Postavené na platforme **Base44** (backend-as-a-service: auth, databáza, integ
 
 | | |
 |---|---|
-| **URL** | [https://forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) (alias: [forenzdetectiv.vercel.app](https://forenzdetectiv.vercel.app)) |
-| **Deploy** | Vercel z `ENZO7700/forenz-detectiv` → `main` |
+| **URL** | [https://forenz-detectiv.vercel.app](https://forenz-detectiv.vercel.app) — **hlavná produkčná URL** (alias `forenzdetectiv.vercel.app` aktuálne **402**, nepoužívať) |
+| **Deploy** | Vercel z `youh4ck3dme/forenz-detectiv` → `main` |
+| **UI** | Light-only (Flutter white scaffold) + liquid-glass mobilný footer |
 | **Auth** | Vypnuté — appka beží ako **hosť / offline** (IndexedDB + client OCR) |
 | **Monetizácia** | Hard-disabled (Stripe / paywall odstránené) |
 

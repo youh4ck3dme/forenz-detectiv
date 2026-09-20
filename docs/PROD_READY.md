@@ -1,14 +1,15 @@
 # PROD-READY report — ForenzDetektív / Alibi
 
-**Date:** 2026-08-27  
-**URL:** https://forenz-detectiv.vercel.app (alias: https://forenzdetectiv.vercel.app)  
-**Branch freeze docs:** `cursor/prod-ready-freeze-933f`
+**Date:** 2026-09-20 (UI light theme refresh)  
+**URL:** https://forenz-detectiv.vercel.app  
+**Alias:** `forenzdetectiv.vercel.app` — **402** (nepoužívať; hlavná URL vyššie)  
+**Branch freeze docs:** `cursor/prod-ready-freeze-933f` + light UI `#26`
 
 ## Status summary
 
 | Area | Status | Notes |
 |------|--------|-------|
-| Frontend (Vercel) | READY | HTTP 200, OG → forenz-detectiv.vercel.app |
+| Frontend (Vercel) | READY | HTTP 200, light-only + liquid-glass nav (merged #26) |
 | Stripe / paywall | PAUSED | `isMonetizationEnabled=false`; live UI bez Cenník |
 | Guest / offline OCR | READY | Live smoke TXT upload PASS |
 | Base44 entities | READY | Live appId `6a7ed366df1f1138ad653044` → API 200 |
